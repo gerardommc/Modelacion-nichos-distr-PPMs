@@ -1,0 +1,147 @@
+A diferencia de las dos secciones anteriores, donde vimos cómo se puede estimar el grado de asociación entre dos procesos espaciales, aquí veremos cómo medir la asociación de una sola variable con el espacio, es decir si ésta variable tiene estructura espacial (autocorrelación).
+
+Igual que como hicimos con la prueba de correlación, veamos la fórmula del índice de autocorrelación **Moran's I**:
+
+\begin{equation}
+    I = N \times W \times \sum_{i = 1}^n \sum_{j = 1}^n w_{ij} \frac{(x_i - \bar{x})(x_j - \bar{x})}{\sum (x_i - \bar{x})^2}
+\end{equation}
+
+donde:
+
+- $N$ es el número total de unidades espaciales indizadas por $i$ y $j$
+- $W$ es la suma de pesos $w_{ij}$
+- $x$ es la variable de interés
+- $\bar{x}$ es la media de $x$
+- $w_{ij}$ es una matriz de pesos espaciales
+
+El índice de Moran toma valores de $-1 > I < 1$, y su interpretación es *similar* a la del índice de correlación *r*. De acuerdo con [statology](https://www.statology.org/morans-i/):
+
+1. Cuando $I = 0$ significa que la variable espacial tiene una dispersión aleatoria en el espacio:
+
+![](https://www.statology.org/wp-content/uploads/2021/01/morani1.png)
+
+2. Cuando $I = -1$, la variable espacial tiene una dispesión perfecta en el espacio:
+
+![](https://www.statology.org/wp-content/uploads/2021/01/morani2.png)
+
+3. Cuando $I = 1$, la variable espacial tiene una agregación espacial perfecta:
+
+![](https://www.statology.org/wp-content/uploads/2021/01/morani3.png)
+
+### Índice de Moran para rasters en R
+
+Existen muchas implementaciones del índice de autocorrelación de Moran, el que utilizaremos está en el paquete `raster`, y utilizaremos una de las capas de las dos clases pasadas, y otras dos que representarán los casos 2 y 3 de arriba.
+
+Comenzaremos cargando la capa de la variable ambiental:
+
+```{r Moran-1, echo=T, fig.height=5, fig.width=5, message=FALSE, warning=FALSE, fig.align='center'}
+library(raster)
+
+r <- raster("Capas-ejemplo/Var-1.tif")
+plot(r)
+Moran(r)
+```
+Como podemos ver la capa `Var-1` está altamente autocorrelacionada, tanto de manera visible, como estadísticamente. Ahora veamos un caso distinto, creando una capa nueva con valores completamente aleatorios:
+
+```{r Moran-2, echo=T, fig.height=5, fig.width=5, fig.align='center'}
+r1 <- r #Creando el objeto nuevo
+r1[] <- runif(ncell(r)) #Reemplazando los valores con unos generados aleatoriamente con una distribución uniforme entre 0 y 1
+plot(r1)
+Moran(r1)
+```
+
+### Índice de Moran para puntos
+
+También es posible estimar el índice de Moran para datos de puntos o vectoriales, aunque es necesario construir la matriz de adyacencias espaciales. Haremos este análisis para los datos del primer ejercicio de regresión que hicimos en clase. La matriz de adyacencias es una representación de quién es vecino de quién. Por ejemplo, en la figura \@ref(fig:Moran-2) el píxel de la esquina superior izquierda es la observación $x_{1, 1}$, y sus vecinas son $x_{1, 2}$ y $x_{2, 1}$, donde $i$ es la fila y $j$ es la columna. Para puntos (figura \@ref(fig:Puntos-moran)), obtendremos la matriz de adyacencia con base en distancia, de modo que consideraremos vecinos a puntos que estén dentro de una distancia predeterminada.
+
+```{r Puntos-moran, echo = T, fig.align='center', fig.width= 5, fig.height=5}
+datos <- read.csv("Datos-ejercicio.csv")
+datos$reg <- with(datos, (Mediciones - min(Mediciones))/(max(Mediciones) - min(Mediciones)) + 0.1)
+with(datos, plot(Longitud, Latitud, cex = reg))
+```
+La matriz de adyacencia podemos obtenerla con el paquete `spdep`(por *Spatial Dependence*, o dependencia espacial). Para puntos con valores asociados a sus coordenadas geográficas, requiere un par de pasos más:
+
+```{r echo = T, message=FALSE, warning = F}
+library(spdep)
+
+vecindad <- dnearneigh(x = as.matrix(datos[, c("Longitud", "Latitud")]), d1 = 0, d2 = 75, longlat = T)
+vec.listw <- nb2listw(vecindad)
+S0 <- sum(nb2mat(vecindad))
+
+I.puntos <- moran.test(x = datos$Mediciones, listw = vec.listw)
+I.puntos
+```
+
+Brevemente, la función `dnearneigh` crea un objeto que contiene: el número de vecinos de cada punto, con base en el criterio de distancia (0 - 250 km), y la identidad de los vecinos de cada punto (punto 1, 2, 3, etc.).  Por alguna razón, este objeto tenemos que representarlo como una lista, que no es otra cosa que una colección de objetos de distinta naturaleza y tamaño, para lo que utilizamos `nb2listw` (*neighbourhood to weights list*). Y la última pieza de información que necesitamos es la suma total de pesos espaciales, la cual obtenemos con la suma de los elementos de la matriz con la función `nb2mat` (*neighbourhood to matrix*). Finalmente utilizamos la functión `moran` (del paquete `spdep`) para obtener el valor del estadístico I. Nota que para rasters utilizamos la función `Moran` del paquete `raster`.
+
+### Ejemplo de aplicación para análisis de residuales
+
+Como se mencionó en el análisis de regresión, el análisis de residuales es esencial en el modelado espacial, pues nos indican si los datos analizados cumplen con el supuesto de independencia. 
+
+Comenzaremos con el análisis de regresión, cargando los datos obtenidos en campo:
+
+```{r echo = F}
+string <- "Datos-ejercicio-tarea.csv"
+```
+
+
+```{r echo=T, fig.height=5, fig.width=5}
+datos <- read.csv(string)
+with(datos, plot(Longitud, Latitud, cex = Mediciones))
+```
+
+y las variables raster para analizar los datos colectados en campo:
+
+```{r echo=T, fig.height=5, fig.width=10, message=FALSE, warning=FALSE}
+library(raster)
+r <- stack(paste0("Capas-ejemplo/Var-", c(1, 2), ".tif"))
+plot(r)
+```
+
+Una vez cargados lo datos, extraemos los valores de ambas variables con las coordenadas donde obtuvimos las mediciones en campo:
+
+```{r echo = T}
+r.extract <- data.frame(extract(r, datos[, c("Longitud", "Latitud")]))
+datos <- data.frame(datos, r.extract)
+```
+
+Como pueden ver, los datos extraídos los incorporamos al mismo `data.frame` donde teníamos los datos obtenidos en campo. Este paso, facilitará mucho el manejo de los datos y el llamado de las distintas funciones de **R**, como la regresión lineal:
+
+```{r echo = T}
+modelo.1 <- lm(Mediciones ~ Var.2, data = datos)
+summary(modelo.1)
+```
+
+Estos resultados ya los conocemos, y muestran que la variable `Var.2`afecta significativamente a las mediciones que obtuvimos en campo. Ahora entonces tenemos que ver si los residuales se comportan de manera adecuada, primero extrayéndolos y después estimando su asociación con el espacio:
+
+```{r echo = T}
+datos$Residuales <- residuals(modelo.1)
+```
+
+Y proseguimos con el índice de Moran como lo hicimos anteriormente, tanto con las mediciones como con los residuales
+
+```{r echo = T}
+library(spdep)
+
+vecindad <- dnearneigh(x = as.matrix(datos[, c("Longitud", "Latitud")]), d1 = 0, d2 = 75, longlat = T)
+vec.listw <- nb2listw(vecindad)
+S0 <- sum(nb2mat(vecindad))
+
+I.meds <- moran.test(x = datos$Mediciones, listw = vec.listw)
+
+I.res <- moran.test(x = datos$Residuales, listw = vec.listw)
+```
+
+Índice de Moran para las mediciones
+
+```{r}
+I.meds
+```
+
+Índice de Moran para los residuales
+
+```{r}
+I.res
+```
+
+Lo que sugiere que los residuales están muy agregados.

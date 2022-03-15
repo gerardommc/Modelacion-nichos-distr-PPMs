@@ -1,0 +1,29 @@
+--- 
+title: "Modelación de nichos ecológicos y aŕeas de distribución con MPPs"
+author: "Gerardo Martín"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib, citas.bib]
+biblio-style: apalike
+link-citations: yes
+description: "Sitio del curso de Modelado de nichos ecológicos | Posgrado de Ciencias Biológicas"
+---
+
+# Preámbulo
+
+```{r echo=FALSE, fig.align="center", fig.dim="50%"}
+# automatically create a bib database for R packages
+knitr::include_graphics("logo.png")
+```
+
+En este curso aprenderemos a utilizar algunas herramientas para el análisis de datos de ocurrencia geográfica de especies y desarrollar lo que en ecología se llama Modelos de nicho ecológico y de Distribución geográfica de especies.
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+
+
