@@ -1,0 +1,60 @@
+Los formatos básicos en que podemos tener almacenados los datos son los tradicionales `.csv`, para las ocurrencias, y `.tif` para los raster. La razón principal por la que se necesita un formato especial para los datos es que `spatstat` utiliza objetos de clase `im` o imágenes en lugar de raster, y patrón plano de puntos, objetos de clase `ppp` para los datos de ocurrencia, que normalmente se manejan como un `data.frame`.
+
+Hacer la transformación entre formatos es esencial pues `spatstat` cuenta con muchas funciones para hacer del análisis de datos en estos formatos bastante sencillo. 
+
+He escrito una función de **R** para transformar de `raster` a `im`. La transformación de un `data.frame` a `ppp` es bastante sencilla y no requiere de una función especial. Entonces, para comenzar necesitamos tener instalados los paquetes `raster`, `rgdal`, `spatstat` y `foreach`, lo cual se consigue corriendo el siguiente código en la consola de **R**:
+
+```{r echo = T, eval = F}
+install.packages(c("raster", "rgdal", "spatstat", "foreach"))
+```
+
+Después de la instalación, podemos usarlos para cargar una sola capas raster al espacio de trabajo con la función `raster`, contenida en el paquete del mismo nombre:
+
+```{r echo = T, message = F, warning = F}
+library(raster); library(spatstat)
+
+r <- raster("../Datos-ejemplos/Var-1.tif")
+```
+
+El único argumento que se pasa a la función `raster` es la ruta y nombre del archivo. En este caso el archivo está en la carpeta `"Datos-ejemplos"`, y el archivo se llama `Var-1.tif`. Es importante **siempre** incluir la extensión del archivo (las 2-4 letras después del punto).
+
+En caso de necesitar cargar más de un archivo al mismo tiempo, podemos utilizar la función `stack`. Aquí es importante señalar que para que esta función pueda cargar los archivos, estos tienen que estar perfectamente alineados y tener exactamente la misma extensión espacial. El argumento que tenemos que pasar a la función `stack` es la lista de archivos a leer. Esta podemos generarla automáticamente con la función `list.files`, cuyos argumentos son la carpeta de búsqueda, extensión de los archivos a listar, y si necesitamos la ruta completa junto con los nombres de los archivos:
+
+```{r echo = T}
+arch <- list.files("../Datos-ejemplos/", ".tif", full.names = T)
+s <- stack(arch)
+```
+
+Una vez cargados las capas, podemos graficarlas para verificar que sean las que necesitamos o tenemos en mente:
+
+```{r echo = T, fig.align='center', fig.cap="Gráfica de las capas que usaremos para los ejemplos.", fig.height=8, fig.width=8}
+plot(s)
+```
+
+La transformación a `im` la haremos solo con el stack, pues es el escenario más probable al que se encontrarán (trabajo con varias capas). Comenzaremos cargando la función para hacer la transformación, que se llama `imFromStack`. Para hacerlo utilizaremos la función `source`, y el argumento que necesita es la ruta y nombre del archivo de texto que contiene la función:
+
+```{r echo = T}
+source("../Funciones-spatstat/imFromStack.R")
+```
+
+Una vez cargada, podemos utilizarla, pasando como únigo argumento el nombre del objeto en el espacio de trabajo de **R** que contiene las capas:
+
+```{r echo = T, message=FALSE}
+s.im <- imFromStack(s)
+```
+
+Para verificar el tipo de objeto que resulta, podemos correr la función:
+
+```{r echo = T}
+class(s.im)
+```
+
+Como podemos ver es una lista, y cada uno de sus elementos es una imagen. Podemos hacer la gráfica, aunque ahora tenemos que hacerlo una por una:
+
+```{r echo = T, fig.height=8, fig.width=8}
+par(mfrow = c(2, 2))
+plot(s.im[[1]])
+plot(s.im[[2]])
+plot(s.im[[3]])
+```
+

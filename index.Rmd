@@ -12,11 +12,6 @@ description: "Sitio del curso de Modelado de nichos ecológicos | Posgrado de Ci
 
 # Preámbulo
 
-```{r echo=FALSE, fig.align="center", fig.dim="50%"}
-# automatically create a bib database for R packages
-knitr::include_graphics("logo.png")
-```
-
 En este curso aprenderemos a utilizar algunas herramientas para el análisis de datos de ocurrencia geográfica de especies y desarrollar lo que en ecología se llama Modelos de nicho ecológico y de Distribución geográfica de especies.
 
 ```{r include=FALSE}

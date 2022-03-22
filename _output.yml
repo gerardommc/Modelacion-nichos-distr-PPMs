@@ -6,5 +6,5 @@ bookdown::gitbook:
         <li><a href="./">Modelación de nichos ecológicos y distribuciones con MPPs I</a></li>
       after: |
         <li><a href="https://gerardommc.github.io" target="blank">Regresar al labo</a></li>
-    download: ["pdf", "epub"]
+    download: ["epub"]
 bookdown::epub_book: default

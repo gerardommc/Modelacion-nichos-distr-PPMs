@@ -1,10 +1,13 @@
-# Unidad I: Introducción al modelado espacial
+# Unidad I: Introducción al modelado de procesos de puntos
 
-## Los modelos de procesos de puntos
+## Introducción
 
 ```{r echo = F, child="Unidad-I/Introduccion-MPPs.Rmd"}
 
 ```
 
+## Formateo de datos
 
+```{r echo = F, child = "Unidad-I/Formateo.Rmd"}
 
+```

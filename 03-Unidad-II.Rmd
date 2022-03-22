@@ -1,8 +1,8 @@
 # Unidad II - Utilizando `spatstat`
 
-## Formateo de datos
+## Análisis exploratorio
 
-```{r echo = F, child = "Unidad-II/Formateo.Rmd"}
+```{r echo = F, child = "Unidad-II/Exploratorio.Rmd"}
 
 ```
 
