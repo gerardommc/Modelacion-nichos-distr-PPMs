@@ -1,6 +1,8 @@
-Los formatos básicos en que podemos tener almacenados los datos son los tradicionales `.csv`, para las ocurrencias, y `.tif` para los raster. La razón principal por la que se necesita un formato especial para los datos es que `spatstat` utiliza objetos de clase `im` o imágenes en lugar de raster, y patrón plano de puntos, objetos de clase `ppp` para los datos de ocurrencia, que normalmente se manejan como un `data.frame`.
+Los formatos básicos en que podemos tener almacenados los datos son los tradicionales `.csv`, para las ocurrencias, y `.tif` para los raster. La razón principal por la que se necesita un formato especial para los datos es que `spatstat` utiliza objetos de clase `im` o imágenes en lugar de raster, un patrón plano de puntos, objetos de clase `ppp` para los datos de ocurrencia, que normalmente se manejan como un `data.frame`, y una ventana de trabajo que es obtiene a partir de los raster.
 
 Hacer la transformación entre formatos es esencial pues `spatstat` cuenta con muchas funciones para hacer del análisis de datos en estos formatos bastante sencillo. 
+
+### Formateo de datos raster
 
 He escrito una función de **R** para transformar de `raster` a `im`. La transformación de un `data.frame` a `ppp` es bastante sencilla y no requiere de una función especial. Entonces, para comenzar necesitamos tener instalados los paquetes `raster`, `rgdal`, `spatstat` y `foreach`, lo cual se consigue corriendo el siguiente código en la consola de **R**:
 
@@ -49,7 +51,13 @@ Para verificar el tipo de objeto que resulta, podemos correr la función:
 class(s.im)
 ```
 
-Como podemos ver es una lista, y cada uno de sus elementos es una imagen. Podemos hacer la gráfica, aunque ahora tenemos que hacerlo una por una:
+Como podemos ver es una lista, y cada uno de sus elementos es una imagen tipo `im`:
+
+```{r echo = T}
+class(s.im[[1]])
+```
+
+Podemos hacer la gráfica, aunque ahora tenemos que hacerlo una por una:
 
 ```{r echo = T, fig.height=8, fig.width=8}
 par(mfrow = c(2, 2))
@@ -57,4 +65,44 @@ plot(s.im[[1]])
 plot(s.im[[2]])
 plot(s.im[[3]])
 ```
+Puedes descargar la función `imFromStack` en [esta liga](Funciones-spatstat/imFromStack.R).
+
+### Obteniendo la ventana de trabajo
+
+Antes de continuar, considero importante establecer que el método de obtención de la ventana de trabajo que he implementado asume que el área de accesibilidad de la especie de análisis es toda la extensión del raster que se utilice para obtener la ventana del área de trabajo. La función para obtener la ventana de trabajo a partir de un raster es `winFromRaster`, y la importamos del mismo modo que `imFromStack`:
+
+```{r echo = T}
+source("../Funciones-spatstat/winFromRaster.R")
+win <- winFromRaster(s)
+class(win)
+```
+
+### Formateando los registros de ocurrencia
+
+Primero, necesitamos contar con una base de datos de ocurrencia, en esta ocasión por tratarse de una un ejemplo de formateo, simularé una con la función `randomPoints` del paquete `dismo`, y solo para hacerla un poco más interesante le voy a añadir ruido con una distribución normal a las coordenadas $x, y$:
+
+```{r echo = T}
+puntos <- data.frame(dismo::randomPoints(s, 200))
+puntos$x <- puntos$x + rnorm(200, 0, 0.05)
+puntos$y <- puntos$y + rnorm(200, 0, 0.05)
+```
+
+Ahora bien, para transformar el objeto `puntos` de un `data.frame` a `ppp` utilizaremos pa función del mismo nombre, y la ventana de trabajo que creamos arriba:
+
+```{r echo = T}
+puntos.ppp <- ppp(x = puntos$x,
+                  y = puntos$y,
+                  window = win,
+                  check = F)
+class(puntos.ppp)
+```
+
+En el primer argumento `x` se especifican las coordenadas $x$ o longitud, en `y` las coordenadas $y$ o latitud, en `window` la ventana de trabajo, y `check` especifica si se verificará que todos los puntos están dentro de la ventana de trabajo. Normalmente se deja en  `check = T`.
+
+Con todos los datos formateados, entonces ahora graficamos la ventana de trabajo y el proceso de puntos:
+
+```{r echo = T, fig.align='center', fig.width=4, fig.height=4}
+plot(win); points(puntos.ppp, col = "white")
+```
+
 

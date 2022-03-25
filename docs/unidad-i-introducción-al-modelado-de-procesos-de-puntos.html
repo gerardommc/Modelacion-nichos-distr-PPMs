@@ -24,7 +24,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-03-22" />
+<meta name="date" content="2022-03-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -147,7 +147,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html"><i class="fa fa-check"></i><b>3</b> Unidad I: Introducción al modelado de procesos de puntos</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#introducción"><i class="fa fa-check"></i><b>3.1</b> Introducción</a></li>
-<li class="chapter" data-level="3.2" data-path="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#formateo-de-datos"><i class="fa fa-check"></i><b>3.2</b> Formateo de datos</a></li>
+<li class="chapter" data-level="3.2" data-path="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#formateo-de-datos"><i class="fa fa-check"></i><b>3.2</b> Formateo de datos</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#formateo-de-datos-raster"><i class="fa fa-check"></i><b>3.2.1</b> Formateo de datos raster</a></li>
+<li class="chapter" data-level="3.2.2" data-path="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#obteniendo-la-ventana-de-trabajo"><i class="fa fa-check"></i><b>3.2.2</b> Obteniendo la ventana de trabajo</a></li>
+<li class="chapter" data-level="3.2.3" data-path="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#formateando-los-registros-de-ocurrencia"><i class="fa fa-check"></i><b>3.2.3</b> Formateando los registros de ocurrencia</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html"><i class="fa fa-check"></i><b>4</b> Unidad II - Utilizando <code>spatstat</code></a>
 <ul>
@@ -186,8 +191,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="formateo-de-datos" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Formateo de datos</h2>
-<p>Los formatos básicos en que podemos tener almacenados los datos son los tradicionales <code>.csv</code>, para las ocurrencias, y <code>.tif</code> para los raster. La razón principal por la que se necesita un formato especial para los datos es que <code>spatstat</code> utiliza objetos de clase <code>im</code> o imágenes en lugar de raster, y patrón plano de puntos, objetos de clase <code>ppp</code> para los datos de ocurrencia, que normalmente se manejan como un <code>data.frame</code>.</p>
+<p>Los formatos básicos en que podemos tener almacenados los datos son los tradicionales <code>.csv</code>, para las ocurrencias, y <code>.tif</code> para los raster. La razón principal por la que se necesita un formato especial para los datos es que <code>spatstat</code> utiliza objetos de clase <code>im</code> o imágenes en lugar de raster, un patrón plano de puntos, objetos de clase <code>ppp</code> para los datos de ocurrencia, que normalmente se manejan como un <code>data.frame</code>, y una ventana de trabajo que es obtiene a partir de los raster.</p>
 <p>Hacer la transformación entre formatos es esencial pues <code>spatstat</code> cuenta con muchas funciones para hacer del análisis de datos en estos formatos bastante sencillo.</p>
+<div id="formateo-de-datos-raster" class="section level3" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Formateo de datos raster</h3>
 <p>He escrito una función de <strong>R</strong> para transformar de <code>raster</code> a <code>im</code>. La transformación de un <code>data.frame</code> a <code>ppp</code> es bastante sencilla y no requiere de una función especial. Entonces, para comenzar necesitamos tener instalados los paquetes <code>raster</code>, <code>rgdal</code>, <code>spatstat</code> y <code>foreach</code>, lo cual se consigue corriendo el siguiente código en la consola de <strong>R</strong>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;raster&quot;</span>, <span class="st">&quot;rgdal&quot;</span>, <span class="st">&quot;spatstat&quot;</span>, <span class="st">&quot;foreach&quot;</span>))</span></code></pre></div>
 <p>Después de la instalación, podemos usarlos para cargar una sola capas raster al espacio de trabajo con la función <code>raster</code>, contenida en el paquete del mismo nombre:</p>
@@ -213,13 +220,44 @@ Figura 3.1: Gráfica de las capas que usaremos para los ejemplos.
 <p>Para verificar el tipo de objeto que resulta, podemos correr la función:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(s.im)</span></code></pre></div>
 <pre><code>## [1] &quot;list&quot;</code></pre>
-<p>Como podemos ver es una lista, y cada uno de sus elementos es una imagen. Podemos hacer la gráfica, aunque ahora tenemos que hacerlo una por una:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb9-2"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.im[[<span class="dv">1</span>]])</span>
-<span id="cb9-3"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.im[[<span class="dv">2</span>]])</span>
-<span id="cb9-4"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.im[[<span class="dv">3</span>]])</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-12-1.png" width="768" /></p>
+<p>Como podemos ver es una lista, y cada uno de sus elementos es una imagen tipo <code>im</code>:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(s.im[[<span class="dv">1</span>]])</span></code></pre></div>
+<pre><code>## [1] &quot;im&quot;</code></pre>
+<p>Podemos hacer la gráfica, aunque ahora tenemos que hacerlo una por una:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb11-2"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.im[[<span class="dv">1</span>]])</span>
+<span id="cb11-3"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.im[[<span class="dv">2</span>]])</span>
+<span id="cb11-4"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.im[[<span class="dv">3</span>]])</span></code></pre></div>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-13-1.png" width="768" />
+Puedes descargar la función <code>imFromStack</code> en <a href="Funciones-spatstat/imFromStack.R">esta liga</a>.</p>
+</div>
+<div id="obteniendo-la-ventana-de-trabajo" class="section level3" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Obteniendo la ventana de trabajo</h3>
+<p>Antes de continuar, considero importante establecer que el método de obtención de la ventana de trabajo que he implementado asume que el área de accesibilidad de la especie de análisis es toda la extensión del raster que se utilice para obtener la ventana del área de trabajo. La función para obtener la ventana de trabajo a partir de un raster es <code>winFromRaster</code>, y la importamos del mismo modo que <code>imFromStack</code>:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;../Funciones-spatstat/winFromRaster.R&quot;</span>)</span>
+<span id="cb12-2"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb12-2" aria-hidden="true" tabindex="-1"></a>win <span class="ot">&lt;-</span> <span class="fu">winFromRaster</span>(s)</span>
+<span id="cb12-3"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(win)</span></code></pre></div>
+<pre><code>## [1] &quot;owin&quot;</code></pre>
+</div>
+<div id="formateando-los-registros-de-ocurrencia" class="section level3" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Formateando los registros de ocurrencia</h3>
+<p>Primero, necesitamos contar con una base de datos de ocurrencia, en esta ocasión por tratarse de una un ejemplo de formateo, simularé una con la función <code>randomPoints</code> del paquete <code>dismo</code>, y solo para hacerla un poco más interesante le voy a añadir ruido con una distribución normal a las coordenadas <span class="math inline">\(x, y\)</span>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb14-1" aria-hidden="true" tabindex="-1"></a>puntos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(dismo<span class="sc">::</span><span class="fu">randomPoints</span>(s, <span class="dv">200</span>))</span>
+<span id="cb14-2"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb14-2" aria-hidden="true" tabindex="-1"></a>puntos<span class="sc">$</span>x <span class="ot">&lt;-</span> puntos<span class="sc">$</span>x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">200</span>, <span class="dv">0</span>, <span class="fl">0.05</span>)</span>
+<span id="cb14-3"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb14-3" aria-hidden="true" tabindex="-1"></a>puntos<span class="sc">$</span>y <span class="ot">&lt;-</span> puntos<span class="sc">$</span>y <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">200</span>, <span class="dv">0</span>, <span class="fl">0.05</span>)</span></code></pre></div>
+<p>Ahora bien, para transformar el objeto <code>puntos</code> de un <code>data.frame</code> a <code>ppp</code> utilizaremos pa función del mismo nombre, y la ventana de trabajo que creamos arriba:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb15-1" aria-hidden="true" tabindex="-1"></a>puntos.ppp <span class="ot">&lt;-</span> <span class="fu">ppp</span>(<span class="at">x =</span> puntos<span class="sc">$</span>x,</span>
+<span id="cb15-2"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb15-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> puntos<span class="sc">$</span>y,</span>
+<span id="cb15-3"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb15-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">window =</span> win,</span>
+<span id="cb15-4"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb15-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">check =</span> F)</span>
+<span id="cb15-5"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(puntos.ppp)</span></code></pre></div>
+<pre><code>## [1] &quot;ppp&quot;</code></pre>
+<p>En el primer argumento <code>x</code> se especifican las coordenadas <span class="math inline">\(x\)</span> o longitud, en <code>y</code> las coordenadas <span class="math inline">\(y\)</span> o latitud, en <code>window</code> la ventana de trabajo, y <code>check</code> especifica si se verificará que todos los puntos están dentro de la ventana de trabajo. Normalmente se deja en <code>check = T</code>.</p>
+<p>Con todos los datos formateados, entonces ahora graficamos la ventana de trabajo y el proceso de puntos:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(win); <span class="fu">points</span>(puntos.ppp, <span class="at">col =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-17-1.png" width="384" style="display: block; margin: auto;" /></p>
 
+</div>
 </div>
 </div>
             </section>

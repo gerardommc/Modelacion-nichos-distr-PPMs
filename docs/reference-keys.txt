@@ -7,5 +7,8 @@ contacto
 unidad-i-introducción-al-modelado-de-procesos-de-puntos
 introducción
 formateo-de-datos
+formateo-de-datos-raster
+obteniendo-la-ventana-de-trabajo
+formateando-los-registros-de-ocurrencia
 unidad-ii---utilizando-spatstat
 análisis-exploratorio
