@@ -1,4 +1,5 @@
 fig:unnamed-chunk-8
+fig:Segreg-agreg
 preámbulo
 encuadre-de-la-materia
 criterios-de-evaluación
@@ -12,3 +13,4 @@ obteniendo-la-ventana-de-trabajo
 formateando-los-registros-de-ocurrencia
 unidad-ii---utilizando-spatstat
 análisis-exploratorio
+independencia-y-autocorrelación

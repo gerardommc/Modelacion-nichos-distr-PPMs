@@ -24,7 +24,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-03-25" />
+<meta name="date" content="2022-03-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -156,7 +156,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html"><i class="fa fa-check"></i><b>4</b> Unidad II - Utilizando <code>spatstat</code></a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#análisis-exploratorio"><i class="fa fa-check"></i><b>4.1</b> Análisis exploratorio</a></li>
+<li class="chapter" data-level="4.1" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#análisis-exploratorio"><i class="fa fa-check"></i><b>4.1</b> Análisis exploratorio</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#independencia-y-autocorrelación"><i class="fa fa-check"></i><b>4.1.1</b> Independencia y autocorrelación</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -233,7 +236,7 @@ Puedes descargar la función <code>imFromStack</code> en <a href="Funciones-spat
 </div>
 <div id="obteniendo-la-ventana-de-trabajo" class="section level3" number="3.2.2">
 <h3><span class="header-section-number">3.2.2</span> Obteniendo la ventana de trabajo</h3>
-<p>Antes de continuar, considero importante establecer que el método de obtención de la ventana de trabajo que he implementado asume que el área de accesibilidad de la especie de análisis es toda la extensión del raster que se utilice para obtener la ventana del área de trabajo. La función para obtener la ventana de trabajo a partir de un raster es <code>winFromRaster</code>, y la importamos del mismo modo que <code>imFromStack</code>:</p>
+<p>Antes de continuar, considero importante establecer que el método de obtención de la ventana de trabajo que he implementado asume que el área de accesibilidad de la especie de análisis es toda la extensión del raster que se utilice para obtener la ventana del área de trabajo. La función para obtener la ventana de trabajo a partir de un raster es <code>winFromRaster</code> (<a href="Funciones-spatstat/winFromRaster.R">disponible aquí</a>), y la importamos del mismo modo que <code>imFromStack</code>:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;../Funciones-spatstat/winFromRaster.R&quot;</span>)</span>
 <span id="cb12-2"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb12-2" aria-hidden="true" tabindex="-1"></a>win <span class="ot">&lt;-</span> <span class="fu">winFromRaster</span>(s)</span>
 <span id="cb12-3"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(win)</span></code></pre></div>

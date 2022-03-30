@@ -24,7 +24,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-03-25" />
+<meta name="date" content="2022-03-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -156,7 +156,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html"><i class="fa fa-check"></i><b>4</b> Unidad II - Utilizando <code>spatstat</code></a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#análisis-exploratorio"><i class="fa fa-check"></i><b>4.1</b> Análisis exploratorio</a></li>
+<li class="chapter" data-level="4.1" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#análisis-exploratorio"><i class="fa fa-check"></i><b>4.1</b> Análisis exploratorio</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#independencia-y-autocorrelación"><i class="fa fa-check"></i><b>4.1.1</b> Independencia y autocorrelación</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -183,8 +186,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number"> 4</span> Unidad II - Utilizando <code>spatstat</code></h1>
 <div id="análisis-exploratorio" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Análisis exploratorio</h2>
-<p>Aquí el enálisis exploratorio.</p>
+<p>Antes de proponer un modelo para los datos de ocurrencia, es buena práctica realizar un análisis exploratorio. En realidad, el modelo que propongamos dependerá en buena medida de este análisis exploratorio. Los análisis exploratorios que yo hago comprenden una serie de pasos:</p>
+<ol style="list-style-type: decimal">
+<li>Probar si los datos de ocurrencia cumplen son independientes unos de otros o si están autocorrelacionados</li>
+<li>Ver la respuesta de la intensidad de puntos ante las diferentes variables ambientales que queremos incorporar en el modelo</li>
+<li>Medir la correlación entre las diferentes variables</li>
+<li>Con base en los puntos 2 y 3 proponer un conjunto de modelos alternativos (más sobre este punto abajo)</li>
+</ol>
+<div id="independencia-y-autocorrelación" class="section level3" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Independencia y autocorrelación</h3>
+<p>Se dice que los diferentes puntos son independientes entre sí, si el número de vecinos promedio de cada punto como función de la distancia, sigue una distribución Poisson. Con esto en mente hay otros dos posibles escenarios, que en promedio cada punto tenga más vecinos de lo esperado o que tenga menos. En el primer caso, se dice que los puntos están agregados, pues un punto tiende a atraer a otros. En el segundo, los puntos están segregados, o sea que un punto tiende a mantener a otros puntos lejos de sí. El primer caso, de independencia, suele ocurrir cuando los puntos están distribuidos aleatoriamente (figura <a href="unidad-ii-utilizando-spatstat.html#fig:Segreg-agreg">4.1</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:Segreg-agreg"></span>
+<img src="Unidad-II/Ejemplo-procesos.png" alt="Ejemplo de procesos de puntos de izquierda a derecha: segregado, aleatorio y agregado (tomado de Baddeley y Rubak 2016)" width="1069" />
+<p class="caption">
+Figura 4.1: Ejemplo de procesos de puntos de izquierda a derecha: segregado, aleatorio y agregado (tomado de Baddeley y Rubak 2016)
+</p>
+</div>
+<p>Existe una serie de pruebas gráficas y estadísticas para medir autocorrelación. Aquí nos enfocaremos en el uso de la prueba de envolturas <em>K</em> de Ripley.</p>
 
+</div>
 </div>
 </div>
             </section>

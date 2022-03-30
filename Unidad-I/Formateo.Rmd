@@ -69,7 +69,7 @@ Puedes descargar la función `imFromStack` en [esta liga](Funciones-spatstat/imF
 
 ### Obteniendo la ventana de trabajo
 
-Antes de continuar, considero importante establecer que el método de obtención de la ventana de trabajo que he implementado asume que el área de accesibilidad de la especie de análisis es toda la extensión del raster que se utilice para obtener la ventana del área de trabajo. La función para obtener la ventana de trabajo a partir de un raster es `winFromRaster`, y la importamos del mismo modo que `imFromStack`:
+Antes de continuar, considero importante establecer que el método de obtención de la ventana de trabajo que he implementado asume que el área de accesibilidad de la especie de análisis es toda la extensión del raster que se utilice para obtener la ventana del área de trabajo. La función para obtener la ventana de trabajo a partir de un raster es `winFromRaster` ([disponible aquí](Funciones-spatstat/winFromRaster.R)), y la importamos del mismo modo que `imFromStack`:
 
 ```{r echo = T}
 source("../Funciones-spatstat/winFromRaster.R")
@@ -104,5 +104,3 @@ Con todos los datos formateados, entonces ahora graficamos la ventana de trabajo
 ```{r echo = T, fig.align='center', fig.width=4, fig.height=4}
 plot(win); points(puntos.ppp, col = "white")
 ```
-
-
