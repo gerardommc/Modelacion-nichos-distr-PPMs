@@ -1,5 +1,8 @@
 fig:unnamed-chunk-8
+fig:Cuenta-vecinos
 fig:Segreg-agreg
+fig:K-env
+fig:unnamed-chunk-19
 preámbulo
 encuadre-de-la-materia
 criterios-de-evaluación
@@ -14,3 +17,4 @@ formateando-los-registros-de-ocurrencia
 unidad-ii---utilizando-spatstat
 análisis-exploratorio
 independencia-y-autocorrelación
+análisis-de-autocorrelación-en-r-con-spatstat

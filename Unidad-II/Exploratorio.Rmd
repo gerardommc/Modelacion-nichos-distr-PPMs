@@ -7,10 +7,35 @@ Antes de proponer un modelo para los datos de ocurrencia, es buena práctica rea
 
 ### Independencia y autocorrelación
 
-Se dice que los diferentes puntos son independientes entre sí, si el número de vecinos promedio de cada punto como función de la distancia, sigue una distribución Poisson. Con esto en mente hay otros dos posibles escenarios, que en promedio cada punto tenga más vecinos de lo esperado o que tenga menos. En el primer caso, se dice que los puntos están agregados, pues un punto tiende a atraer a otros. En el segundo, los puntos están segregados, o sea que un punto tiende a mantener a otros puntos lejos de sí. El primer caso, de independencia, suele ocurrir cuando los puntos están distribuidos aleatoriamente (figura \@ref(fig:Segreg-agreg)).
+Se dice que los diferentes puntos son independientes entre sí, si el número de vecinos promedio de cada punto como función de la distancia, sigue una distribución Poisson (figura \@ref(fig:Cuenta-vecinos)). Con esto en mente hay varios escenarios posibles, que en promedio cada punto tenga más vecinos de lo esperado o que tenga menos. En el primer caso, se dice que los puntos están agregados, pues un punto tiende a atraer a otros. En el segundo, los puntos están segregados, o sea que un punto tiende a mantener a otros puntos lejos de sí. El primer caso, de independencia, suele ocurrir cuando los puntos están distribuidos aleatoriamente (figura \@ref(fig:Segreg-agreg)).
+
+```{r Cuenta-vecinos, echo = F, fig.align='center', fig.cap="Número de vecinos como función de la distancia en un proceso de puntos."}
+knitr::include_graphics("Unidad-II/Cuenta-vecinos.png")
+```
+
 
 ```{r Segreg-agreg, echo = F, fig.align='center', fig.cap="Ejemplo de procesos de puntos de izquierda a derecha: segregado, aleatorio y agregado (reproducido de Baddeley y Rubak 2016)"}
 knitr::include_graphics("Unidad-II/Ejemplo-procesos.png")
 ```
 
-Existe una serie de pruebas gráficas y estadísticas para medir autocorrelación. Aquí nos enfocaremos en el uso de la prueba de envolturas *K* de Ripley. 
+Existe una serie de pruebas gráficas y estadísticas para medir autocorrelación. Aquí nos enfocaremos en el uso de la prueba de envolturas *K* de Ripley. La implementación de esta prueba en `spatstat` genera unos intervalos de confianza alrededor de la expectativa del número de vecinos por medio de simulación. La figura \@ref(fig:K-env) muestra los tres escenarios de segregación, aleatorio y agrecación.
+
+```{r K-env, echo = F, fig.align='center', fig.cap="Gráfica de la prueba *K* de Ripley implementada en `spatstat`. De izquierda a derecha: funciones de Ripley para puntos segregados, aleatorios y agregados."}
+knitr::include_graphics("Unidad-II/K-Ripley.png")
+```
+
+#### Análisis de autocorrelación en **R** con `spatstat`
+
+Haremos este análisis de autocorrelación con el mismo proceso de puntos que formateamos anteriormente. La función de `spatstat` para la prueba de Ripley es `envelope`, y los argumentos que requiere son 1) el proceso de puntos a analizar, 2) la función con que se medirá autocorrelación (`Kest` para $K$ de Ripley) y 3) el número de simulaciones. Normalmente, para un nivel de significancia $P=0.05$, se utilizan 39 simulaciones, el cual deberá aumentar si el umbral de significancia buscado es más estricto ($P = 0.01$, p. ej.).
+
+```{r echo = T}
+K <- envelope(puntos.ppp, fun = Kest, nsim = 39)
+```
+
+Mientras la función corre, **R** imprime la última simulación completada, y el objeto que se obtiene puede graficarse con el método por defecto `plot`:
+
+```{r echo = T, fig.align='center', fig.cap="Gráfica de la función *K* de Ripley para el proceso de puntos analizado. Las sombras en gris muestran los intervalos de confianza al 95%. La línea roja a guiones representa la expectativa teórica (*K* teórica) en caso de que el proceso de puntos sea aleatorio, y la línea negra sólida es la función de Ripley para el proceso de puntos (la *K* observada). El eje de las *x* representa distancia (en grados) y las *y* el número promedio de vecinos de cada punto.", fig.width=6, fig.height=6}
+plot(K)
+```
+
+

@@ -24,7 +24,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-03-30" />
+<meta name="date" content="2022-03-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -195,15 +195,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <div id="independencia-y-autocorrelación" class="section level3" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Independencia y autocorrelación</h3>
-<p>Se dice que los diferentes puntos son independientes entre sí, si el número de vecinos promedio de cada punto como función de la distancia, sigue una distribución Poisson. Con esto en mente hay otros dos posibles escenarios, que en promedio cada punto tenga más vecinos de lo esperado o que tenga menos. En el primer caso, se dice que los puntos están agregados, pues un punto tiende a atraer a otros. En el segundo, los puntos están segregados, o sea que un punto tiende a mantener a otros puntos lejos de sí. El primer caso, de independencia, suele ocurrir cuando los puntos están distribuidos aleatoriamente (figura <a href="unidad-ii-utilizando-spatstat.html#fig:Segreg-agreg">4.1</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:Segreg-agreg"></span>
-<img src="Unidad-II/Ejemplo-procesos.png" alt="Ejemplo de procesos de puntos de izquierda a derecha: segregado, aleatorio y agregado (tomado de Baddeley y Rubak 2016)" width="1069" />
+<p>Se dice que los diferentes puntos son independientes entre sí, si el número de vecinos promedio de cada punto como función de la distancia, sigue una distribución Poisson (figura <a href="unidad-ii-utilizando-spatstat.html#fig:Cuenta-vecinos">4.1</a>). Con esto en mente hay varios escenarios posibles, que en promedio cada punto tenga más vecinos de lo esperado o que tenga menos. En el primer caso, se dice que los puntos están agregados, pues un punto tiende a atraer a otros. En el segundo, los puntos están segregados, o sea que un punto tiende a mantener a otros puntos lejos de sí. El primer caso, de independencia, suele ocurrir cuando los puntos están distribuidos aleatoriamente (figura <a href="unidad-ii-utilizando-spatstat.html#fig:Segreg-agreg">4.2</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:Cuenta-vecinos"></span>
+<img src="Unidad-II/Cuenta-vecinos.png" alt="Número de vecinos como función de la distancia en un proceso de puntos." width="412" />
 <p class="caption">
-Figura 4.1: Ejemplo de procesos de puntos de izquierda a derecha: segregado, aleatorio y agregado (tomado de Baddeley y Rubak 2016)
+Figura 4.1: Número de vecinos como función de la distancia en un proceso de puntos.
 </p>
 </div>
-<p>Existe una serie de pruebas gráficas y estadísticas para medir autocorrelación. Aquí nos enfocaremos en el uso de la prueba de envolturas <em>K</em> de Ripley.</p>
+<div class="figure" style="text-align: center"><span id="fig:Segreg-agreg"></span>
+<img src="Unidad-II/Ejemplo-procesos.png" alt="Ejemplo de procesos de puntos de izquierda a derecha: segregado, aleatorio y agregado (reproducido de Baddeley y Rubak 2016)" width="1069" />
+<p class="caption">
+Figura 4.2: Ejemplo de procesos de puntos de izquierda a derecha: segregado, aleatorio y agregado (reproducido de Baddeley y Rubak 2016)
+</p>
+</div>
+<p>Existe una serie de pruebas gráficas y estadísticas para medir autocorrelación. Aquí nos enfocaremos en el uso de la prueba de envolturas <em>K</em> de Ripley. La implementación de esta prueba en <code>spatstat</code> genera unos intervalos de confianza alrededor de la expectativa del número de vecinos por medio de simulación. La figura <a href="unidad-ii-utilizando-spatstat.html#fig:K-env">4.3</a> muestra los tres escenarios de segregación, aleatorio y agrecación.</p>
+<div class="figure" style="text-align: center"><span id="fig:K-env"></span>
+<img src="Unidad-II/K-Ripley.png" alt="Gráfica de la prueba *K* de Ripley implementada en `spatstat`. De izquierda a derecha: funciones de Ripley para puntos segregados, aleatorios y agregados." width="870" />
+<p class="caption">
+Figura 4.3: Gráfica de la prueba <em>K</em> de Ripley implementada en <code>spatstat</code>. De izquierda a derecha: funciones de Ripley para puntos segregados, aleatorios y agregados.
+</p>
+</div>
+<div id="análisis-de-autocorrelación-en-r-con-spatstat" class="section level4" number="4.1.1.1">
+<h4><span class="header-section-number">4.1.1.1</span> Análisis de autocorrelación en <strong>R</strong> con <code>spatstat</code></h4>
+<p>Haremos este análisis de autocorrelación con el mismo proceso de puntos que formateamos anteriormente. La función de <code>spatstat</code> para la prueba de Ripley es <code>envelope</code>, y los argumentos que requiere son 1) el proceso de puntos a analizar, 2) la función con que se medirá autocorrelación (<code>Kest</code> para <span class="math inline">\(K\)</span> de Ripley) y 3) el número de simulaciones. Normalmente, para un nivel de significancia <span class="math inline">\(P=0.05\)</span>, se utilizan 39 simulaciones, el cual deberá aumentar si el umbral de significancia buscado es más estricto (<span class="math inline">\(P = 0.01\)</span>, p. ej.).</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="unidad-ii-utilizando-spatstat.html#cb18-1" aria-hidden="true" tabindex="-1"></a>K <span class="ot">&lt;-</span> <span class="fu">envelope</span>(puntos.ppp, <span class="at">fun =</span> Kest, <span class="at">nsim =</span> <span class="dv">39</span>)</span></code></pre></div>
+<pre><code>## Generating 39 simulations of CSR  ...
+## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,  39.
+## 
+## Done.</code></pre>
+<p>Mientras la función corre, <strong>R</strong> imprime la última simulación completada, y el objeto que se obtiene puede graficarse con el método por defecto <code>plot</code>:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="unidad-ii-utilizando-spatstat.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(K)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-19"></span>
+<img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-19-1.png" alt="Gráfica de la función *K* de Ripley para el proceso de puntos analizado. Las sombras en gris muestran los intervalos de confianza al 95%. La línea roja a guiones representa la expectativa teórica (*K* teórica) en caso de que el proceso de puntos sea aleatorio, y la línea negra sólida es la función de Ripley para el proceso de puntos (la *K* observada). El eje de las *x* representa distancia (en grados) y las *y* el número promedio de vecinos de cada punto." width="576" />
+<p class="caption">
+Figura 4.4: Gráfica de la función <em>K</em> de Ripley para el proceso de puntos analizado. Las sombras en gris muestran los intervalos de confianza al 95%. La línea roja a guiones representa la expectativa teórica (<em>K</em> teórica) en caso de que el proceso de puntos sea aleatorio, y la línea negra sólida es la función de Ripley para el proceso de puntos (la <em>K</em> observada). El eje de las <em>x</em> representa distancia (en grados) y las <em>y</em> el número promedio de vecinos de cada punto.
+</p>
+</div>
 
+</div>
 </div>
 </div>
 </div>
