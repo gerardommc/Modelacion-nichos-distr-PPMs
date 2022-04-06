@@ -38,4 +38,110 @@ Mientras la función corre, **R** imprime la última simulación completada, y e
 plot(K)
 ```
 
+### Análisis gráfico de las respuestas al medio ambiente.
+
+Para este análisis simularé una base de datos de ocurrencia donde la probabilidad de observarlos sea inversamente proporcional a la distancia de una centroide pre definido. Con base en ello, podremos ver cómo cambia la intensidad de puntos en realción a los diferentes valores de cada variable.
+
+#### Simulación de datos de presencia
+
+Utilizaré las mismas variables que para el ejercicio anterior de formateo, y el centroide estará localizado en la media aritmética de cada capa:
+
+```{r echo = T}
+centroide <- cellStats(s, mean)
+```
+
+Para calcular la distancia al centroide, necesitamos la covarianza entre las diferentes capas, de modo que la calculamos con la función `cov`. Hay implementaciones más robustas en el paquete `MASS`, para nuestros propósitos pedagógicos `cov` es suficiente. Comenzamos entonces, transformando el stack en una tabla:
+
+```{r echo = T}
+s.df <- data.frame(rasterToPoints(s))
+covar <- cov(s.df[, 3:5])
+```
+
+Posteriormente, utilizando el centroide y la matriz de covarianza, generamos las distancias utilizando las tres columnas del objeto `s.df` que contienen los valores de las variables ambientales:
+
+```{r echo = T}
+md <- mahalanobis(s.df[, 3:5], center = centroide, cov = covar)
+```
+
+Y transformamos las distancias al centroide en una capa raster:
+
+```{r Distancia, echo = T, fig.height=5, fig.width=5, fig.align='center', fig.cap="Distancia Mahalanobis al centroide de las capas."}
+md.r <- rasterFromXYZ(data.frame(s.df[, 1:2], md))
+plot(md.r)
+```
+
+Para simular las ocurrencias, transformaré la capa de distancias exponencialmente, para obtener una superficie probabilística:
+
+```{r Favorabilidad, echo = T, fig.height=5, fig.width=5, fig.align='center', fig.cap="Distancia Mahalanobis transformada exponencialmente para simular presencias. Verde indica mayor probabilidad de ocurrencia."}
+md.exp <- exp(-0.5*md.r)
+plot(md.exp)
+```
+
+Para simular las presencias usaré el mismo método que anteriormente, pero en esta ocasión la probabilidad determinará las celdas en que habrá puntos:
+
+```{r echo = T}
+puntos.2 <- dismo::randomPoints(mask = md.exp,
+                                n = 200,
+                                prob = T)
+puntos.2 <- data.frame(puntos.2)
+puntos.2$x <- puntos.2$x + rnorm(200, 0, 0.05)
+puntos.2$y <- puntos.2$y + rnorm(200, 0, 0.05)
+
+plot(md.exp); points(puntos.2)
+```
+#### Graficación y análisis de las respuestas
+
+Para continuar con el análisis, necesitamos formatear el objeto `puntos.2` como `ppp`:
+
+```{r echo = T}
+puntos.2.ppp <- ppp(x = puntos.2$x,
+                  y = puntos.2$y,
+                  window = win,
+                  check = F)
+```
+
+Recordemos que el objeto `win` lo generamos en la sección de formateo de este tutorial. Para el análisis de las respuestas necesitamos crear otro objeto, que contiene los conteos de cuadratura, es decir, cuántas presencias por unidad espacial, con la función `pixelquad` que requiere de dos argumentos, el proceso planar de puntos y la ventana de trabajo en formato `owin`:
+
+```{r echo = T}
+Q <- pixelquad(X = puntos.2.ppp, W = as.owin(win))
+```
+
+Dado que las capas ya están también formateadas como `im`, podemos ahora sí continuar con el análisis de las respuestas con la función `plotQuantIntens`. Esta función generará unos gráficos en pdf que deberemos revisar después de correrla. Para cargar la función, haremos igual que con las anteriores. Puedes descargar la función [aquí](Funciones-spatstat/plotQuantIntens.R). Esta función requiere de varios argumentos:
+
+1. La lista de imágenes que se usarán para ver cómo cambia la intensidad de puntos en relación a cada variable
+2. El número de cuantiles en que se cortará cada variable para representar la intensidad en el espacio
+3. El objeto de cuadratura (`Q`)
+4. El objeto con los puntos en formato `ppp`
+5. El nombre del directorio donde se guardará el archivo pdf
+6. El nombre del archivo
+
+```{r echo = T, message = F, warning = F}
+source("../Funciones-spatstat/plotQuantIntens.R")
+
+plotQuantIntens(imList = s.im,
+                noCuts = 5,
+                Quad = Q,
+                p.pp = puntos.2.ppp,
+                dir = "",
+                name = "Responses-centroid.pdf")
+```
+
+El [archivo de gráficas](Unidad-II/Responses-centroid.pdf) que produce `plotQuantIntens` muestra en cada panel:
+
+1. La variable analizada con el número de puntos en cada región de varlores especificada por el argumento `noCuts` o nombre de cortes
+2. La variable analizada y el proceso de puntos
+
+3. La respuesta de la intensidad de puntos a la variable analizada. En el eje de las $x$ (horizontal), el valor de la variable, y en el eje de las $y$ la intensidad de puntos.
+
+La idea de este análisis es que podamos identificar a priori qué variables podemos incluir en el modelo y con qué tipo de relación. Por ejemplo, las variables 2 y 3 tienen respuestas claramente de una parácola invertida o de campana, por lo que podemos utilizar una fórmula polinomial de $2^o$ grado (figura \@ref(fig:Cuadratica)). Para la variable 1, no hay una respuesta clara como con las variables 2 y 3. Sin embargo, dado que la intensidad de puntos tiende a aumentar después de disminuir alrededor del valor de 190 conforme la variable aumenta podríamos utilizar un término cúbico, pues una ecuación cúbica puede adquirir esta forma (figura \@ref(fig:Cubica)).
+
+```{r Cuadratica, echo=T,  fig.height=5, fig.width=5, fig.align='center', fig.cap="Ecuación polinomial de 2o grado exponenciada."}
+curve(exp(1 + x - x^2), from = -3, 3)
+```
+
+Por otro lado, una ecuación polinomial de $3^{er}$ grado:
+
+```{r Cubica, echo = T, fig.align='center', fig.cap="Ecuación polinomial de 3er grado exponenciada.", fig.width=5, fig.height=5}
+curve(exp(1+ x - 2*x^2 + x^3), from = -1.5, to = 1.4 )
+```
 

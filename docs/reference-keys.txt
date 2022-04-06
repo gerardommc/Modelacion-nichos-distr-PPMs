@@ -3,6 +3,10 @@ fig:Cuenta-vecinos
 fig:Segreg-agreg
 fig:K-env
 fig:unnamed-chunk-19
+fig:Distancia
+fig:Favorabilidad
+fig:Cuadratica
+fig:Cubica
 preámbulo
 encuadre-de-la-materia
 criterios-de-evaluación
@@ -18,3 +22,5 @@ unidad-ii---utilizando-spatstat
 análisis-exploratorio
 independencia-y-autocorrelación
 análisis-de-autocorrelación-en-r-con-spatstat
+análisis-gráfico-de-las-respuestas-al-medio-ambiente.
+simulación-de-datos-de-presencia

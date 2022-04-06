@@ -24,7 +24,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-03-31" />
+<meta name="date" content="2022-04-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -159,6 +159,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#análisis-exploratorio"><i class="fa fa-check"></i><b>4.1</b> Análisis exploratorio</a>
 <ul>
 <li class="chapter" data-level="4.1.1" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#independencia-y-autocorrelación"><i class="fa fa-check"></i><b>4.1.1</b> Independencia y autocorrelación</a></li>
+<li class="chapter" data-level="4.1.2" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#análisis-gráfico-de-las-respuestas-al-medio-ambiente."><i class="fa fa-check"></i><b>4.1.2</b> Análisis gráfico de las respuestas al medio ambiente.</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -229,6 +230,101 @@ Figura 4.3: Gráfica de la prueba <em>K</em> de Ripley implementada en <code>spa
 <img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-19-1.png" alt="Gráfica de la función *K* de Ripley para el proceso de puntos analizado. Las sombras en gris muestran los intervalos de confianza al 95%. La línea roja a guiones representa la expectativa teórica (*K* teórica) en caso de que el proceso de puntos sea aleatorio, y la línea negra sólida es la función de Ripley para el proceso de puntos (la *K* observada). El eje de las *x* representa distancia (en grados) y las *y* el número promedio de vecinos de cada punto." width="576" />
 <p class="caption">
 Figura 4.4: Gráfica de la función <em>K</em> de Ripley para el proceso de puntos analizado. Las sombras en gris muestran los intervalos de confianza al 95%. La línea roja a guiones representa la expectativa teórica (<em>K</em> teórica) en caso de que el proceso de puntos sea aleatorio, y la línea negra sólida es la función de Ripley para el proceso de puntos (la <em>K</em> observada). El eje de las <em>x</em> representa distancia (en grados) y las <em>y</em> el número promedio de vecinos de cada punto.
+</p>
+</div>
+</div>
+</div>
+<div id="análisis-gráfico-de-las-respuestas-al-medio-ambiente." class="section level3" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Análisis gráfico de las respuestas al medio ambiente.</h3>
+<p>Para este análisis simularé una base de datos de ocurrencia donde la probabilidad de observarlos sea inversamente proporcional a la distancia de una centroide pre definido. Con base en ello, podremos ver cómo cambia la intensidad de puntos en realción a los diferentes valores de cada variable.</p>
+<div id="simulación-de-datos-de-presencia" class="section level4" number="4.1.2.1">
+<h4><span class="header-section-number">4.1.2.1</span> Simulación de datos de presencia</h4>
+<p>Utilizaré las mismas variables que para el ejercicio anterior de formateo, y el centroide estará localizado en la media aritmética de cada capa:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="unidad-ii-utilizando-spatstat.html#cb21-1" aria-hidden="true" tabindex="-1"></a>centroide <span class="ot">&lt;-</span> <span class="fu">cellStats</span>(s, mean)</span></code></pre></div>
+<p>Para calcular la distancia al centroide, necesitamos la covarianza entre las diferentes capas, de modo que la calculamos con la función <code>cov</code>. Hay implementaciones más robustas en el paquete <code>MASS</code>, para nuestros propósitos pedagógicos <code>cov</code> es suficiente. Comenzamos entonces, transformando el stack en una tabla:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="unidad-ii-utilizando-spatstat.html#cb22-1" aria-hidden="true" tabindex="-1"></a>s.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rasterToPoints</span>(s))</span>
+<span id="cb22-2"><a href="unidad-ii-utilizando-spatstat.html#cb22-2" aria-hidden="true" tabindex="-1"></a>covar <span class="ot">&lt;-</span> <span class="fu">cov</span>(s.df[, <span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>])</span></code></pre></div>
+<p>Posteriormente, utilizando el centroide y la matriz de covarianza, generamos las distancias utilizando las tres columnas del objeto <code>s.df</code> que contienen los valores de las variables ambientales:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="unidad-ii-utilizando-spatstat.html#cb23-1" aria-hidden="true" tabindex="-1"></a>md <span class="ot">&lt;-</span> <span class="fu">mahalanobis</span>(s.df[, <span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">center =</span> centroide, <span class="at">cov =</span> covar)</span></code></pre></div>
+<p>Y transformamos las distancias al centroide en una capa raster:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="unidad-ii-utilizando-spatstat.html#cb24-1" aria-hidden="true" tabindex="-1"></a>md.r <span class="ot">&lt;-</span> <span class="fu">rasterFromXYZ</span>(<span class="fu">data.frame</span>(s.df[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], md))</span>
+<span id="cb24-2"><a href="unidad-ii-utilizando-spatstat.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(md.r)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:Distancia"></span>
+<img src="Mod-nich-distr-MPPs_files/figure-html/Distancia-1.png" alt="Distancia Mahalanobis al centroide de las capas." width="480" />
+<p class="caption">
+Figura 4.5: Distancia Mahalanobis al centroide de las capas.
+</p>
+</div>
+<p>Para simular las ocurrencias, transformaré la capa de distancias exponencialmente, para obtener una superficie probabilística:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="unidad-ii-utilizando-spatstat.html#cb25-1" aria-hidden="true" tabindex="-1"></a>md.exp <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">0.5</span><span class="sc">*</span>md.r)</span>
+<span id="cb25-2"><a href="unidad-ii-utilizando-spatstat.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(md.exp)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:Favorabilidad"></span>
+<img src="Mod-nich-distr-MPPs_files/figure-html/Favorabilidad-1.png" alt="Distancia Mahalanobis transformada exponencialmente para simular presencias. Verde indica mayor probabilidad de ocurrencia." width="480" />
+<p class="caption">
+Figura 4.6: Distancia Mahalanobis transformada exponencialmente para simular presencias. Verde indica mayor probabilidad de ocurrencia.
+</p>
+</div>
+<p>Para simular las presencias usaré el mismo método que anteriormente, pero en esta ocasión la probabilidad determinará las celdas en que habrá puntos:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="unidad-ii-utilizando-spatstat.html#cb26-1" aria-hidden="true" tabindex="-1"></a>puntos<span class="fl">.2</span> <span class="ot">&lt;-</span> dismo<span class="sc">::</span><span class="fu">randomPoints</span>(<span class="at">mask =</span> md.exp,</span>
+<span id="cb26-2"><a href="unidad-ii-utilizando-spatstat.html#cb26-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">n =</span> <span class="dv">200</span>,</span>
+<span id="cb26-3"><a href="unidad-ii-utilizando-spatstat.html#cb26-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">prob =</span> T)</span></code></pre></div>
+<pre><code>## Warning in if (class(cells) == &quot;try-error&quot;) {: la condición tiene longitud &gt; 1
+## y sólo el primer elemento será usado</code></pre>
+<pre><code>## Warning in .couldBeLonLat(x, warnings = warnings): CRS is NA. Assuming it is
+## longitude/latitude</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="unidad-ii-utilizando-spatstat.html#cb29-1" aria-hidden="true" tabindex="-1"></a>puntos<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(puntos<span class="fl">.2</span>)</span>
+<span id="cb29-2"><a href="unidad-ii-utilizando-spatstat.html#cb29-2" aria-hidden="true" tabindex="-1"></a>puntos<span class="fl">.2</span><span class="sc">$</span>x <span class="ot">&lt;-</span> puntos<span class="fl">.2</span><span class="sc">$</span>x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">200</span>, <span class="dv">0</span>, <span class="fl">0.05</span>)</span>
+<span id="cb29-3"><a href="unidad-ii-utilizando-spatstat.html#cb29-3" aria-hidden="true" tabindex="-1"></a>puntos<span class="fl">.2</span><span class="sc">$</span>y <span class="ot">&lt;-</span> puntos<span class="fl">.2</span><span class="sc">$</span>y <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">200</span>, <span class="dv">0</span>, <span class="fl">0.05</span>)</span>
+<span id="cb29-4"><a href="unidad-ii-utilizando-spatstat.html#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="unidad-ii-utilizando-spatstat.html#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(md.exp); <span class="fu">points</span>(puntos<span class="fl">.2</span>)</span></code></pre></div>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+#### Graficación y análisis de las respuestas</p>
+<p>Para continuar con el análisis, necesitamos formatear el objeto <code>puntos.2</code> como <code>ppp</code>:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="unidad-ii-utilizando-spatstat.html#cb30-1" aria-hidden="true" tabindex="-1"></a>puntos.<span class="fl">2.</span>ppp <span class="ot">&lt;-</span> <span class="fu">ppp</span>(<span class="at">x =</span> puntos<span class="fl">.2</span><span class="sc">$</span>x,</span>
+<span id="cb30-2"><a href="unidad-ii-utilizando-spatstat.html#cb30-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> puntos<span class="fl">.2</span><span class="sc">$</span>y,</span>
+<span id="cb30-3"><a href="unidad-ii-utilizando-spatstat.html#cb30-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">window =</span> win,</span>
+<span id="cb30-4"><a href="unidad-ii-utilizando-spatstat.html#cb30-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">check =</span> F)</span></code></pre></div>
+<p>Recordemos que el objeto <code>win</code> lo generamos en la sección de formateo de este tutorial. Para el análisis de las respuestas necesitamos crear otro objeto, que contiene los conteos de cuadratura, es decir, cuántas presencias por unidad espacial, con la función <code>pixelquad</code> que requiere de dos argumentos, el proceso planar de puntos y la ventana de trabajo en formato <code>owin</code>:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="unidad-ii-utilizando-spatstat.html#cb31-1" aria-hidden="true" tabindex="-1"></a>Q <span class="ot">&lt;-</span> <span class="fu">pixelquad</span>(<span class="at">X =</span> puntos.<span class="fl">2.</span>ppp, <span class="at">W =</span> <span class="fu">as.owin</span>(win))</span></code></pre></div>
+<p>Dado que las capas ya están también formateadas como <code>im</code>, podemos ahora sí continuar con el análisis de las respuestas con la función <code>plotQuantIntens</code>. Esta función generará unos gráficos en pdf que deberemos revisar después de correrla. Para cargar la función, haremos igual que con las anteriores. Puedes descargar la función <a href="Funciones-spatstat/plotQuantIntens.R">aquí</a>. Esta función requiere de varios argumentos:</p>
+<ol style="list-style-type: decimal">
+<li>La lista de imágenes que se usarán para ver cómo cambia la intensidad de puntos en relación a cada variable</li>
+<li>El número de cuantiles en que se cortará cada variable para representar la intensidad en el espacio</li>
+<li>El objeto de cuadratura (<code>Q</code>)</li>
+<li>El objeto con los puntos en formato <code>ppp</code></li>
+<li>El nombre del directorio donde se guardará el archivo pdf</li>
+<li>El nombre del archivo</li>
+</ol>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="unidad-ii-utilizando-spatstat.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;../Funciones-spatstat/plotQuantIntens.R&quot;</span>)</span>
+<span id="cb32-2"><a href="unidad-ii-utilizando-spatstat.html#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="unidad-ii-utilizando-spatstat.html#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plotQuantIntens</span>(<span class="at">imList =</span> s.im,</span>
+<span id="cb32-4"><a href="unidad-ii-utilizando-spatstat.html#cb32-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">noCuts =</span> <span class="dv">5</span>,</span>
+<span id="cb32-5"><a href="unidad-ii-utilizando-spatstat.html#cb32-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">Quad =</span> Q,</span>
+<span id="cb32-6"><a href="unidad-ii-utilizando-spatstat.html#cb32-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">p.pp =</span> puntos.<span class="fl">2.</span>ppp,</span>
+<span id="cb32-7"><a href="unidad-ii-utilizando-spatstat.html#cb32-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">dir =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb32-8"><a href="unidad-ii-utilizando-spatstat.html#cb32-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">name =</span> <span class="st">&quot;Responses-centroid.pdf&quot;</span>)</span></code></pre></div>
+<pre><code>## png 
+##   2</code></pre>
+<p>El <a href="Unidad-II/Responses-centroid.pdf">archivo de gráficas</a> que produce <code>plotQuantIntens</code> muestra en cada panel:</p>
+<ol style="list-style-type: decimal">
+<li><p>La variable analizada con el número de puntos en cada región de varlores especificada por el argumento <code>noCuts</code> o nombre de cortes</p></li>
+<li><p>La variable analizada y el proceso de puntos</p></li>
+<li><p>La respuesta de la intensidad de puntos a la variable analizada. En el eje de las <span class="math inline">\(x\)</span> (horizontal), el valor de la variable, y en el eje de las <span class="math inline">\(y\)</span> la intensidad de puntos.</p></li>
+</ol>
+<p>La idea de este análisis es que podamos identificar a priori qué variables podemos incluir en el modelo y con qué tipo de relación. Por ejemplo, las variables 2 y 3 tienen respuestas claramente de una parácola invertida o de campana, por lo que podemos utilizar una fórmula polinomial de <span class="math inline">\(2^o\)</span> grado (figura <a href="unidad-ii-utilizando-spatstat.html#fig:Cuadratica">4.7</a>). Para la variable 1, no hay una respuesta clara como con las variables 2 y 3. Sin embargo, dado que la intensidad de puntos tiende a aumentar después de disminuir alrededor del valor de 190 conforme la variable aumenta podríamos utilizar un término cúbico, pues una ecuación cúbica puede adquirir esta forma (figura <a href="unidad-ii-utilizando-spatstat.html#fig:Cubica">4.8</a>).</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="unidad-ii-utilizando-spatstat.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">exp</span>(<span class="dv">1</span> <span class="sc">+</span> x <span class="sc">-</span> x<span class="sc">^</span><span class="dv">2</span>), <span class="at">from =</span> <span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:Cuadratica"></span>
+<img src="Mod-nich-distr-MPPs_files/figure-html/Cuadratica-1.png" alt="Ecuación polinomial de 2o grado exponenciada." width="480" />
+<p class="caption">
+Figura 4.7: Ecuación polinomial de 2o grado exponenciada.
+</p>
+</div>
+<p>Por otro lado, una ecuación polinomial de <span class="math inline">\(3^{er}\)</span> grado:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="unidad-ii-utilizando-spatstat.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">exp</span>(<span class="dv">1</span><span class="sc">+</span> x <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> x<span class="sc">^</span><span class="dv">3</span>), <span class="at">from =</span> <span class="sc">-</span><span class="fl">1.5</span>, <span class="at">to =</span> <span class="fl">1.4</span> )</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:Cubica"></span>
+<img src="Mod-nich-distr-MPPs_files/figure-html/Cubica-1.png" alt="Ecuación polinomial de 3er grado exponenciada." width="480" />
+<p class="caption">
+Figura 4.8: Ecuación polinomial de 3er grado exponenciada.
 </p>
 </div>
 
