@@ -123,7 +123,7 @@ plotQuantIntens(imList = s.im,
                 Quad = Q,
                 p.pp = puntos.2.ppp,
                 dir = "",
-                name = "Responses-centroid.pdf")
+                name = "Responses-centroid")
 ```
 
 El [archivo de gráficas](Unidad-II/Responses-centroid.pdf) que produce `plotQuantIntens` muestra en cada panel:
