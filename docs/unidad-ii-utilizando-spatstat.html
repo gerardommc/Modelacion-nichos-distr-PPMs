@@ -24,7 +24,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-04-06" />
+<meta name="date" content="2022-04-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -307,11 +307,11 @@ Figura 4.6: Distancia Mahalanobis transformada exponencialmente para simular pre
 ##   2</code></pre>
 <p>El <a href="Unidad-II/Responses-centroid.pdf">archivo de gráficas</a> que produce <code>plotQuantIntens</code> muestra en cada panel:</p>
 <ol style="list-style-type: decimal">
-<li><p>La variable analizada con el número de puntos en cada región de varlores especificada por el argumento <code>noCuts</code> o nombre de cortes</p></li>
-<li><p>La variable analizada y el proceso de puntos</p></li>
-<li><p>La respuesta de la intensidad de puntos a la variable analizada. En el eje de las <span class="math inline">\(x\)</span> (horizontal), el valor de la variable, y en el eje de las <span class="math inline">\(y\)</span> la intensidad de puntos.</p></li>
+<li><p>La variable analizada con el número de puntos en cada región de valores especificada por el argumento <code>noCuts</code> o número de cortes</p></li>
+<li><p>La variable analizada con el proceso de puntos sobrepuesto</p></li>
+<li><p>La respuesta de la intensidad de puntos a la variable analizada. En el eje de las <span class="math inline">\(x\)</span> (horizontal), el valor de la variable, y en el eje de las <span class="math inline">\(y\)</span> (vertical) la intensidad (número) de puntos.</p></li>
 </ol>
-<p>La idea de este análisis es que podamos identificar a priori qué variables podemos incluir en el modelo y con qué tipo de relación. Por ejemplo, las variables 2 y 3 tienen respuestas claramente de una parácola invertida o de campana, por lo que podemos utilizar una fórmula polinomial de <span class="math inline">\(2^o\)</span> grado (figura <a href="unidad-ii-utilizando-spatstat.html#fig:Cuadratica">4.7</a>). Para la variable 1, no hay una respuesta clara como con las variables 2 y 3. Sin embargo, dado que la intensidad de puntos tiende a aumentar después de disminuir alrededor del valor de 190 conforme la variable aumenta podríamos utilizar un término cúbico, pues una ecuación cúbica puede adquirir esta forma (figura <a href="unidad-ii-utilizando-spatstat.html#fig:Cubica">4.8</a>).</p>
+<p>La idea de este análisis es que podamos identificar <em>a priori</em> qué variables podemos incluir en el modelo y con qué tipo de relación. Por ejemplo, las variables 2 y 3 tienen respuestas claramente con forma de parábola invertida o de campana con uno que otro “tope,” por lo que podemos utilizar una fórmula polinomial de <span class="math inline">\(2^o\)</span> grado (figura <a href="unidad-ii-utilizando-spatstat.html#fig:Cuadratica">4.7</a>). Para la variable 1, sin embargo parece haber una región hacia el extremo derecho del eje <span class="math inline">\(x\)</span> en la cual la intensidad vuelve a incrementar. Dado la intensidad de puntos tiende a aumentar nuevamente podríamos utilizar un término cúbico, pues una ecuación cúbica puede adquirir esta forma (figura <a href="unidad-ii-utilizando-spatstat.html#fig:Cubica">4.8</a>).</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="unidad-ii-utilizando-spatstat.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">exp</span>(<span class="dv">1</span> <span class="sc">+</span> x <span class="sc">-</span> x<span class="sc">^</span><span class="dv">2</span>), <span class="at">from =</span> <span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:Cuadratica"></span>
 <img src="Mod-nich-distr-MPPs_files/figure-html/Cuadratica-1.png" alt="Ecuación polinomial de 2o grado exponenciada." width="480" />

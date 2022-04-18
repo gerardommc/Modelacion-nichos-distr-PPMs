@@ -128,17 +128,17 @@ plotQuantIntens(imList = s.im,
 
 El [archivo de gráficas](Unidad-II/Responses-centroid.pdf) que produce `plotQuantIntens` muestra en cada panel:
 
-1. La variable analizada con el número de puntos en cada región de varlores especificada por el argumento `noCuts` o nombre de cortes
-2. La variable analizada y el proceso de puntos
+1. La variable analizada con el número de puntos en cada región de valores especificada por el argumento `noCuts` o número de cortes
 
-3. La respuesta de la intensidad de puntos a la variable analizada. En el eje de las $x$ (horizontal), el valor de la variable, y en el eje de las $y$ la intensidad de puntos.
+2. La variable analizada con el proceso de puntos sobrepuesto
 
-La idea de este análisis es que podamos identificar a priori qué variables podemos incluir en el modelo y con qué tipo de relación. Por ejemplo, las variables 2 y 3 tienen respuestas claramente de una parácola invertida o de campana, por lo que podemos utilizar una fórmula polinomial de $2^o$ grado (figura \@ref(fig:Cuadratica)). Para la variable 1, no hay una respuesta clara como con las variables 2 y 3. Sin embargo, dado que la intensidad de puntos tiende a aumentar después de disminuir alrededor del valor de 190 conforme la variable aumenta podríamos utilizar un término cúbico, pues una ecuación cúbica puede adquirir esta forma (figura \@ref(fig:Cubica)).
+3. La respuesta de la intensidad de puntos a la variable analizada. En el eje de las $x$ (horizontal), el valor de la variable, y en el eje de las $y$ (vertical) la intensidad (número) de puntos.
+
+La idea de este análisis es que podamos identificar *a priori* qué variables podemos incluir en el modelo y con qué tipo de relación. Por ejemplo, las variables 2 y 3 tienen respuestas claramente con forma de parábola invertida o de campana con uno que otro "tope", por lo que podemos utilizar una fórmula polinomial de $2^o$ grado (figura \@ref(fig:Cuadratica)). Para la variable 1, sin embargo parece haber una región hacia el extremo derecho del eje $x$ en la cual la intensidad vuelve a incrementar. Dado la intensidad de puntos tiende a aumentar nuevamente podríamos utilizar un término cúbico, pues una ecuación cúbica puede adquirir esta forma (figura \@ref(fig:Cubica)).
 
 ```{r Cuadratica, echo=T,  fig.height=5, fig.width=5, fig.align='center', fig.cap="Ecuación polinomial de 2o grado exponenciada."}
 curve(exp(1 + x - x^2), from = -3, 3)
 ```
-
 Por otro lado, una ecuación polinomial de $3^{er}$ grado:
 
 ```{r Cubica, echo = T, fig.align='center', fig.cap="Ecuación polinomial de 3er grado exponenciada.", fig.width=5, fig.height=5}
