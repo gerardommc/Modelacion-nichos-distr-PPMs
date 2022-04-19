@@ -24,7 +24,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-04-18" />
+<meta name="date" content="2022-04-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -160,7 +160,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="4.1.1" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#independencia-y-autocorrelación"><i class="fa fa-check"></i><b>4.1.1</b> Independencia y autocorrelación</a></li>
 <li class="chapter" data-level="4.1.2" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#análisis-gráfico-de-las-respuestas-al-medio-ambiente."><i class="fa fa-check"></i><b>4.1.2</b> Análisis gráfico de las respuestas al medio ambiente.</a></li>
+<li class="chapter" data-level="4.1.3" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#midiendo-la-correlación-entre-variables-independientes"><i class="fa fa-check"></i><b>4.1.3</b> Midiendo la correlación entre variables independientes</a></li>
+<li class="chapter" data-level="4.1.4" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#propuesta-de-modelos-alternativos"><i class="fa fa-check"></i><b>4.1.4</b> Propuesta de modelos alternativos</a></li>
 </ul></li>
+<li class="chapter" data-level="4.2" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#ajustando-un-proceso-de-puntos"><i class="fa fa-check"></i><b>4.2</b> Ajustando un proceso de puntos</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -226,8 +229,8 @@ Figura 4.3: Gráfica de la prueba <em>K</em> de Ripley implementada en <code>spa
 ## Done.</code></pre>
 <p>Mientras la función corre, <strong>R</strong> imprime la última simulación completada, y el objeto que se obtiene puede graficarse con el método por defecto <code>plot</code>:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="unidad-ii-utilizando-spatstat.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(K)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-19"></span>
-<img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-19-1.png" alt="Gráfica de la función *K* de Ripley para el proceso de puntos analizado. Las sombras en gris muestran los intervalos de confianza al 95%. La línea roja a guiones representa la expectativa teórica (*K* teórica) en caso de que el proceso de puntos sea aleatorio, y la línea negra sólida es la función de Ripley para el proceso de puntos (la *K* observada). El eje de las *x* representa distancia (en grados) y las *y* el número promedio de vecinos de cada punto." width="576" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-20"></span>
+<img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-20-1.png" alt="Gráfica de la función *K* de Ripley para el proceso de puntos analizado. Las sombras en gris muestran los intervalos de confianza al 95%. La línea roja a guiones representa la expectativa teórica (*K* teórica) en caso de que el proceso de puntos sea aleatorio, y la línea negra sólida es la función de Ripley para el proceso de puntos (la *K* observada). El eje de las *x* representa distancia (en grados) y las *y* el número promedio de vecinos de cada punto." width="576" />
 <p class="caption">
 Figura 4.4: Gráfica de la función <em>K</em> de Ripley para el proceso de puntos analizado. Las sombras en gris muestran los intervalos de confianza al 95%. La línea roja a guiones representa la expectativa teórica (<em>K</em> teórica) en caso de que el proceso de puntos sea aleatorio, y la línea negra sólida es la función de Ripley para el proceso de puntos (la <em>K</em> observada). El eje de las <em>x</em> representa distancia (en grados) y las <em>y</em> el número promedio de vecinos de cada punto.
 </p>
@@ -277,7 +280,7 @@ Figura 4.6: Distancia Mahalanobis transformada exponencialmente para simular pre
 <span id="cb29-3"><a href="unidad-ii-utilizando-spatstat.html#cb29-3" aria-hidden="true" tabindex="-1"></a>puntos<span class="fl">.2</span><span class="sc">$</span>y <span class="ot">&lt;-</span> puntos<span class="fl">.2</span><span class="sc">$</span>y <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">200</span>, <span class="dv">0</span>, <span class="fl">0.05</span>)</span>
 <span id="cb29-4"><a href="unidad-ii-utilizando-spatstat.html#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-5"><a href="unidad-ii-utilizando-spatstat.html#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(md.exp); <span class="fu">points</span>(puntos<span class="fl">.2</span>)</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/puntos-1.png" width="672" />
 #### Graficación y análisis de las respuestas</p>
 <p>Para continuar con el análisis, necesitamos formatear el objeto <code>puntos.2</code> como <code>ppp</code>:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="unidad-ii-utilizando-spatstat.html#cb30-1" aria-hidden="true" tabindex="-1"></a>puntos.<span class="fl">2.</span>ppp <span class="ot">&lt;-</span> <span class="fu">ppp</span>(<span class="at">x =</span> puntos<span class="fl">.2</span><span class="sc">$</span>x,</span>
@@ -327,9 +330,37 @@ Figura 4.7: Ecuación polinomial de 2o grado exponenciada.
 Figura 4.8: Ecuación polinomial de 3er grado exponenciada.
 </p>
 </div>
+</div>
+</div>
+<div id="midiendo-la-correlación-entre-variables-independientes" class="section level3" number="4.1.3">
+<h3><span class="header-section-number">4.1.3</span> Midiendo la correlación entre variables independientes</h3>
+<p>Cuando hacemos un análisis de regresión, en deseable que todas las variables independientes que incluyamos en un modelo sean ortogonales, es decir que no estén correlacionadas, que no sean predictoras una de otra. Al incluir variables independientes correlacionadas creamos un problema en el que no es posible medir la varianzade la variable dependiente que explican. Un ejemplo análogo en ANOVA, sería un experimento de dos factores con dos niveles cada uno, y por lo tanto para poder entender el efecto de cada factor con sus niveles necesitaríamos cuatro unidades experimentales como mínimo, 2 niveles del factor I <span class="math inline">\(\times\)</span> 2 niveles del factor II. Si los factores fueran colineales, implicaría que sólo tendríamos por ejemplo, nivel <span class="math inline">\(A\)</span> del factor I con nivel <span class="math inline">\(a\)</span> del factor II, y nivel <span class="math inline">\(b\)</span> del factor I con nivel <span class="math inline">\(b\)</span> del factor II, siendo que requerimos de las combinaciones:<span class="math inline">\(Aa, Ab, Ba\)</span> y <span class="math inline">\(Bb\)</span>.</p>
+<p>Para medir la correlación entre pares de variables raster estimamos el coeficiente de correlación de Pearson, con la función <code>pairs</code> del paquete <code>raster</code>. Esta función compara todas las posibles combinaciones de pares de variables en el stack y produce un gráfico de dispersión para cada combinación:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="unidad-ii-utilizando-spatstat.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(s)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:correl"></span>
+<img src="Mod-nich-distr-MPPs_files/figure-html/correl-1.png" alt="Prueba de correlación para todos los pares de variables." width="672" />
+<p class="caption">
+Figura 4.9: Prueba de correlación para todos los pares de variables.
+</p>
+</div>
+<p>Como podemos ver, de las variables propuestas sólo podemos utilizar dos de ellas en el mismo modelo, puesto que <code>Var.1</code>y <code>Var.2</code> están correlacionadas. La correlación entre ellas es lineal, como puede verse en el gráfico de dispersión (1a columna 2a fila).</p>
+<p>No hay una regla que indique qué coeficiente de correlación es aceptable para incluir en un mismo modelo, sin embargo, mientras más cercano a <span class="math inline">\(0\)</span> y lejos de <span class="math inline">\(1\)</span> ó <span class="math inline">\(-1\)</span> es mejor. Ciertamente <span class="math inline">\(0.76\)</span>, puede ser considerada como alta correlación. Como regla general personal, si el número de variables con respuestas claras observadas con <code>plotQuantIntens</code> alto, podemos utilizar todas aquellas con <span class="math inline">\(r &lt; 0.5\)</span>, si el número de variables es pequeño podemos permitirnos un poco más de libertad e incluir en un mismo modelo todas aquellas con <span class="math inline">\(r \leq 0.7\)</span>.</p>
+</div>
+<div id="propuesta-de-modelos-alternativos" class="section level3" number="4.1.4">
+<h3><span class="header-section-number">4.1.4</span> Propuesta de modelos alternativos</h3>
+<p>Anteriormente vimos que la intensidad de puntos (figura <a href="#fig:puntos"><strong>??</strong></a>) tiene una clara res puesta de campana en relación a <code>Var.2</code> y <code>Var.3</code>, y posiblemente <code>Var.1</code>. Por ello podemos proponer una serie de funciones polinomiales de 2o grado donde sólo estén presentes <code>Var.1</code> y <code>Var.3</code>, y <code>Var.2</code> y <code>Var.3</code>. Recordemos que con base en el análisis de correlación no debemos incluir a <code>Var.1</code> y <code>Var.2</code> en el mismo modelo (figura <a href="unidad-ii-utilizando-spatstat.html#fig:correl">4.9</a>). De modo que, en sintaxis de <strong>R</strong>, las fórmulas propuestas del modelo (incluyendo una de 3er grado para <code>Var.1</code>):</p>
+<ol style="list-style-type: decimal">
+<li><code>~ Var.1 + Var.3 + I(Var.1^2) + I(Var.3^2)</code></li>
+<li><code>~ Var.1 + Var.3 + I(Var.1^2) + I(Var.1^3) + I(Var.3^2)</code></li>
+<li><code>~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2)</code></li>
+</ol>
+<p>La decisión de cuál de las fórmulas propuestas será la final con que trabajaremos, es material del próximo capítulo, por el momento veremos cómo se ajusta un <code>ppm</code>.</p>
+</div>
+</div>
+<div id="ajustando-un-proceso-de-puntos" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Ajustando un proceso de puntos</h2>
+<p>Aquí veremos cómo se ajusta un proceso de puntos. Como vimos en el capítulo anterior, los datos que analizamos consisten de la intensidad de puntos por unidad espacial, como función de un conjunto de predictores.</p>
 
-</div>
-</div>
 </div>
 </div>
             </section>

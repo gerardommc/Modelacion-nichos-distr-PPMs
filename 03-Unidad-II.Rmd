@@ -6,3 +6,9 @@
 
 ```
 
+## Ajustando un proceso de puntos
+
+```{r echo = F, child = "Unidad-II/Ajuste.Rmd"}
+
+```
+

@@ -24,7 +24,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-04-18" />
+<meta name="date" content="2022-04-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -160,7 +160,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="4.1.1" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#independencia-y-autocorrelación"><i class="fa fa-check"></i><b>4.1.1</b> Independencia y autocorrelación</a></li>
 <li class="chapter" data-level="4.1.2" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#análisis-gráfico-de-las-respuestas-al-medio-ambiente."><i class="fa fa-check"></i><b>4.1.2</b> Análisis gráfico de las respuestas al medio ambiente.</a></li>
+<li class="chapter" data-level="4.1.3" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#midiendo-la-correlación-entre-variables-independientes"><i class="fa fa-check"></i><b>4.1.3</b> Midiendo la correlación entre variables independientes</a></li>
+<li class="chapter" data-level="4.1.4" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#propuesta-de-modelos-alternativos"><i class="fa fa-check"></i><b>4.1.4</b> Propuesta de modelos alternativos</a></li>
 </ul></li>
+<li class="chapter" data-level="4.2" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#ajustando-un-proceso-de-puntos"><i class="fa fa-check"></i><b>4.2</b> Ajustando un proceso de puntos</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -211,8 +214,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-2"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb3-2" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">stack</span>(arch)</span></code></pre></div>
 <p>Una vez cargados las capas, podemos graficarlas para verificar que sean las que necesitamos o tenemos en mente:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-8"></span>
-<img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-8-1.png" alt="Gráfica de las capas que usaremos para los ejemplos." width="768" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-9"></span>
+<img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-9-1.png" alt="Gráfica de las capas que usaremos para los ejemplos." width="768" />
 <p class="caption">
 Figura 3.1: Gráfica de las capas que usaremos para los ejemplos.
 </p>
@@ -232,7 +235,7 @@ Figura 3.1: Gráfica de las capas que usaremos para los ejemplos.
 <span id="cb11-2"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.im[[<span class="dv">1</span>]])</span>
 <span id="cb11-3"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.im[[<span class="dv">2</span>]])</span>
 <span id="cb11-4"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.im[[<span class="dv">3</span>]])</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-13-1.png" width="768" />
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-14-1.png" width="768" />
 Puedes descargar la función <code>imFromStack</code> en <a href="Funciones-spatstat/imFromStack.R">esta liga</a>.</p>
 </div>
 <div id="obteniendo-la-ventana-de-trabajo" class="section level3" number="3.2.2">
@@ -259,7 +262,7 @@ Puedes descargar la función <code>imFromStack</code> en <a href="Funciones-spat
 <p>En el primer argumento <code>x</code> se especifican las coordenadas <span class="math inline">\(x\)</span> o longitud, en <code>y</code> las coordenadas <span class="math inline">\(y\)</span> o latitud, en <code>window</code> la ventana de trabajo, y <code>check</code> especifica si se verificará que todos los puntos están dentro de la ventana de trabajo. Normalmente se deja en <code>check = T</code>.</p>
 <p>Con todos los datos formateados, entonces ahora graficamos la ventana de trabajo y el proceso de puntos:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="unidad-i-introducción-al-modelado-de-procesos-de-puntos.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(win); <span class="fu">points</span>(puntos.ppp, <span class="at">col =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-17-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-18-1.png" width="384" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

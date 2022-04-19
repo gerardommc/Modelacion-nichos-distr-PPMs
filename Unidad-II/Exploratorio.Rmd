@@ -79,7 +79,7 @@ plot(md.exp)
 
 Para simular las presencias usaré el mismo método que anteriormente, pero en esta ocasión la probabilidad determinará las celdas en que habrá puntos:
 
-```{r echo = T}
+```{r puntos, echo = T}
 puntos.2 <- dismo::randomPoints(mask = md.exp,
                                 n = 200,
                                 prob = T)
@@ -145,3 +145,26 @@ Por otro lado, una ecuación polinomial de $3^{er}$ grado:
 curve(exp(1+ x - 2*x^2 + x^3), from = -1.5, to = 1.4 )
 ```
 
+### Midiendo la correlación entre variables independientes
+
+Cuando hacemos un análisis de regresión, en deseable que todas las variables independientes que incluyamos en un modelo sean ortogonales, es decir que no estén correlacionadas, que no sean predictoras una de otra. Al incluir variables independientes correlacionadas creamos un problema en el que no es posible medir la varianzade la variable dependiente que explican. Un ejemplo análogo en ANOVA, sería un experimento de dos factores con dos niveles cada uno, y por lo tanto para poder entender el efecto de cada factor con sus niveles necesitaríamos cuatro unidades experimentales como mínimo, 2 niveles del factor I $\times$ 2 niveles del factor II. Si los factores fueran colineales, implicaría que sólo tendríamos por ejemplo, nivel $A$ del factor I con nivel $a$ del factor II, y nivel $b$ del factor I con nivel $b$ del factor II, siendo que requerimos de las combinaciones:$Aa, Ab, Ba$ y $Bb$. 
+
+Para medir la correlación entre pares de variables raster estimamos el coeficiente de correlación de Pearson, con la función `pairs` del paquete `raster`. Esta función compara todas las posibles combinaciones de pares de variables en el stack y produce un gráfico de dispersión para cada combinación:
+
+```{r correl, echo = T, fig.align='center', fig.cap="Prueba de correlación para todos los pares de variables.", fig.width = 7, fig.height = 7}
+pairs(s)
+```
+
+Como podemos ver, de las variables propuestas sólo podemos utilizar dos de ellas en el mismo modelo, puesto que `Var.1`y `Var.2` están correlacionadas. La correlación entre ellas es lineal, como puede verse en el gráfico de dispersión (1a columna 2a fila).
+
+No hay una regla que indique qué coeficiente de correlación es aceptable para incluir en un mismo modelo, sin embargo, mientras más cercano a $0$ y lejos de $1$ ó $-1$ es mejor. Ciertamente $0.76$, puede ser considerada como alta correlación. Como regla general personal, si el número de variables con respuestas claras observadas con `plotQuantIntens` alto, podemos utilizar todas aquellas con $r < 0.5$, si el número de variables es pequeño podemos permitirnos un poco más de libertad e incluir en un mismo modelo todas aquellas con $r \leq 0.7$.
+
+### Propuesta de modelos alternativos
+
+Anteriormente vimos que la intensidad de puntos (figura \@ref(fig:puntos)) tiene una clara res puesta de campana en relación a `Var.2` y `Var.3`, y posiblemente `Var.1`. Por ello podemos proponer una serie de funciones polinomiales de 2o grado donde sólo estén presentes `Var.1` y `Var.3`, y `Var.2` y `Var.3`. Recordemos que con base en el análisis de correlación no debemos incluir a `Var.1` y `Var.2` en el mismo modelo (figura \@ref(fig:correl)). De modo que, en sintaxis de **R**, las fórmulas propuestas del modelo (incluyendo una de 3er grado para `Var.1`):
+
+1. `~ Var.1 + Var.3 + I(Var.1^2) + I(Var.3^2)`
+2. `~ Var.1 + Var.3 + I(Var.1^2) + I(Var.1^3) + I(Var.3^2)`
+3. `~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2)`
+
+La decisión de cuál de las fórmulas propuestas será la final con que trabajaremos, es material del próximo capítulo, por el momento veremos cómo se ajusta un `ppm`.

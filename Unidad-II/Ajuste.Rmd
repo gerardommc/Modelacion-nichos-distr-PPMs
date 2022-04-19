@@ -1,0 +1,1 @@
+Aquí veremos cómo se ajusta un proceso de puntos. Como vimos en el capítulo anterior, los datos que analizamos consisten de la intensidad de puntos por unidad espacial, como función de un conjunto de predictores.
