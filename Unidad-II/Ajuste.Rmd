@@ -1,1 +1,67 @@
 Aquí veremos cómo se ajusta un proceso de puntos. Como vimos en el capítulo anterior, los datos que analizamos consisten de la intensidad de puntos por unidad espacial, como función de un conjunto de predictores.
+
+Los modelos que ajustaremos son aquellos que propusimos como producto del análisis exploratorio del capítulo anterior. Para ajustar un proceso de puntos Poisson, utilizamos la función `ppm` (por "point process model") del paquete `spatstat`. Los argumentos que debemos incluir al llamar a la función son:
+
+1. El objeto que contiene el proceso de puntos
+2. `trend` que corresponde a la fórmula del modelo
+3. La lista de imágenes de pixeles que contiene las covariables que se utilizan en la fórmula (con los mismos nombres)
+
+Para ajustar el modelo propuesto con la 1a fórmula propuesta tenemos:
+
+```{r echo = T, warning=FALSE, message=FALSE}
+m1 <- ppm(Q = puntos.2.ppp,
+          trend = ~ Var.1 + Var.3 + I(Var.1^2) + I(Var.3^2),
+          covariates = s.im)
+```
+
+Para ver un resumen detallado del modelo ajustado, podemos utilizar la función `summary` del objeto creado `m1`, lo que imprimirá una tabla que muestra los coeficientes estimados, error para cada coeficiente, su significancia y otra información sobre el llamado a la función `ppm` y estadísticas de convergencia:
+
+```{r}
+summary(m1)
+```
+
+La parte del resumen del modelo ajustado que contiene los detalles de los coeficientes estimados es la que dice `Fitted trend coefficients`. La primera columna de esta tabla contiene los nombres de las variables, la segunda columna (`Estimates`) contiene el valor medio estimado de cada coeficiente. Las columnas 3-5 contienen el error estándar (`S.E.`), intervalo de confianza inferior y superior. La última columna (`Ztest`) contiene el valor de la probabilidad de que el intervalo a 95% contenga el valor de cero (0). Cuanto menos probable sea que contenga cero mejor.
+
+Las predicciones del modelo podemos verlas con la función `plot`:
+
+```{r echo = T, fig.align='center', fig.cap="Mapa de las predicciones del modelo. El panel izquierdo muestra la tendencia espacial y el derecho el error estándar de la tendencia estimada.", fig.width=8, fig.height=4}
+par(mfrow = c(1, 2))
+plot(m1)
+```
+
+### Selección del modelo
+
+Ahora que ya sabemos ajustar un modelo, podemos proceder a ajustar los modelos de las fórmulas alternativas:
+
+```{r echo = T, warning=FALSE}
+m2 <- ppm(Q = puntos.2.ppp,
+          trend = ~ Var.1 + Var.3 + I(Var.1^2) + I(Var.1^3) + I(Var.3^2),
+          covariates = s.im)
+m3 <- ppm(Q = puntos.2.ppp,
+          trend = ~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2),
+          covariates = s.im)
+```
+
+El dilema con el que nos enfrentamos ahora es decidir con cuál modelo nos quedaremos. Hay una serie de criterios para tomar esta decisión que tienen que ver principalmente con:
+
+1. El cumplimiento de los supuestos estadísticos (independencia de puntos y análisis de residuales)
+2. El balance entre complejidad (cantidad de variables) y varianza explicada
+3. Estimación correcta de los efectos (coeficientes) y su significancia
+
+Como vimos anteriormente, el primer supuesto es que los puntos deben ser independientes, por lo que podemos simular envolturas de Ripley para los modelos ajustados, y los residuales podemos analizarlos visualmente. El balance entre la complejidad y la varianza explicada podemos calcularlo con el criterio de información de Akaike.
+
+#### Criterio de información de Akaike
+
+Calcular el AIC (por sus siglas en inglés), es muy fácil en R. Solamente necesitamos la función `AIC`, y proporcionarle los modelos cuyos criterios querramos conocer:
+
+```{r echo = F}
+AIC(m1)
+AIC(m2)
+AIC(m3)
+```
+
+La regla general es que cuanto más bajo sea el AIC, mejor, por lo que el modelo 2 (`m2`), parece ser marginalmente mejor que el modelo 1 y significativamente mejor que el modelo 3.
+
+#### Estimación correcta de efectos
+
+#### Verificación de supuestos estadísticos

@@ -8,6 +8,7 @@ fig:Favorabilidad
 fig:Cuadratica
 fig:Cubica
 fig:correl
+fig:unnamed-chunk-29
 preámbulo
 encuadre-de-la-materia
 criterios-de-evaluación
@@ -28,3 +29,7 @@ simulación-de-datos-de-presencia
 midiendo-la-correlación-entre-variables-independientes
 propuesta-de-modelos-alternativos
 ajustando-un-proceso-de-puntos
+selección-del-modelo
+criterio-de-información-de-akaike
+estimación-correcta-de-efectos
+verificación-de-supuestos-estadísticos

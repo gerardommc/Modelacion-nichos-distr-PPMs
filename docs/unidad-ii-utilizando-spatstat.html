@@ -24,7 +24,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-04-19" />
+<meta name="date" content="2022-04-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -163,7 +163,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1.3" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#midiendo-la-correlación-entre-variables-independientes"><i class="fa fa-check"></i><b>4.1.3</b> Midiendo la correlación entre variables independientes</a></li>
 <li class="chapter" data-level="4.1.4" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#propuesta-de-modelos-alternativos"><i class="fa fa-check"></i><b>4.1.4</b> Propuesta de modelos alternativos</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#ajustando-un-proceso-de-puntos"><i class="fa fa-check"></i><b>4.2</b> Ajustando un proceso de puntos</a></li>
+<li class="chapter" data-level="4.2" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#ajustando-un-proceso-de-puntos"><i class="fa fa-check"></i><b>4.2</b> Ajustando un proceso de puntos</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="unidad-ii-utilizando-spatstat.html"><a href="unidad-ii-utilizando-spatstat.html#selección-del-modelo"><i class="fa fa-check"></i><b>4.2.1</b> Selección del modelo</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -360,7 +363,146 @@ Figura 4.9: Prueba de correlación para todos los pares de variables.
 <div id="ajustando-un-proceso-de-puntos" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Ajustando un proceso de puntos</h2>
 <p>Aquí veremos cómo se ajusta un proceso de puntos. Como vimos en el capítulo anterior, los datos que analizamos consisten de la intensidad de puntos por unidad espacial, como función de un conjunto de predictores.</p>
+<p>Los modelos que ajustaremos son aquellos que propusimos como producto del análisis exploratorio del capítulo anterior. Para ajustar un proceso de puntos Poisson, utilizamos la función <code>ppm</code> (por “point process model”) del paquete <code>spatstat</code>. Los argumentos que debemos incluir al llamar a la función son:</p>
+<ol style="list-style-type: decimal">
+<li>El objeto que contiene el proceso de puntos</li>
+<li><code>trend</code> que corresponde a la fórmula del modelo</li>
+<li>La lista de imágenes de pixeles que contiene las covariables que se utilizan en la fórmula (con los mismos nombres)</li>
+</ol>
+<p>Para ajustar el modelo propuesto con la 1a fórmula propuesta tenemos:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="unidad-ii-utilizando-spatstat.html#cb37-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">ppm</span>(<span class="at">Q =</span> puntos.<span class="fl">2.</span>ppp,</span>
+<span id="cb37-2"><a href="unidad-ii-utilizando-spatstat.html#cb37-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">trend =</span> <span class="sc">~</span> Var<span class="fl">.1</span> <span class="sc">+</span> Var<span class="fl">.3</span> <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.1</span><span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.3</span><span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb37-3"><a href="unidad-ii-utilizando-spatstat.html#cb37-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">covariates =</span> s.im)</span></code></pre></div>
+<p>Para ver un resumen detallado del modelo ajustado, podemos utilizar la función <code>summary</code> del objeto creado <code>m1</code>, lo que imprimirá una tabla que muestra los coeficientes estimados, error para cada coeficiente, su significancia y otra información sobre el llamado a la función <code>ppm</code> y estadísticas de convergencia:</p>
+<pre><code>## Point process model
+## Fitting method: maximum likelihood (Berman-Turner approximation)
+## Model was fitted using glm()
+## Algorithm converged
+## Call:
+## ppm.ppp(Q = puntos.2.ppp, trend = ~Var.1 + Var.3 + I(Var.1^2) + 
+##     I(Var.3^2), covariates = s.im)
+## Edge correction: &quot;border&quot;
+##  [border correction distance r = 0 ]
+## --------------------------------------------------------------------------------
+## Quadrature scheme (Berman-Turner) = data + dummy + weights
+## 
+## Data pattern:
+## Planar point pattern:  200 points
+## Average intensity 8.57 points per square unit
+## binary image mask
+## 28 x 30 pixel array (ny, nx)
+## pixel size: 0.167 by 0.167 units
+## enclosing rectangle: [-104.92138, -99.92138] x [25.355693, 30.02236] units
+##                      (5 x 4.667 units)
+## Window area = 23.3333 square units
+## Fraction of frame area: 1
+## 
+## Dummy quadrature points:
+##      32 x 32 grid of dummy points, plus 4 corner points
+##      dummy spacing: 0.1562500 x 0.1458333 units
+## 
+## Original dummy parameters: =
+## Planar point pattern:  1028 points
+## Average intensity 44.1 points per square unit
+## binary image mask
+## 28 x 30 pixel array (ny, nx)
+## pixel size: 0.167 by 0.167 units
+## enclosing rectangle: [-104.92138, -99.92138] x [25.355693, 30.02236] units
+##                      (5 x 4.667 units)
+## Window area = 23.3333 square units
+## Fraction of frame area: 1
+## Quadrature weights:
+##      (counting weights based on 32 x 32 array of rectangular tiles)
+## All weights:
+##  range: [0.0076, 0.0228] total: 23.3
+## Weights on data points:
+##  range: [0.0076, 0.0114] total: 2.21
+## Weights on dummy points:
+##  range: [0.0076, 0.0228] total: 21.1
+## --------------------------------------------------------------------------------
+## FITTED MODEL:
+## 
+## Nonstationary Poisson process
+## 
+## ---- Intensity: ----
+## 
+## Log intensity: ~Var.1 + Var.3 + I(Var.1^2) + I(Var.3^2)
+## Model depends on external covariates &#39;Var.1&#39; and &#39;Var.3&#39;
+## Covariates provided:
+##  Var.1: im
+##  Var.2: im
+##  Var.3: im
+## 
+## Fitted trend coefficients:
+##   (Intercept)         Var.1         Var.3    I(Var.1^2)    I(Var.3^2) 
+## -3.628078e+01  1.651891e-01  3.071477e-01 -4.308365e-04 -1.030083e-03 
+## 
+##                  Estimate         S.E.       CI95.lo       CI95.hi Ztest
+## (Intercept) -3.628078e+01 1.409609e+01 -63.908617200 -8.6529480747     *
+## Var.1        1.651891e-01 1.221819e-01  -0.074283042  0.4046612179      
+## Var.3        3.071477e-01 1.052913e-01   0.100780614  0.5135147610    **
+## I(Var.1^2)  -4.308365e-04 3.097916e-04  -0.001038017  0.0001763439      
+## I(Var.3^2)  -1.030083e-03 3.412302e-04  -0.001698882 -0.0003612846    **
+##                  Zval
+## (Intercept) -2.573818
+## Var.1        1.351993
+## Var.3        2.917124
+## I(Var.1^2)  -1.390730
+## I(Var.3^2)  -3.018735
+## 
+## ----------- gory details -----
+## 
+## Fitted regular parameters (theta):
+##   (Intercept)         Var.1         Var.3    I(Var.1^2)    I(Var.3^2) 
+## -3.628078e+01  1.651891e-01  3.071477e-01 -4.308365e-04 -1.030083e-03 
+## 
+## Fitted exp(theta):
+##  (Intercept)        Var.1        Var.3   I(Var.1^2)   I(Var.3^2) 
+## 1.751686e-16 1.179616e+00 1.359542e+00 9.995693e-01 9.989704e-01 
+## Problem:
+##  Values of the covariates &#39;Var.1&#39;, &#39;Var.3&#39; were NA or undefined at 0.16% (2 out of 1228) of the quadrature points</code></pre>
+<p>La parte del resumen del modelo ajustado que contiene los detalles de los coeficientes estimados es la que dice <code>Fitted trend coefficients</code>. La primera columna de esta tabla contiene los nombres de las variables, la segunda columna (<code>Estimates</code>) contiene el valor medio estimado de cada coeficiente. Las columnas 3-5 contienen el error estándar (<code>S.E.</code>), intervalo de confianza inferior y superior. La última columna (<code>Ztest</code>) contiene el valor de la probabilidad de que el intervalo a 95% contenga el valor de cero (0). Cuanto menos probable sea que contenga cero mejor.</p>
+<p>Las predicciones del modelo podemos verlas con la función <code>plot</code>:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="unidad-ii-utilizando-spatstat.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb39-2"><a href="unidad-ii-utilizando-spatstat.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(m1)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-29"></span>
+<img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-29-1.png" alt="Mapa de las predicciones del modelo. El panel izquierdo muestra la tendencia espacial y el derecho el error estándar de la tendencia estimada." width="768" />
+<p class="caption">
+Figura 4.10: Mapa de las predicciones del modelo. El panel izquierdo muestra la tendencia espacial y el derecho el error estándar de la tendencia estimada.
+</p>
+</div>
+<div id="selección-del-modelo" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Selección del modelo</h3>
+<p>Ahora que ya sabemos ajustar un modelo, podemos proceder a ajustar los modelos de las fórmulas alternativas:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="unidad-ii-utilizando-spatstat.html#cb40-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">ppm</span>(<span class="at">Q =</span> puntos.<span class="fl">2.</span>ppp,</span>
+<span id="cb40-2"><a href="unidad-ii-utilizando-spatstat.html#cb40-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">trend =</span> <span class="sc">~</span> Var<span class="fl">.1</span> <span class="sc">+</span> Var<span class="fl">.3</span> <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.1</span><span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.1</span><span class="sc">^</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.3</span><span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb40-3"><a href="unidad-ii-utilizando-spatstat.html#cb40-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">covariates =</span> s.im)</span>
+<span id="cb40-4"><a href="unidad-ii-utilizando-spatstat.html#cb40-4" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">ppm</span>(<span class="at">Q =</span> puntos.<span class="fl">2.</span>ppp,</span>
+<span id="cb40-5"><a href="unidad-ii-utilizando-spatstat.html#cb40-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">trend =</span> <span class="sc">~</span> Var<span class="fl">.2</span> <span class="sc">+</span> Var<span class="fl">.3</span> <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.2</span><span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.3</span><span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb40-6"><a href="unidad-ii-utilizando-spatstat.html#cb40-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">covariates =</span> s.im)</span></code></pre></div>
+<p>El dilema con el que nos enfrentamos ahora es decidir con cuál modelo nos quedaremos. Hay una serie de criterios para tomar esta decisión que tienen que ver principalmente con:</p>
+<ol style="list-style-type: decimal">
+<li>El cumplimiento de los supuestos estadísticos (independencia de puntos y análisis de residuales)</li>
+<li>El balance entre complejidad (cantidad de variables) y varianza explicada</li>
+<li>Estimación correcta de los efectos (coeficientes) y su significancia</li>
+</ol>
+<p>Como vimos anteriormente, el primer supuesto es que los puntos deben ser independientes, por lo que podemos simular envolturas de Ripley para los modelos ajustados, y los residuales podemos analizarlos visualmente. El balance entre la complejidad y la varianza explicada podemos calcularlo con el criterio de información de Akaike.</p>
+<div id="criterio-de-información-de-akaike" class="section level4" number="4.2.1.1">
+<h4><span class="header-section-number">4.2.1.1</span> Criterio de información de Akaike</h4>
+<p>Calcular el AIC (por sus siglas en inglés), es muy fácil en R. Solamente necesitamos la función <code>AIC</code>, y proporcionarle los modelos cuyos criterios querramos conocer:</p>
+<pre><code>## [1] -460.135</code></pre>
+<pre><code>## [1] -459.8866</code></pre>
+<pre><code>## [1] -461.2226</code></pre>
+<p>La regla general es que cuanto más bajo sea el AIC, mejor, por lo que el modelo 2 (<code>m2</code>), parece ser marginalmente mejor que el modelo 1 y significativamente mejor que el modelo 3.</p>
+</div>
+<div id="estimación-correcta-de-efectos" class="section level4" number="4.2.1.2">
+<h4><span class="header-section-number">4.2.1.2</span> Estimación correcta de efectos</h4>
+</div>
+<div id="verificación-de-supuestos-estadísticos" class="section level4" number="4.2.1.3">
+<h4><span class="header-section-number">4.2.1.3</span> Verificación de supuestos estadísticos</h4>
 
+</div>
+</div>
 </div>
 </div>
             </section>
