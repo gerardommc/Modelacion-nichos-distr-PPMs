@@ -80,6 +80,7 @@ plot(md.exp)
 Para simular las presencias usaré el mismo método que anteriormente, pero en esta ocasión la probabilidad determinará las celdas en que habrá puntos:
 
 ```{r puntos, echo = T}
+set.seed(182)
 puntos.2 <- dismo::randomPoints(mask = md.exp,
                                 n = 200,
                                 prob = T)

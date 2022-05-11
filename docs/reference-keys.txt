@@ -1,14 +1,14 @@
-fig:unnamed-chunk-9
+fig:unnamed-chunk-8
 fig:Cuenta-vecinos
 fig:Segreg-agreg
 fig:K-env
-fig:unnamed-chunk-20
+fig:unnamed-chunk-19
 fig:Distancia
 fig:Favorabilidad
 fig:Cuadratica
 fig:Cubica
 fig:correl
-fig:unnamed-chunk-29
+fig:unnamed-chunk-28
 preámbulo
 encuadre-de-la-materia
 criterios-de-evaluación
@@ -32,4 +32,4 @@ ajustando-un-proceso-de-puntos
 selección-del-modelo
 criterio-de-información-de-akaike
 estimación-correcta-de-efectos
-verificación-de-supuestos-estadísticos
+verificación-de-supuestos-de-independencia

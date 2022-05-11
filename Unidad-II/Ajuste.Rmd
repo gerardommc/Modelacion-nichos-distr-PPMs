@@ -54,14 +54,40 @@ Como vimos anteriormente, el primer supuesto es que los puntos deben ser indepen
 
 Calcular el AIC (por sus siglas en inglés), es muy fácil en R. Solamente necesitamos la función `AIC`, y proporcionarle los modelos cuyos criterios querramos conocer:
 
-```{r echo = F}
+```{r echo = T}
 AIC(m1)
 AIC(m2)
 AIC(m3)
 ```
 
-La regla general es que cuanto más bajo sea el AIC, mejor, por lo que el modelo 2 (`m2`), parece ser marginalmente mejor que el modelo 1 y significativamente mejor que el modelo 3.
+La regla general es que cuanto más bajo sea el AIC, mejor, por lo que el modelo 3 (`m3`), parece tener la ventaja sobre el 1 y 2.
 
 #### Estimación correcta de efectos
 
-#### Verificación de supuestos estadísticos
+Dado que los MPPs son complejos es frecuente encontrarse con modelos que no pudieron ser ajustados correctamente, o sea que la rutina de optimización pudo encontrar los valores de los parámetros y calcular su significancia estadística. Por otra parte, cuando los efectos estadísticos pudieron ser calculados, nos interesa que la mayoría de estos sean significativamente diferentes de cero ($P \leq 0.05$)
+
+Si revisamos el resumen del modelo `m2`, veremos que aparecen algunos de los errores mencionados, y que resultan en la ausencia de estimaciones de significancia estadística (columna `Ztest`).
+
+```{r echo = T}
+summary(m2)
+```
+En comparación, el resumen del modelo 3:
+
+```{r echo = T}
+summary(m3)
+```
+
+No tiene alertas de errores y sí imprime la columna de significancia estadística. Con esta simple verificación concluimos que `m3` es más adecuado que `m1` y `m2`, con base en los criterios:
+
+1. Minimización de AIC
+2. Estimación de efectos
+3. Estimación de significancia estadística
+
+Aún así, es posible que `m1` cumpla mejor con el criterio del supuesto de independencia, que veremos a continuación.
+
+#### Verificación de supuestos de independencia
+
+Este criterio lo podemos verificar con dos pruebas adicionales:
+
+1. Análisis de residuales
+2. Simulación de envolturas *K*

@@ -6,9 +6,7 @@ Hacer la transformación entre formatos es esencial pues `spatstat` cuenta con m
 
 He escrito una función de **R** para transformar de `raster` a `im`. La transformación de un `data.frame` a `ppp` es bastante sencilla y no requiere de una función especial. Entonces, para comenzar necesitamos tener instalados los paquetes `raster`, `rgdal`, `spatstat` y `foreach`, lo cual se consigue corriendo el siguiente código en la consola de **R**:
 
-```{r echo = T, eval = F}
-install.packages(c("raster", "rgdal", "spatstat", "foreach"))
-```
+`install.packages(c("raster", "rgdal", "spatstat", "foreach"))`
 
 Después de la instalación, podemos usarlos para cargar una sola capas raster al espacio de trabajo con la función `raster`, contenida en el paquete del mismo nombre:
 
