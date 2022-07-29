@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title> 4 Unidad II - Utilizando spatstat | Modelación de nichos ecológicos y aŕeas de distribución con MPPs</title>
   <meta name="description" content="Sitio del curso de Modelado de nichos ecológicos | Posgrado de Ciencias Biológicas" />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content=" 4 Unidad II - Utilizando spatstat | Modelación de nichos ecológicos y aŕeas de distribución con MPPs" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-05-11" />
+<meta name="date" content="2022-07-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -203,20 +203,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">4.1.1</span> Independencia y autocorrelación<a href="unidad-ii---utilizando-spatstat.html#independencia-y-autocorrelación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Se dice que los diferentes puntos son independientes entre sí, si el número de vecinos promedio de cada punto como función de la distancia, sigue una distribución Poisson (figura <a href="unidad-ii---utilizando-spatstat.html#fig:Cuenta-vecinos">4.1</a>). Con esto en mente hay varios escenarios posibles, que en promedio cada punto tenga más vecinos de lo esperado o que tenga menos. En el primer caso, se dice que los puntos están agregados, pues un punto tiende a atraer a otros. En el segundo, los puntos están segregados, o sea que un punto tiende a mantener a otros puntos lejos de sí. El primer caso, de independencia, suele ocurrir cuando los puntos están distribuidos aleatoriamente (figura <a href="unidad-ii---utilizando-spatstat.html#fig:Segreg-agreg">4.2</a>).</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:Cuenta-vecinos"></span>
-<img src="Unidad-II/Cuenta-vecinos.png" alt="Número de vecinos como función de la distancia en un proceso de puntos." width="412" />
+<img src="Unidad-II/Cuenta-vecinos.png" alt="Número de vecinos como función de la distancia en un proceso de puntos."  />
 <p class="caption">
 Figura 4.1: Número de vecinos como función de la distancia en un proceso de puntos.
 </p>
 </div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:Segreg-agreg"></span>
-<img src="Unidad-II/Ejemplo-procesos.png" alt="Ejemplo de procesos de puntos de izquierda a derecha: segregado, aleatorio y agregado (reproducido de Baddeley y Rubak 2016)" width="1069" />
+<img src="Unidad-II/Ejemplo-procesos.png" alt="Ejemplo de procesos de puntos de izquierda a derecha: segregado, aleatorio y agregado (reproducido de Baddeley y Rubak 2016)"  />
 <p class="caption">
 Figura 4.2: Ejemplo de procesos de puntos de izquierda a derecha: segregado, aleatorio y agregado (reproducido de Baddeley y Rubak 2016)
 </p>
 </div>
 <p>Existe una serie de pruebas gráficas y estadísticas para medir autocorrelación. Aquí nos enfocaremos en el uso de la prueba de envolturas <em>K</em> de Ripley. La implementación de esta prueba en <code>spatstat</code> genera unos intervalos de confianza alrededor de la expectativa del número de vecinos por medio de simulación. La figura <a href="unidad-ii---utilizando-spatstat.html#fig:K-env">4.3</a> muestra los tres escenarios de segregación, aleatorio y agrecación.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:K-env"></span>
-<img src="Unidad-II/K-Ripley.png" alt="Gráfica de la prueba *K* de Ripley implementada en `spatstat`. De izquierda a derecha: funciones de Ripley para puntos segregados, aleatorios y agregados." width="870" />
+<img src="Unidad-II/K-Ripley.png" alt="Gráfica de la prueba *K* de Ripley implementada en `spatstat`. De izquierda a derecha: funciones de Ripley para puntos segregados, aleatorios y agregados."  />
 <p class="caption">
 Figura 4.3: Gráfica de la prueba <em>K</em> de Ripley implementada en <code>spatstat</code>. De izquierda a derecha: funciones de Ripley para puntos segregados, aleatorios y agregados.
 </p>
@@ -338,6 +338,17 @@ Figura 4.8: Ecuación polinomial de 3er grado exponenciada.
 <p>Cuando hacemos un análisis de regresión, en deseable que todas las variables independientes que incluyamos en un modelo sean ortogonales, es decir que no estén correlacionadas, que no sean predictoras una de otra. Al incluir variables independientes correlacionadas creamos un problema en el que no es posible medir la varianzade la variable dependiente que explican. Un ejemplo análogo en ANOVA, sería un experimento de dos factores con dos niveles cada uno, y por lo tanto para poder entender el efecto de cada factor con sus niveles necesitaríamos cuatro unidades experimentales como mínimo, 2 niveles del factor I <span class="math inline">\(\times\)</span> 2 niveles del factor II. Si los factores fueran colineales, implicaría que sólo tendríamos por ejemplo, nivel <span class="math inline">\(A\)</span> del factor I con nivel <span class="math inline">\(a\)</span> del factor II, y nivel <span class="math inline">\(b\)</span> del factor I con nivel <span class="math inline">\(b\)</span> del factor II, siendo que requerimos de las combinaciones:<span class="math inline">\(Aa, Ab, Ba\)</span> y <span class="math inline">\(Bb\)</span>.</p>
 <p>Para medir la correlación entre pares de variables raster estimamos el coeficiente de correlación de Pearson, con la función <code>pairs</code> del paquete <code>raster</code>. Esta función compara todas las posibles combinaciones de pares de variables en el stack y produce un gráfico de dispersión para cada combinación:</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="unidad-ii---utilizando-spatstat.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(s)</span></code></pre></div>
+<pre><code>## Warning in graphics::par(usr): argument 1 does not name a graphical parameter
+
+## Warning in graphics::par(usr): argument 1 does not name a graphical parameter
+
+## Warning in graphics::par(usr): argument 1 does not name a graphical parameter
+
+## Warning in graphics::par(usr): argument 1 does not name a graphical parameter
+
+## Warning in graphics::par(usr): argument 1 does not name a graphical parameter
+
+## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:correl"></span>
 <img src="Mod-nich-distr-MPPs_files/figure-html/correl-1.png" alt="Prueba de correlación para todos los pares de variables." width="672" />
 <p class="caption">
@@ -368,9 +379,9 @@ Figura 4.9: Prueba de correlación para todos los pares de variables.
 <li>La lista de imágenes de pixeles que contiene las covariables que se utilizan en la fórmula (con los mismos nombres)</li>
 </ol>
 <p>Para ajustar el modelo propuesto con la 1a fórmula propuesta tenemos:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="unidad-ii---utilizando-spatstat.html#cb35-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">ppm</span>(<span class="at">Q =</span> puntos.<span class="fl">2.</span>ppp,</span>
-<span id="cb35-2"><a href="unidad-ii---utilizando-spatstat.html#cb35-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">trend =</span> <span class="sc">~</span> Var<span class="fl">.1</span> <span class="sc">+</span> Var<span class="fl">.3</span> <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.1</span><span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.3</span><span class="sc">^</span><span class="dv">2</span>),</span>
-<span id="cb35-3"><a href="unidad-ii---utilizando-spatstat.html#cb35-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">covariates =</span> s.im)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="unidad-ii---utilizando-spatstat.html#cb36-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">ppm</span>(<span class="at">Q =</span> puntos.<span class="fl">2.</span>ppp,</span>
+<span id="cb36-2"><a href="unidad-ii---utilizando-spatstat.html#cb36-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">trend =</span> <span class="sc">~</span> Var<span class="fl">.1</span> <span class="sc">+</span> Var<span class="fl">.3</span> <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.1</span><span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.3</span><span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb36-3"><a href="unidad-ii---utilizando-spatstat.html#cb36-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">covariates =</span> s.im)</span></code></pre></div>
 <p>Para ver un resumen detallado del modelo ajustado, podemos utilizar la función <code>summary</code> del objeto creado <code>m1</code>, lo que imprimirá una tabla que muestra los coeficientes estimados, error para cada coeficiente, su significancia y otra información sobre el llamado a la función <code>ppm</code> y estadísticas de convergencia:</p>
 <pre><code>## Point process model
 ## Fitting method: maximum likelihood (Berman-Turner approximation)
@@ -459,8 +470,8 @@ Figura 4.9: Prueba de correlación para todos los pares de variables.
 ## 1.612543e-25 1.591969e+00 1.218113e+00 9.988053e-01 9.993249e-01</code></pre>
 <p>La parte del resumen del modelo ajustado que contiene los detalles de los coeficientes estimados es la que dice <code>Fitted trend coefficients</code>. La primera columna de esta tabla contiene los nombres de las variables, la segunda columna (<code>Estimates</code>) contiene el valor medio estimado de cada coeficiente. Las columnas 3-5 contienen el error estándar (<code>S.E.</code>), intervalo de confianza inferior y superior. La última columna (<code>Ztest</code>) contiene el valor de la probabilidad de que el intervalo a 95% contenga el valor de cero (0). Cuanto menos probable sea que contenga cero mejor.</p>
 <p>Las predicciones del modelo podemos verlas con la función <code>plot</code>:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="unidad-ii---utilizando-spatstat.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb37-2"><a href="unidad-ii---utilizando-spatstat.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(m1)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="unidad-ii---utilizando-spatstat.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb38-2"><a href="unidad-ii---utilizando-spatstat.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(m1)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-28"></span>
 <img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-28-1.png" alt="Mapa de las predicciones del modelo. El panel izquierdo muestra la tendencia espacial y el derecho el error estándar de la tendencia estimada." width="768" />
 <p class="caption">
@@ -470,12 +481,12 @@ Figura 4.10: Mapa de las predicciones del modelo. El panel izquierdo muestra la 
 <div id="selección-del-modelo" class="section level3 hasAnchor" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> Selección del modelo<a href="unidad-ii---utilizando-spatstat.html#selección-del-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Ahora que ya sabemos ajustar un modelo, podemos proceder a ajustar los modelos de las fórmulas alternativas:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="unidad-ii---utilizando-spatstat.html#cb38-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">ppm</span>(<span class="at">Q =</span> puntos.<span class="fl">2.</span>ppp,</span>
-<span id="cb38-2"><a href="unidad-ii---utilizando-spatstat.html#cb38-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">trend =</span> <span class="sc">~</span> Var<span class="fl">.1</span> <span class="sc">+</span> Var<span class="fl">.3</span> <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.1</span><span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.1</span><span class="sc">^</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.3</span><span class="sc">^</span><span class="dv">2</span>),</span>
-<span id="cb38-3"><a href="unidad-ii---utilizando-spatstat.html#cb38-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">covariates =</span> s.im)</span>
-<span id="cb38-4"><a href="unidad-ii---utilizando-spatstat.html#cb38-4" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">ppm</span>(<span class="at">Q =</span> puntos.<span class="fl">2.</span>ppp,</span>
-<span id="cb38-5"><a href="unidad-ii---utilizando-spatstat.html#cb38-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">trend =</span> <span class="sc">~</span> Var<span class="fl">.2</span> <span class="sc">+</span> Var<span class="fl">.3</span> <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.2</span><span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.3</span><span class="sc">^</span><span class="dv">2</span>),</span>
-<span id="cb38-6"><a href="unidad-ii---utilizando-spatstat.html#cb38-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">covariates =</span> s.im)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="unidad-ii---utilizando-spatstat.html#cb39-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">ppm</span>(<span class="at">Q =</span> puntos.<span class="fl">2.</span>ppp,</span>
+<span id="cb39-2"><a href="unidad-ii---utilizando-spatstat.html#cb39-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">trend =</span> <span class="sc">~</span> Var<span class="fl">.1</span> <span class="sc">+</span> Var<span class="fl">.3</span> <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.1</span><span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.1</span><span class="sc">^</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.3</span><span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb39-3"><a href="unidad-ii---utilizando-spatstat.html#cb39-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">covariates =</span> s.im)</span>
+<span id="cb39-4"><a href="unidad-ii---utilizando-spatstat.html#cb39-4" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">ppm</span>(<span class="at">Q =</span> puntos.<span class="fl">2.</span>ppp,</span>
+<span id="cb39-5"><a href="unidad-ii---utilizando-spatstat.html#cb39-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">trend =</span> <span class="sc">~</span> Var<span class="fl">.2</span> <span class="sc">+</span> Var<span class="fl">.3</span> <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.2</span><span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(Var<span class="fl">.3</span><span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb39-6"><a href="unidad-ii---utilizando-spatstat.html#cb39-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">covariates =</span> s.im)</span></code></pre></div>
 <p>El dilema con el que nos enfrentamos ahora es decidir con cuál modelo nos quedaremos. Hay una serie de criterios para tomar esta decisión que tienen que ver principalmente con:</p>
 <ol style="list-style-type: decimal">
 <li>El cumplimiento de los supuestos estadísticos (independencia de puntos y análisis de residuales)</li>
@@ -486,11 +497,11 @@ Figura 4.10: Mapa de las predicciones del modelo. El panel izquierdo muestra la 
 <div id="criterio-de-información-de-akaike" class="section level4 hasAnchor" number="4.2.1.1">
 <h4><span class="header-section-number">4.2.1.1</span> Criterio de información de Akaike<a href="unidad-ii---utilizando-spatstat.html#criterio-de-información-de-akaike" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Calcular el AIC (por sus siglas en inglés), es muy fácil en R. Solamente necesitamos la función <code>AIC</code>, y proporcionarle los modelos cuyos criterios querramos conocer:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="unidad-ii---utilizando-spatstat.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(m1)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="unidad-ii---utilizando-spatstat.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(m1)</span></code></pre></div>
 <pre><code>## [1] -473.2666</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="unidad-ii---utilizando-spatstat.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(m2)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="unidad-ii---utilizando-spatstat.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(m2)</span></code></pre></div>
 <pre><code>## [1] -473.0841</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="unidad-ii---utilizando-spatstat.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(m3)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="unidad-ii---utilizando-spatstat.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(m3)</span></code></pre></div>
 <pre><code>## [1] -468.7745</code></pre>
 <p>La regla general es que cuanto más bajo sea el AIC, mejor, por lo que el modelo 3 (<code>m3</code>), parece tener la ventaja sobre el 1 y 2.</p>
 </div>
@@ -498,7 +509,7 @@ Figura 4.10: Mapa de las predicciones del modelo. El panel izquierdo muestra la 
 <h4><span class="header-section-number">4.2.1.2</span> Estimación correcta de efectos<a href="unidad-ii---utilizando-spatstat.html#estimación-correcta-de-efectos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Dado que los MPPs son complejos es frecuente encontrarse con modelos que no pudieron ser ajustados correctamente, o sea que la rutina de optimización pudo encontrar los valores de los parámetros y calcular su significancia estadística. Por otra parte, cuando los efectos estadísticos pudieron ser calculados, nos interesa que la mayoría de estos sean significativamente diferentes de cero (<span class="math inline">\(P \leq 0.05\)</span>)</p>
 <p>Si revisamos el resumen del modelo <code>m2</code>, veremos que aparecen algunos de los errores mencionados, y que resultan en la ausencia de estimaciones de significancia estadística (columna <code>Ztest</code>).</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="unidad-ii---utilizando-spatstat.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m2)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="unidad-ii---utilizando-spatstat.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m2)</span></code></pre></div>
 <pre><code>## Error in solve.default(M) : 
 ##   sistema es computacionalmente singular: número de condición recíproco = 1.96602e-20</code></pre>
 <pre><code>## Warning: Cannot compute variance: Fisher information matrix is singular</code></pre>
@@ -582,7 +593,7 @@ Figura 4.10: Mapa de las predicciones del modelo. El panel izquierdo muestra la 
 ##  (Intercept)        Var.1        Var.3   I(Var.1^2)   I(Var.1^3)   I(Var.3^2) 
 ## 3.444654e+26 2.517246e-01 1.224041e+00 1.008366e+00 9.999837e-01 9.993097e-01</code></pre>
 <p>En comparación, el resumen del modelo 3:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="unidad-ii---utilizando-spatstat.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m3)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="unidad-ii---utilizando-spatstat.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m3)</span></code></pre></div>
 <pre><code>## Point process model
 ## Fitting method: maximum likelihood (Berman-Turner approximation)
 ## Model was fitted using glm()
@@ -683,7 +694,98 @@ Figura 4.10: Mapa de las predicciones del modelo. El panel izquierdo muestra la 
 <li>Análisis de residuales</li>
 <li>Simulación de envolturas <em>K</em></li>
 </ol>
+<div id="analisis-de-residuales" class="section level5 hasAnchor" number="4.2.1.3.1">
+<h5><span class="header-section-number">4.2.1.3.1</span> Analisis de residuales<a href="unidad-ii---utilizando-spatstat.html#analisis-de-residuales" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>En las metodologias de regresion los efectos fijos se utilizan para explicar el comportamiento promedio de una variable aleatoria. Cuando la variable aleatoria tiene una distribucion normal y calculamos la media aritmetica:</p>
+<p><span class="math display">\[\begin{equation}
+\mu_X = \sum \frac{x_i}{n}
+\end{equation}\]</span></p>
+<p>y despues restamos la media aritmetica a cada uno de los valores de <span class="math inline">\(X\)</span>, el resultado es la misma variable con distribucion normal pero con media de cero. Para ilustrar esto, simulemos una variable de diez valores con media de 5 y desviacion estandar de 2:</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="unidad-ii---utilizando-spatstat.html#cb54-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>); x</span></code></pre></div>
+<pre><code>##  [1] 7.2202528 6.1047589 4.3691186 0.9106072 4.4739299 4.6441368 7.2534409
+##  [8] 3.5502655 4.4711294 9.7822805</code></pre>
+<p>verificamos la media:</p>
+<pre><code>## [1] 5.277992</code></pre>
+<p>Para mostrar la distribucion de la variable tambien la podemos graficar e indicar donde queda la media estimada:</p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-35-1.png" width="384" /></p>
+<p>El efecto de restar la media a todos los valores de <span class="math inline">\(x\)</span> se muestra a continuacion</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="unidad-ii---utilizando-spatstat.html#cb57-1" aria-hidden="true" tabindex="-1"></a>x<span class="fl">.0</span> <span class="ot">&lt;-</span> x <span class="sc">-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb57-2"><a href="unidad-ii---utilizando-spatstat.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(x<span class="fl">.0</span>), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Densidad de x.0&quot;</span>)</span>
+<span id="cb57-3"><a href="unidad-ii---utilizando-spatstat.html#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(x<span class="fl">.0</span>), <span class="at">lty =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/normal-cent-1.png" width="384" /></p>
+<p>Para mostrar mas objetivamente que ambas variables tienen una distribucion normal tambien podemos hacer:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="unidad-ii---utilizando-spatstat.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(x)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  x
+## W = 0.95411, p-value = 0.7171</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="unidad-ii---utilizando-spatstat.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(x<span class="fl">.0</span>)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  x.0
+## W = 0.95411, p-value = 0.7171</code></pre>
+<p>De igual manera que como acabamos de hacer al restar la media de toda la variable <span class="math inline">\(x\)</span> los residuals se obtienen restando las predicciones de un modelo (lineal o de puntos, p. ej.) se restan a todos los valores de la variable dependiente. Por ejemplo, vamos a simular otras dos variables <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span>, de modo que:</p>
+<p><span class="math display">\[ y(x) = \alpha + \beta x\]</span>
+<span class="math inline">\(y\)</span> sea una funcion de <span class="math inline">\(x\)</span>.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="unidad-ii---utilizando-spatstat.html#cb62-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb62-2"><a href="unidad-ii---utilizando-spatstat.html#cb62-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">10</span>, <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="sc">*</span> x</span>
+<span id="cb62-3"><a href="unidad-ii---utilizando-spatstat.html#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">main =</span> <span class="st">&quot;&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-37-1.png" width="384" /></p>
+<p>Ajustaremos el modelo lineal para estimar a <span class="math inline">\(\alpha\)</span> y <span class="math inline">\(\beta\)</span>, y extraer los residuales:</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="unidad-ii---utilizando-spatstat.html#cb63-1" aria-hidden="true" tabindex="-1"></a>mod.lin <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x)</span>
+<span id="cb63-2"><a href="unidad-ii---utilizando-spatstat.html#cb63-2" aria-hidden="true" tabindex="-1"></a>resids <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod.lin)</span>
+<span id="cb63-3"><a href="unidad-ii---utilizando-spatstat.html#cb63-3" aria-hidden="true" tabindex="-1"></a>predics <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod.lin)</span></code></pre></div>
+<p>y veremos como <span class="math inline">\(\varepsilon = y - y(x)\)</span></p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="unidad-ii---utilizando-spatstat.html#cb64-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> y, <span class="at">predicciones =</span> predics, <span class="at">residuales =</span> resids)</span>
+<span id="cb64-2"><a href="unidad-ii---utilizando-spatstat.html#cb64-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(df))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">y</th>
+<th align="right">predicciones</th>
+<th align="right">residuales</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">9.547765</td>
+<td align="right">9.873913</td>
+<td align="right">-0.3261483</td>
+</tr>
+<tr class="even">
+<td align="right">10.919382</td>
+<td align="right">11.475169</td>
+<td align="right">-0.5557877</td>
+</tr>
+<tr class="odd">
+<td align="right">10.862230</td>
+<td align="right">10.278643</td>
+<td align="right">0.5835869</td>
+</tr>
+<tr class="even">
+<td align="right">10.403145</td>
+<td align="right">11.145252</td>
+<td align="right">-0.7421070</td>
+</tr>
+<tr class="odd">
+<td align="right">6.016042</td>
+<td align="right">6.419692</td>
+<td align="right">-0.4036495</td>
+</tr>
+<tr class="even">
+<td align="right">10.533279</td>
+<td align="right">10.254839</td>
+<td align="right">0.2784400</td>
+</tr>
+</tbody>
+</table>
+<p>puesto que <span class="math inline">\(y(x_i)\)</span> es la media de <span class="math inline">\(y_i\)</span> para <span class="math inline">\(x_i\)</span>. De modo que del mismo modo que con la figura <a href="#fig:normal-cent"><strong>??</strong></a>, los residuales <span class="math inline">\(\varepsilon\)</span> tienen una distribucion normal con media de cero (0):</p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-40-1.png" width="384" /></p>
+<p>En el caso de los procesos de puntos los residuales tambien deben tener una media de cero, y ser aproximadamente normales (con varianza homogenea).</p>
 
+</div>
 </div>
 </div>
 </div>

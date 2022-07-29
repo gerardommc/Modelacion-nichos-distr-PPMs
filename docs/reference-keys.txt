@@ -33,3 +33,4 @@ selección-del-modelo
 criterio-de-información-de-akaike
 estimación-correcta-de-efectos
 verificación-de-supuestos-de-independencia
+analisis-de-residuales
