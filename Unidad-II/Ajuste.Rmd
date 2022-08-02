@@ -85,14 +85,14 @@ No tiene alertas de errores y sí imprime la columna de significancia estadísti
 
 Aún así, es posible que `m1` cumpla mejor con el criterio del supuesto de independencia, que veremos a continuación.
 
-#### Verificación de supuestos de independencia
+### Verificación de supuestos de independencia
 
 Este criterio lo podemos verificar con dos pruebas adicionales:
 
 1. Análisis de residuales
 2. Simulación de envolturas *K*
 
-##### Analisis de residuales
+#### Analisis de residuales
 
 En las metodologias de regresion los efectos fijos se utilizan para explicar el comportamiento promedio de una variable aleatoria. Cuando la variable aleatoria tiene una distribucion normal y calculamos la media aritmetica: 
 
@@ -168,3 +168,38 @@ abline(v = mean(df$residuales), lty = 3, col = "red")
 ```
 
 En el caso de los procesos de puntos los residuales tambien deben tener una media de cero, y ser aproximadamente normales (con varianza homogenea).
+
+A diferencia de los procedimientos de regresión lineal, los procesos de puntos no se limitan al análisis de las coordenadas del fenómeno que estamos estudiando, si no a todas las unidades espaciales donde podría estar definido el proceso de puntos. Esto implica que tenemos que evaluar los residuales en el espacio. aquí surge una pregunta muy natural, ¿cómo se evalúan los residuales de una serie de puntos discretos en una rejilla de unidades espaciales? El paquete `spatstat` emplea un método muy ingenioso que consiste en:
+
+1. Generación de un mapa de densidad del procesos de puntos analizado con una estimación de kernel
+2. Calcular la diferencia entre la densidad estimada con el modelo y la de kernel
+3. Suavizar la diferencia, promediando unidades espaciales adyacentes con una distancia similar a la utilizada en la estimación de kernel
+4. Sumar los residuales en las dimensiones $x$ y $y$
+
+El resultado de este procedimiento se llama *lurking plot*. La función para hacer este análisis es `diagnose.ppm`:
+
+```{r diag, echo=T, fig.height=5, fig.width=5, fig.align='center', fig.cap="Gráfico de residuales suavizados del modelo 3."}
+par(mar = c(2,2,2,2))
+diagnose.ppm(m3)
+```
+
+El primer panel (arriba, izquierdo) de este gráfico muestra el proceso de puntos analizado, seguido a la derecha, de los residuales acumulados en el eje de las $y$. En el panel de abajo a la izquierda se muestran los residuales acumulados en el eje de las $x$ y en el panel de abajo a la derecha, se muestran los residuales. En un escenario ideal, este último panel debe mostrar valores muy cercanos a cero. Las líneas punteadas que rodean a la suma de residuales son los límites de tolerancia que no deben ser excedidos por los residuales para cumplirse el supuesto de aleatoriedad de los residuales. Como resulta evidente, los residuales en $y$ exceden el límite de tolerancia en una región.
+
+#### Simulación de envolturas de Ripley
+
+Como vimos en el análisis exloratorio, podemos medir la autocorrelación para ver si de antemano necesitamos tomarla en cuenta para el análisis. La prueba que hicimos fue la de Ripley, comparando el número promedio de vecinos en función de un radio al rededor de cada punto. Aún cuando un proceso de puntos Poisson asume que los puntos son independientes entre sí, es posible que cuando detectamos autocorrelación con la prueba de Ripley, podamos generar un modelo Poisson que explique el patrón de puntos por medio de covariables. Para ver si el modelo que formulamos en efecto explica la autocorrelación, podemos usarlo para simular patrones de puntos y comparalos con la expectativa teórica.
+
+Para hacer esta comparación utilizamos la misma función que antes, pero el primer argumento es el objeto que contiene el modelo que queremos analizar. Comparemos en esta ocasión los tres modelos:
+
+```{r echo = T, message = F, warning=F}
+K1 <- envelope(m1, Kest, nsim = 39)
+K2 <- envelope(m2, Kest, nsim = 39)
+K3 <- envelope(m3, Kest, nsim = 39)
+```
+
+```{r K-modelos, echo=T, fig.height=4, fig.width=12, fig.align='center', fig.cap="Gráficas de las envolturas de Ripley."}
+par(mfrow = c(1, 3))
+plot(K1); plot(K2); plot(K3)
+```
+
+Todos los modelos muestran un comportamiento adecuado, aunque `m3` parece estar marginalmente más cerca de la expectativa teórica (en rojo), sin ser significativo.

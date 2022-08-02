@@ -9,6 +9,8 @@ fig:Cuadratica
 fig:Cubica
 fig:correl
 fig:unnamed-chunk-28
+fig:diag
+fig:K-modelos
 preámbulo
 encuadre-de-la-materia
 criterios-de-evaluación
@@ -34,3 +36,4 @@ criterio-de-información-de-akaike
 estimación-correcta-de-efectos
 verificación-de-supuestos-de-independencia
 analisis-de-residuales
+simulación-de-envolturas-de-ripley
