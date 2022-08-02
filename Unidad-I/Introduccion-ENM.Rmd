@@ -1,0 +1,15 @@
+La modelación correlativa de nichos ecológicos y áreas de distribución consiste del análisis de las condiciones ambientales de las regiones donde ocurre un organismo. Frecuentemente el análisis de dichas condiciones se realiza con el fin de representarlas en un producto cartográfico.
+La representación cartográfica de la relación entre un organismo y el medio ambiente es posible gracias a que todas las condiciones ambientales están expresadas en la geografía. Por ejemplo, la temperatura media anual presenta patrones geográficos evidentes a lo largo y ancho de la geografía mexicana.
+
+Los modelos de nicho ecológico tienen fuertes bases biológicas, sentadas principalmente en el fenómeno de tolerancia fisiológica, la cual  se refiere a que todos los organismos tienen la capacidad de soportar ciertas condiciones climatológicas. La tolerancia térmica, por ejemplo se refiere a los límites de temperatura a los cuales un organismo moriría de choque de calor o hipotermia. Por otro lado, los requerimientos hídricos podrían estar relacionados con la cantidad de agua que el organismo en cuestión necesita ingerir, y la tasa  de evapotranspiración se refiere a la rapidez con que pierde agua a una temperatura determinada. Como es evidente, todas las dimensiones de la tolerancia fisiológica pueden estar interconectadas y son sumamente complejas.
+
+En realidad, los organismos son afectados por muchas fuerzas que se expresan en la geografía, desde el clima, la topografía, química del suelo, el hábitat primario (agua o tierra) y otros organismos. Las diferentes clases de influencias del medio ambiente sobre la distribución espacial de un organismo se clasifican como [@Soberon2005]:
+
+- **Bióticas** Interacciones con otros organismos
+- **Abióticas** Interacciones con las características no biológicas como temperatura, radiación solar y cantidad de agua
+- **Movimiento** Espacio disponible para dispersión
+
+Estos tres componentes se pueden representar con un diagrama de Euler de modo que las áreas ocupadas por un organiso corresponden a la intersercción de los tres conjuntos $B \cap A \cap M$.
+
+Insertar figura aquí
+

@@ -1,14 +1,14 @@
-fig:unnamed-chunk-8
+fig:unnamed-chunk-9
 fig:Cuenta-vecinos
 fig:Segreg-agreg
 fig:K-env
-fig:unnamed-chunk-19
+fig:unnamed-chunk-20
 fig:Distancia
 fig:Favorabilidad
 fig:Cuadratica
 fig:Cubica
 fig:correl
-fig:unnamed-chunk-28
+fig:unnamed-chunk-29
 fig:diag
 fig:K-modelos
 preámbulo
@@ -16,7 +16,8 @@ encuadre-de-la-materia
 criterios-de-evaluación
 cómo-se-darán-las-clases
 contacto
-unidad-i-introducción-al-modelado-de-procesos-de-puntos
+unidad-i-introducción-al-modelado-de-nichos-con-procesos-de-puntos
+introducción-al-modelado-de-nichos-ecológicos
 introducción
 formateo-de-datos
 formateo-de-datos-raster

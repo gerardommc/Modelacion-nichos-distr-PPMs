@@ -1,4 +1,10 @@
-# Unidad I: Introducción al modelado de procesos de puntos
+# Unidad I: Introducción al modelado de nichos con procesos de puntos
+
+## Introducción al modelado de nichos ecológicos
+
+```{r echo = F, child="Unidad-I/Introduccion-ENM.Rmd"}
+
+```
 
 ## Introducción
 
