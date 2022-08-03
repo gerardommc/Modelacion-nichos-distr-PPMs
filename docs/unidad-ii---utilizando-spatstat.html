@@ -23,7 +23,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-08-02" />
+<meta name="date" content="2022-08-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -205,20 +205,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">4.1.1</span> Independencia y autocorrelación<a href="unidad-ii---utilizando-spatstat.html#independencia-y-autocorrelación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Se dice que los diferentes puntos son independientes entre sí, si el número de vecinos promedio de cada punto como función de la distancia, sigue una distribución Poisson (figura <a href="unidad-ii---utilizando-spatstat.html#fig:Cuenta-vecinos">4.1</a>). Con esto en mente hay varios escenarios posibles, que en promedio cada punto tenga más vecinos de lo esperado o que tenga menos. En el primer caso, se dice que los puntos están agregados, pues un punto tiende a atraer a otros. En el segundo, los puntos están segregados, o sea que un punto tiende a mantener a otros puntos lejos de sí. El primer caso, de independencia, suele ocurrir cuando los puntos están distribuidos aleatoriamente (figura <a href="unidad-ii---utilizando-spatstat.html#fig:Segreg-agreg">4.2</a>).</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:Cuenta-vecinos"></span>
-<img src="Unidad-II/Cuenta-vecinos.png" alt="Número de vecinos como función de la distancia en un proceso de puntos." width="412" />
+<img src="Unidad-II/Cuenta-vecinos.png" alt="Número de vecinos como función de la distancia en un proceso de puntos."  />
 <p class="caption">
 Figura 4.1: Número de vecinos como función de la distancia en un proceso de puntos.
 </p>
 </div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:Segreg-agreg"></span>
-<img src="Unidad-II/Ejemplo-procesos.png" alt="Ejemplo de procesos de puntos de izquierda a derecha: segregado, aleatorio y agregado (reproducido de Baddeley y Rubak 2016)" width="1069" />
+<img src="Unidad-II/Ejemplo-procesos.png" alt="Ejemplo de procesos de puntos de izquierda a derecha: segregado, aleatorio y agregado (reproducido de Baddeley y Rubak 2016)"  />
 <p class="caption">
 Figura 4.2: Ejemplo de procesos de puntos de izquierda a derecha: segregado, aleatorio y agregado (reproducido de Baddeley y Rubak 2016)
 </p>
 </div>
 <p>Existe una serie de pruebas gráficas y estadísticas para medir autocorrelación. Aquí nos enfocaremos en el uso de la prueba de envolturas <em>K</em> de Ripley. La implementación de esta prueba en <code>spatstat</code> genera unos intervalos de confianza alrededor de la expectativa del número de vecinos por medio de simulación. La figura <a href="unidad-ii---utilizando-spatstat.html#fig:K-env">4.3</a> muestra los tres escenarios de segregación, aleatorio y agrecación.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:K-env"></span>
-<img src="Unidad-II/K-Ripley.png" alt="Gráfica de la prueba *K* de Ripley implementada en `spatstat`. De izquierda a derecha: funciones de Ripley para puntos segregados, aleatorios y agregados." width="870" />
+<img src="Unidad-II/K-Ripley.png" alt="Gráfica de la prueba *K* de Ripley implementada en `spatstat`. De izquierda a derecha: funciones de Ripley para puntos segregados, aleatorios y agregados."  />
 <p class="caption">
 Figura 4.3: Gráfica de la prueba <em>K</em> de Ripley implementada en <code>spatstat</code>. De izquierda a derecha: funciones de Ripley para puntos segregados, aleatorios y agregados.
 </p>
@@ -233,8 +233,8 @@ Figura 4.3: Gráfica de la prueba <em>K</em> de Ripley implementada en <code>spa
 ## Done.</code></pre>
 <p>Mientras la función corre, <strong>R</strong> imprime la última simulación completada, y el objeto que se obtiene puede graficarse con el método por defecto <code>plot</code>:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="unidad-ii---utilizando-spatstat.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(K)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-20"></span>
-<img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-20-1.png" alt="Gráfica de la función *K* de Ripley para el proceso de puntos analizado. Las sombras en gris muestran los intervalos de confianza al 95%. La línea roja a guiones representa la expectativa teórica (*K* teórica) en caso de que el proceso de puntos sea aleatorio, y la línea negra sólida es la función de Ripley para el proceso de puntos (la *K* observada). El eje de las *x* representa distancia (en grados) y las *y* el número promedio de vecinos de cada punto." width="576" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-21"></span>
+<img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-21-1.png" alt="Gráfica de la función *K* de Ripley para el proceso de puntos analizado. Las sombras en gris muestran los intervalos de confianza al 95%. La línea roja a guiones representa la expectativa teórica (*K* teórica) en caso de que el proceso de puntos sea aleatorio, y la línea negra sólida es la función de Ripley para el proceso de puntos (la *K* observada). El eje de las *x* representa distancia (en grados) y las *y* el número promedio de vecinos de cada punto." width="576" />
 <p class="caption">
 Figura 4.4: Gráfica de la función <em>K</em> de Ripley para el proceso de puntos analizado. Las sombras en gris muestran los intervalos de confianza al 95%. La línea roja a guiones representa la expectativa teórica (<em>K</em> teórica) en caso de que el proceso de puntos sea aleatorio, y la línea negra sólida es la función de Ripley para el proceso de puntos (la <em>K</em> observada). El eje de las <em>x</em> representa distancia (en grados) y las <em>y</em> el número promedio de vecinos de cada punto.
 </p>
@@ -474,8 +474,8 @@ Figura 4.9: Prueba de correlación para todos los pares de variables.
 <p>Las predicciones del modelo podemos verlas con la función <code>plot</code>:</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="unidad-ii---utilizando-spatstat.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
 <span id="cb38-2"><a href="unidad-ii---utilizando-spatstat.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(m1)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-29"></span>
-<img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-29-1.png" alt="Mapa de las predicciones del modelo. El panel izquierdo muestra la tendencia espacial y el derecho el error estándar de la tendencia estimada." width="768" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-30"></span>
+<img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-30-1.png" alt="Mapa de las predicciones del modelo. El panel izquierdo muestra la tendencia espacial y el derecho el error estándar de la tendencia estimada." width="768" />
 <p class="caption">
 Figura 4.10: Mapa de las predicciones del modelo. El panel izquierdo muestra la tendencia espacial y el derecho el error estándar de la tendencia estimada.
 </p>
@@ -710,7 +710,7 @@ Figura 4.10: Mapa de las predicciones del modelo. El panel izquierdo muestra la 
 <p>verificamos la media:</p>
 <pre><code>## [1] 5.277992</code></pre>
 <p>Para mostrar la distribucion de la variable tambien la podemos graficar e indicar donde queda la media estimada:</p>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-36-1.png" width="384" /></p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-37-1.png" width="384" /></p>
 <p>El efecto de restar la media a todos los valores de <span class="math inline">\(x\)</span> se muestra a continuacion</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="unidad-ii---utilizando-spatstat.html#cb57-1" aria-hidden="true" tabindex="-1"></a>x<span class="fl">.0</span> <span class="ot">&lt;-</span> x <span class="sc">-</span> <span class="fu">mean</span>(x)</span>
 <span id="cb57-2"><a href="unidad-ii---utilizando-spatstat.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(x<span class="fl">.0</span>), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Densidad de x.0&quot;</span>)</span>
@@ -735,7 +735,7 @@ Figura 4.10: Mapa de las predicciones del modelo. El panel izquierdo muestra la 
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="unidad-ii---utilizando-spatstat.html#cb62-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
 <span id="cb62-2"><a href="unidad-ii---utilizando-spatstat.html#cb62-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">10</span>, <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="sc">*</span> x</span>
 <span id="cb62-3"><a href="unidad-ii---utilizando-spatstat.html#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">main =</span> <span class="st">&quot;&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-38-1.png" width="384" /></p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-39-1.png" width="384" /></p>
 <p>Ajustaremos el modelo lineal para estimar a <span class="math inline">\(\alpha\)</span> y <span class="math inline">\(\beta\)</span>, y extraer los residuales:</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="unidad-ii---utilizando-spatstat.html#cb63-1" aria-hidden="true" tabindex="-1"></a>mod.lin <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x)</span>
 <span id="cb63-2"><a href="unidad-ii---utilizando-spatstat.html#cb63-2" aria-hidden="true" tabindex="-1"></a>resids <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod.lin)</span>
@@ -785,7 +785,7 @@ Figura 4.10: Mapa de las predicciones del modelo. El panel izquierdo muestra la 
 </tbody>
 </table>
 <p>puesto que <span class="math inline">\(y(x_i)\)</span> es la media de <span class="math inline">\(y_i\)</span> para <span class="math inline">\(x_i\)</span>. De modo que del mismo modo que con la figura <a href="#fig:normal-cent"><strong>??</strong></a>, los residuales <span class="math inline">\(\varepsilon\)</span> tienen una distribucion normal con media de cero (0):</p>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-41-1.png" width="384" /></p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-42-1.png" width="384" /></p>
 <p>En el caso de los procesos de puntos los residuales tambien deben tener una media de cero, y ser aproximadamente normales (con varianza homogenea).</p>
 <p>A diferencia de los procedimientos de regresión lineal, los procesos de puntos no se limitan al análisis de las coordenadas del fenómeno que estamos estudiando, si no a todas las unidades espaciales donde podría estar definido el proceso de puntos. Esto implica que tenemos que evaluar los residuales en el espacio. aquí surge una pregunta muy natural, ¿cómo se evalúan los residuales de una serie de puntos discretos en una rejilla de unidades espaciales? El paquete <code>spatstat</code> emplea un método muy ingenioso que consiste en:</p>
 <ol style="list-style-type: decimal">

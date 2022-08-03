@@ -23,7 +23,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-08-02" />
+<meta name="date" content="2022-08-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -204,7 +204,12 @@ La representación cartográfica de la relación entre un organismo y el medio a
 <li><strong>Movimiento</strong> Espacio disponible para dispersión</li>
 </ul>
 <p>Estos tres componentes se pueden representar con un diagrama de Euler de modo que las áreas ocupadas por un organiso corresponden a la intersercción de los tres conjuntos <span class="math inline">\(B \cap A \cap M\)</span>.</p>
-<p>Insertar figura aquí</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-7"></span>
+<img src="Unidad-I/BAM.png" alt="Diagrama BAM clásico muestra cómo la geografía ocupada (la distribución realizada de una especie) resulta de la intersección de los factores bióticos, abióticos y de movimiento."  />
+<p class="caption">
+Figura 3.1: Diagrama BAM clásico muestra cómo la geografía ocupada (la distribución realizada de una especie) resulta de la intersección de los factores bióticos, abióticos y de movimiento.
+</p>
+</div>
 </div>
 <div id="introducción" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Introducción<a href="unidad-i-introducción-al-modelado-de-nichos-con-procesos-de-puntos.html#introducción" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -232,10 +237,10 @@ La representación cartográfica de la relación entre un organismo y el medio a
 <span id="cb2-2"><a href="unidad-i-introducción-al-modelado-de-nichos-con-procesos-de-puntos.html#cb2-2" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">stack</span>(arch)</span></code></pre></div>
 <p>Una vez cargados las capas, podemos graficarlas para verificar que sean las que necesitamos o tenemos en mente:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="unidad-i-introducción-al-modelado-de-nichos-con-procesos-de-puntos.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-9"></span>
-<img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-9-1.png" alt="Gráfica de las capas que usaremos para los ejemplos." width="768" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-10"></span>
+<img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-10-1.png" alt="Gráfica de las capas que usaremos para los ejemplos." width="768" />
 <p class="caption">
-Figura 3.1: Gráfica de las capas que usaremos para los ejemplos.
+Figura 3.2: Gráfica de las capas que usaremos para los ejemplos.
 </p>
 </div>
 <p>La transformación a <code>im</code> la haremos solo con el stack, pues es el escenario más probable al que se encontrarán (trabajo con varias capas). Comenzaremos cargando la función para hacer la transformación, que se llama <code>imFromStack</code>. Para hacerlo utilizaremos la función <code>source</code>, y el argumento que necesita es la ruta y nombre del archivo de texto que contiene la función:</p>
@@ -253,7 +258,7 @@ Figura 3.1: Gráfica de las capas que usaremos para los ejemplos.
 <span id="cb10-2"><a href="unidad-i-introducción-al-modelado-de-nichos-con-procesos-de-puntos.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.im[[<span class="dv">1</span>]])</span>
 <span id="cb10-3"><a href="unidad-i-introducción-al-modelado-de-nichos-con-procesos-de-puntos.html#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.im[[<span class="dv">2</span>]])</span>
 <span id="cb10-4"><a href="unidad-i-introducción-al-modelado-de-nichos-con-procesos-de-puntos.html#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.im[[<span class="dv">3</span>]])</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-14-1.png" width="768" />
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-15-1.png" width="768" />
 Puedes descargar la función <code>imFromStack</code> en <a href="Funciones-spatstat/imFromStack.R">esta liga</a>.</p>
 </div>
 <div id="obteniendo-la-ventana-de-trabajo" class="section level3 hasAnchor" number="3.3.2">
@@ -280,7 +285,7 @@ Puedes descargar la función <code>imFromStack</code> en <a href="Funciones-spat
 <p>En el primer argumento <code>x</code> se especifican las coordenadas <span class="math inline">\(x\)</span> o longitud, en <code>y</code> las coordenadas <span class="math inline">\(y\)</span> o latitud, en <code>window</code> la ventana de trabajo, y <code>check</code> especifica si se verificará que todos los puntos están dentro de la ventana de trabajo. Normalmente se deja en <code>check = T</code>.</p>
 <p>Con todos los datos formateados, entonces ahora graficamos la ventana de trabajo y el proceso de puntos:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="unidad-i-introducción-al-modelado-de-nichos-con-procesos-de-puntos.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(win); <span class="fu">points</span>(puntos.ppp, <span class="at">col =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-18-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-19-1.png" width="384" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

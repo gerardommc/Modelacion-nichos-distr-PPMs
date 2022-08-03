@@ -11,5 +11,7 @@ En realidad, los organismos son afectados por muchas fuerzas que se expresan en 
 
 Estos tres componentes se pueden representar con un diagrama de Euler de modo que las áreas ocupadas por un organiso corresponden a la intersercción de los tres conjuntos $B \cap A \cap M$.
 
-Insertar figura aquí
+```{r echo=FALSE, fig.align='center', fig.cap="Diagrama BAM clásico muestra cómo la geografía ocupada (la distribución realizada de una especie) resulta de la intersección de los factores bióticos, abióticos y de movimiento."}
+knitr::include_graphics("Unidad-I/BAM.png")
+```
 
