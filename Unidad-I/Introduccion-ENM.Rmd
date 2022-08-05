@@ -1,6 +1,12 @@
 La modelación correlativa de nichos ecológicos y áreas de distribución consiste del análisis de las condiciones ambientales de las regiones donde ocurre un organismo. Frecuentemente el análisis de dichas condiciones se realiza con el fin de representarlas en un producto cartográfico.
 La representación cartográfica de la relación entre un organismo y el medio ambiente es posible gracias a que todas las condiciones ambientales están expresadas en la geografía. Por ejemplo, la temperatura media anual presenta patrones geográficos evidentes a lo largo y ancho de la geografía mexicana.
 
+```{r bio1, echo = F, fig.align='center', fig.cap="Temperatura anual promedio en una capa ráster de México.", message=F, warning = F}
+library(raster)
+plot(raster("bio1-mex.tif"))
+```
+
+
 Los modelos de nicho ecológico tienen fuertes bases biológicas, sentadas principalmente en el fenómeno de tolerancia fisiológica, la cual  se refiere a que todos los organismos tienen la capacidad de soportar ciertas condiciones climatológicas. La tolerancia térmica, por ejemplo se refiere a los límites de temperatura a los cuales un organismo moriría de choque de calor o hipotermia. Por otro lado, los requerimientos hídricos podrían estar relacionados con la cantidad de agua que el organismo en cuestión necesita ingerir, y la tasa  de evapotranspiración se refiere a la rapidez con que pierde agua a una temperatura determinada. Como es evidente, todas las dimensiones de la tolerancia fisiológica pueden estar interconectadas y son sumamente complejas.
 
 En realidad, los organismos son afectados por muchas fuerzas que se expresan en la geografía, desde el clima, la topografía, química del suelo, el hábitat primario (agua o tierra) y otros organismos. Las diferentes clases de influencias del medio ambiente sobre la distribución espacial de un organismo se clasifican como [@Soberon2005]:
@@ -11,7 +17,21 @@ En realidad, los organismos son afectados por muchas fuerzas que se expresan en 
 
 Estos tres componentes se pueden representar con un diagrama de Euler de modo que las áreas ocupadas por un organiso corresponden a la intersercción de los tres conjuntos $B \cap A \cap M$.
 
-```{r echo=FALSE, fig.align='center', fig.cap="Diagrama BAM clásico muestra cómo la geografía ocupada (la distribución realizada de una especie) resulta de la intersección de los factores bióticos, abióticos y de movimiento."}
+```{r bam, echo=FALSE, fig.align='center', fig.cap="Diagrama BAM clásico muestra cómo la geografía ocupada (la distribución realizada de una especie) resulta de la intersección de los factores bióticos, abióticos y de movimiento."}
 knitr::include_graphics("Unidad-I/BAM.png")
 ```
 
+En gran parte de la literatura existente los términos "Species Distrobution Models" y "Ecological Niche Models" se usan indistintamente. Es innegable que con ambos métodos se pueden obtener productos similares, sin embargo aquí vamos a hacer un distinción:
+
+- **Modelos de distribución** Buscan estimar la geografía ocupada de una especie, la intersección $B \cap A \cap M$.
+- **Modelos de nicho ecológico** Buscan estimar la tolerancia fisiológica de una especie a las condiciones abióticas, únicamente el componente $A$ de la figura \@ref(fig:bam).
+
+Para la gran mayoría de las especies, los nichos ecológicos sólo pueden ser estimados con experimentos bien controlados, lo cual puede ser éticamente inaceptable y logísticamente imposible. La modelación correlativa de nichos, entonces, es una de las pocas alternativas con que se cuenta para estimar los efectos del clima sobre las especies. Naturalmente el resultado de todos estos análisis tienen diferentes significados, los cuales tienen que corresponder con el nombre que se les da. Los modelos de distribución son representaciones de la distribución realizada de una especie, mientras que la representación cartográfica de los modelos de nicho son de la distribución potencial.
+
+Debido a que es muy difícil estimar las interacciones bióticas con métodos correlativos, los modelos de distribución suelen estimar relaciones más complejas entre el medio ambiente y la presencia de las especies. Los modelos de nicho ecológico, estiman relaciones más simples y generalmente con respuestas suavizadas.
+
+```{r echo = F, fig.align='center', fig.cap="Ejemplo de diferencias en las respuestas de un organismo a la temperatura promedio en un modelo de distribución y un modelo de nicho ecológico."}
+knitr::include_graphics("Unidad-I/SDM-ENM.png")
+```
+
+Los métodos que se utilizan para estimar las respuestas al medio ambiente en la modelación correlativa de nichos ecológicos, son en su gran mayoría modelos estadísticos. El más popular de ellos es MaxEnt, pero en este curso nos enfocaremos más en el uso de Modelos para Procesos de Puntos, los cuales pueden ser considerados como equivalente a MaxEnt, con la ventaja de que son más flexibles y permiten maximizar la utilidad de los datos tomando en cuenta la relación entre los puntos y la geografía. Una gran desventaja de los procesos de puntos es que son más laboriosos de implementar que MaxEnt pues requieren más programación en R, en particular con el paquete `spatstat` @Spatstat2005.

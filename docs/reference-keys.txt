@@ -1,3 +1,5 @@
+fig:bio1
+fig:bam
 fig:unnamed-chunk-7
 fig:unnamed-chunk-10
 fig:Cuenta-vecinos

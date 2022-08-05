@@ -23,7 +23,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-08-03" />
+<meta name="date" content="2022-08-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -119,6 +119,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -196,20 +218,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">3.1</span> Introducción al modelado de nichos ecológicos<a href="unidad-i-introducción-al-modelado-de-nichos-con-procesos-de-puntos.html#introducción-al-modelado-de-nichos-ecológicos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La modelación correlativa de nichos ecológicos y áreas de distribución consiste del análisis de las condiciones ambientales de las regiones donde ocurre un organismo. Frecuentemente el análisis de dichas condiciones se realiza con el fin de representarlas en un producto cartográfico.
 La representación cartográfica de la relación entre un organismo y el medio ambiente es posible gracias a que todas las condiciones ambientales están expresadas en la geografía. Por ejemplo, la temperatura media anual presenta patrones geográficos evidentes a lo largo y ancho de la geografía mexicana.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:bio1"></span>
+<img src="Mod-nich-distr-MPPs_files/figure-html/bio1-1.png" alt="Temperatura anual promedio en una capa ráster de México." width="672" />
+<p class="caption">
+Figura 3.1: Temperatura anual promedio en una capa ráster de México.
+</p>
+</div>
 <p>Los modelos de nicho ecológico tienen fuertes bases biológicas, sentadas principalmente en el fenómeno de tolerancia fisiológica, la cual se refiere a que todos los organismos tienen la capacidad de soportar ciertas condiciones climatológicas. La tolerancia térmica, por ejemplo se refiere a los límites de temperatura a los cuales un organismo moriría de choque de calor o hipotermia. Por otro lado, los requerimientos hídricos podrían estar relacionados con la cantidad de agua que el organismo en cuestión necesita ingerir, y la tasa de evapotranspiración se refiere a la rapidez con que pierde agua a una temperatura determinada. Como es evidente, todas las dimensiones de la tolerancia fisiológica pueden estar interconectadas y son sumamente complejas.</p>
-<p>En realidad, los organismos son afectados por muchas fuerzas que se expresan en la geografía, desde el clima, la topografía, química del suelo, el hábitat primario (agua o tierra) y otros organismos. Las diferentes clases de influencias del medio ambiente sobre la distribución espacial de un organismo se clasifican como <span class="citation">(<a href="#ref-Soberon2005" role="doc-biblioref"><strong>Soberon2005?</strong></a>)</span>:</p>
+<p>En realidad, los organismos son afectados por muchas fuerzas que se expresan en la geografía, desde el clima, la topografía, química del suelo, el hábitat primario (agua o tierra) y otros organismos. Las diferentes clases de influencias del medio ambiente sobre la distribución espacial de un organismo se clasifican como <span class="citation">(<a href="#ref-Soberon2005" role="doc-biblioref">Soberón and Peterson 2005</a>)</span>:</p>
 <ul>
 <li><strong>Bióticas</strong> Interacciones con otros organismos</li>
 <li><strong>Abióticas</strong> Interacciones con las características no biológicas como temperatura, radiación solar y cantidad de agua</li>
 <li><strong>Movimiento</strong> Espacio disponible para dispersión</li>
 </ul>
 <p>Estos tres componentes se pueden representar con un diagrama de Euler de modo que las áreas ocupadas por un organiso corresponden a la intersercción de los tres conjuntos <span class="math inline">\(B \cap A \cap M\)</span>.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-7"></span>
-<img src="Unidad-I/BAM.png" alt="Diagrama BAM clásico muestra cómo la geografía ocupada (la distribución realizada de una especie) resulta de la intersección de los factores bióticos, abióticos y de movimiento."  />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:bam"></span>
+<img src="Unidad-I/BAM.png" alt="Diagrama BAM clásico muestra cómo la geografía ocupada (la distribución realizada de una especie) resulta de la intersección de los factores bióticos, abióticos y de movimiento." width="310" />
 <p class="caption">
-Figura 3.1: Diagrama BAM clásico muestra cómo la geografía ocupada (la distribución realizada de una especie) resulta de la intersección de los factores bióticos, abióticos y de movimiento.
+Figura 3.2: Diagrama BAM clásico muestra cómo la geografía ocupada (la distribución realizada de una especie) resulta de la intersección de los factores bióticos, abióticos y de movimiento.
 </p>
 </div>
+<p>En gran parte de la literatura existente los términos “Species Distrobution Models” y “Ecological Niche Models” se usan indistintamente. Es innegable que con ambos métodos se pueden obtener productos similares, sin embargo aquí vamos a hacer un distinción:</p>
+<ul>
+<li><strong>Modelos de distribución</strong> Buscan estimar la geografía ocupada de una especie, la intersección <span class="math inline">\(B \cap A \cap M\)</span>.</li>
+<li><strong>Modelos de nicho ecológico</strong> Buscan estimar la tolerancia fisiológica de una especie a las condiciones abióticas, únicamente el componente <span class="math inline">\(A\)</span> de la figura <a href="unidad-i-introducción-al-modelado-de-nichos-con-procesos-de-puntos.html#fig:bam">3.2</a>.</li>
+</ul>
+<p>Para la gran mayoría de las especies, los nichos ecológicos sólo pueden ser estimados con experimentos bien controlados, lo cual puede ser éticamente inaceptable y logísticamente imposible. La modelación correlativa de nichos, entonces, es una de las pocas alternativas con que se cuenta para estimar los efectos del clima sobre las especies. Naturalmente el resultado de todos estos análisis tienen diferentes significados, los cuales tienen que corresponder con el nombre que se les da. Los modelos de distribución son representaciones de la distribución realizada de una especie, mientras que la representación cartográfica de los modelos de nicho son de la distribución potencial.</p>
+<p>Debido a que es muy difícil estimar las interacciones bióticas con métodos correlativos, los modelos de distribución suelen estimar relaciones más complejas entre el medio ambiente y la presencia de las especies. Los modelos de nicho ecológico, estiman relaciones más simples y generalmente con respuestas suavizadas.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-7"></span>
+<img src="Unidad-I/SDM-ENM.png" alt="Ejemplo de diferencias en las respuestas de un organismo a la temperatura promedio en un modelo de distribución y un modelo de nicho ecológico." width="568" />
+<p class="caption">
+Figura 3.3: Ejemplo de diferencias en las respuestas de un organismo a la temperatura promedio en un modelo de distribución y un modelo de nicho ecológico.
+</p>
+</div>
+<p>Los métodos que se utilizan para estimar las respuestas al medio ambiente en la modelación correlativa de nichos ecológicos, son en su gran mayoría modelos estadísticos. El más popular de ellos es MaxEnt, pero en este curso nos enfocaremos más en el uso de Modelos para Procesos de Puntos, los cuales pueden ser considerados como equivalente a MaxEnt, con la ventaja de que son más flexibles y permiten maximizar la utilidad de los datos tomando en cuenta la relación entre los puntos y la geografía. Una gran desventaja de los procesos de puntos es que son más laboriosos de implementar que MaxEnt pues requieren más programación en R, en particular con el paquete <code>spatstat</code> <span class="citation">Baddeley and Turner (<a href="#ref-Spatstat2005" role="doc-biblioref">2005</a>)</span>.</p>
 </div>
 <div id="introducción" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Introducción<a href="unidad-i-introducción-al-modelado-de-nichos-con-procesos-de-puntos.html#introducción" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -240,7 +282,7 @@ Figura 3.1: Diagrama BAM clásico muestra cómo la geografía ocupada (la distri
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-10"></span>
 <img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-10-1.png" alt="Gráfica de las capas que usaremos para los ejemplos." width="768" />
 <p class="caption">
-Figura 3.2: Gráfica de las capas que usaremos para los ejemplos.
+Figura 3.4: Gráfica de las capas que usaremos para los ejemplos.
 </p>
 </div>
 <p>La transformación a <code>im</code> la haremos solo con el stack, pues es el escenario más probable al que se encontrarán (trabajo con varias capas). Comenzaremos cargando la función para hacer la transformación, que se llama <code>imFromStack</code>. Para hacerlo utilizaremos la función <code>source</code>, y el argumento que necesita es la ruta y nombre del archivo de texto que contiene la función:</p>
@@ -288,6 +330,15 @@ Puedes descargar la función <code>imFromStack</code> en <a href="Funciones-spat
 <p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-19-1.png" width="384" style="display: block; margin: auto;" /></p>
 
 </div>
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Spatstat2005" class="csl-entry">
+Baddeley, Adrian J., and Rolf Turner. 2005. <span>“Spatstat: An <span>R</span> Package for Analyzing Spatial Point Patterns.”</span> <em>Journal of Statistical Software</em> 12 (6): 1–42.
+</div>
+<div id="ref-Soberon2005" class="csl-entry">
+Soberón, Jorge, and A Townsend Peterson. 2005. <span>“Interpretation of Models of Fundamental Ecological Niches and Species Distributional Areas.”</span> <em>Biodivesity Informatics</em> 2: 1–10. <a href="https://doi.org/10.1093/wber/lhm022">https://doi.org/10.1093/wber/lhm022</a>.
 </div>
 </div>
             </section>

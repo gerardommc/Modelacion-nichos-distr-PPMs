@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="227.47011mm"
+   height="129.05136mm"
+   viewBox="0 0 227.47011 129.05136"
+   version="1.1"
+   id="svg5"
+   inkscape:export-filename="/home/gerardommc/Imágenes/SDM-ENM.png"
+   inkscape:export-xdpi="126.903"
+   inkscape:export-ydpi="126.903"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="SDM-ENM.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     fit-margin-top="5"
+     fit-margin-left="5"
+     fit-margin-right="5"
+     fit-margin-bottom="5"
+     inkscape:zoom="0.52661996"
+     inkscape:cx="560.17626"
+     inkscape:cy="621.8906"
+     inkscape:window-width="2560"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-1.2152046,-35.888094)">
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.7;stroke-opacity:1"
+       id="rect846"
+       width="97.985321"
+       height="97.452278"
+       x="15.35"
+       y="50.349998" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.7;stroke-opacity:1"
+       id="rect846-3"
+       width="97.985321"
+       height="97.452278"
+       x="125.35"
+       y="50.349998" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 15.4686,133.92224 c 0,0 9.832521,6.22484 14.37087,-8.08757 4.53835,-14.31238 5.275368,-8.88508 6.680896,-26.624734 1.405527,-17.739688 -0.544534,-23.298759 3.531256,-23.298759 4.07579,0 6.528929,-18.208173 9.701622,0 3.172693,18.208208 1.05478,22.837337 4.008237,24.636623 2.953456,1.79925 5.286848,2.15216 5.948013,-3.649991 0.661162,-5.802153 -0.180126,-6.505364 0.925388,-16.256635 1.105514,-9.751306 3.675848,-16.490537 3.675848,-16.490537 l 5.74448,1.548315 -0.23364,65.370168 c 0,0 0.322553,6.34813 7.088761,-2.23102 6.766208,-8.5791 6.766208,-8.5791 6.766208,-8.5791 0,0 2.390664,4.21016 3.810016,-11.86224 1.419349,-16.072356 0.929756,-16.985553 1.507061,-16.072356 0.577303,0.913161 4.667078,13.885956 4.667078,13.885956 0,0 0.946563,27.11638 3.649144,31.46234 2.702582,4.34592 3.713212,3.70898 5.419872,3.70898 1.70665,0 10.29778,1.67894 10.29778,1.67894"
+       id="path1318" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 125.35,147.80228 c 0,0 23.6556,-1.81712 27.96461,-4.58298 6.7433,-4.32837 11.25035,-62.371095 14.41375,-68.515734 3.74288,-7.270225 7.75404,-2.566856 9.74085,2.639822 1.49111,3.90765 10.88599,57.349632 16.61475,64.208062 6.11177,7.31697 29.25136,6.25083 29.25136,6.25083"
+       id="path1433"
+       sodipodi:nodetypes="cssssc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:6.35px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="26.912983"
+       y="46.112614"
+       id="text10206"><tspan
+         sodipodi:role="line"
+         id="tspan10204"
+         style="font-size:6.35px;stroke-width:0.264583"
+         x="26.912983"
+         y="46.112614">Modelo de distribución</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:6.35px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="134.5078"
+       y="45.966854"
+       id="text10206-6"><tspan
+         sodipodi:role="line"
+         id="tspan10204-7"
+         style="font-size:6.35px;stroke-width:0.264583"
+         x="134.5078"
+         y="45.966854">Modelo de nicho ecológico</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="103.15491"
+       y="158.91212"
+       id="text25135"><tspan
+         sodipodi:role="line"
+         id="tspan25133"
+         style="font-size:4.93889px;stroke-width:0.264583"
+         x="103.15491"
+         y="158.91212">Temperatura</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="-123.43145"
+       y="10.06084"
+       id="text25135-5"
+       transform="rotate(-89.949873)"><tspan
+         sodipodi:role="line"
+         id="tspan25133-6"
+         style="font-size:4.93889px;stroke-width:0.264583"
+         x="-123.43145"
+         y="10.06084">Favorabilidad ambiental</tspan></text>
+  </g>
+</svg>

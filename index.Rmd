@@ -4,7 +4,7 @@ author: "Gerardo Martín"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
-bibliography: [book.bib, packages.bib, citas.bib]
+bibliography: [book.bib, packages.bib, Curso-PCB.bib]
 biblio-style: apalike
 link-citations: yes
 description: "Sitio del curso de Modelado de nichos ecológicos | Posgrado de Ciencias Biológicas"
