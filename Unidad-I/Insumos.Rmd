@@ -1,0 +1,28 @@
+Como se vio anteriormente el modelado correlativo de nichos ecológicos consiste principalmente del análisis de las localidades donde se ha observado a indiviuos de una especie en relación a las condiciones ambientales de esas localidades. Para hacer estos análisis entonces se requieren principalmente dos tipos de insumos:
+
+1. Base de datos con las coordenadas donde se ha registrado la presencia de individuos de la especie
+
+2. Base de datos de las características ambientales (climáticas, vegetación topografía) de la región de estudio
+
+Para obtener las bases de datos sobre los registros de presencia de las especies se puede acceder a repositorios de acceso libre como [Global Biodiversity Information Facility](https://www.gbif.org) y [Naturalista](https://www.naturalista.mx). En estos repositorios se pueden hacer búsquedas manuales para crear una base de datos que será descargada. Estas bases de datos contienen información sobre la identidad de los organismos y los individuos, si están presentes en una colección zoológica (GBIF), cuándo fueron registrados y la persona que obtuvo el registro. Naturalista, sin embargo es una colección de foto-registros hechos por ciudadanos no especialistas y que son posteriormente identificados o confirmados por algún experto/a.
+
+Los datos ambientales también pueden obtenerse de repositorios de acceso abierto. Las dos bases más populares son [WorldClim](https://worldclim.org/) y [Chelsa](https://chelsa-climate.org/). Ambas contienen información únicamente climática, y debido a que en este curso se enfoca en la modelación de nichos ecológicos son las que más utilizaremos.
+
+#### Tipos de archivos
+
+##### Datos de presencia
+
+Estas bases de datos son por lo general tablas con columnas y filas. Las columnas representan descripciones de los individuos registrados y cada fila corresponde a un individuo de la especie de interés. Las extenciones de los archivos que vamos a descargar son `.csv` (Comma Separated Value), que son archivos de texto como los `.txt` salvo que contienen las columnas separadas por comas y las filas por cambios de renglón (intro). Los archivos `.csv` pueden inspeccionarse a mano con Excel, aunque en ocasiones este puede dañar los archivos y hace que salgan errores cuando los abrimos en **R**.
+
+##### Datos ambientales
+
+Estos datos están en formatos legibles por algún sistema de información geográfica (como QGIS o ArcGIS). Las extensiones de estos archivos pueden ser `.bil`, `.tif`, `.asc` y son en esecia una representación geo-referenciada de valores de las diferentes variables (temperatura, precipitación, etc.). En ambas bases de datos (WorldClim y Chelsa), hay dos modalidades de datos, las variables por separado en promedios mensuales (temperatura mínima y máxima y precipitación), o en forma de *variables bioclimáticas*. Estas son 19 variables que representan algunas combinaciones de temperatura y precipitación, p. ej.:
+
+- *bio 1* Temperatura anual promedio
+- *bio 2* Rango anual promedio de temperatura
+- *bio 9* Temperatura promedio del cuarto más seco
+- *bio 15* Estacionalidad de la recipitación
+
+#### Manejo de datos
+
+Todos los datos los vamos a manejar en **R** utilizando algunas paqueterías básicas como `raster`, `rgdal` y `dismo`.

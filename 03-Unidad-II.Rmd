@@ -1,14 +1,13 @@
-# Unidad II - Utilizando `spatstat`
+# Unidad II: Modelación de nichos ecológicos con procesos de puntos
 
-## Análisis exploratorio
+## Introducción
 
-```{r echo = F, child = "Unidad-II/Exploratorio.Rmd"}
-
-```
-
-## Ajustando un proceso de puntos
-
-```{r echo = F, child = "Unidad-II/Ajuste.Rmd"}
+```{r echo = F, child="Unidad-II/Introduccion-MPPs.Rmd"}
 
 ```
 
+## Formateo de datos
+
+```{r echo = F, child = "Unidad-II/Formateo.Rmd"}
+
+```

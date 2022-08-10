@@ -10,18 +10,18 @@ Antes de proponer un modelo para los datos de ocurrencia, es buena práctica rea
 Se dice que los diferentes puntos son independientes entre sí, si el número de vecinos promedio de cada punto como función de la distancia, sigue una distribución Poisson (figura \@ref(fig:Cuenta-vecinos)). Con esto en mente hay varios escenarios posibles, que en promedio cada punto tenga más vecinos de lo esperado o que tenga menos. En el primer caso, se dice que los puntos están agregados, pues un punto tiende a atraer a otros. En el segundo, los puntos están segregados, o sea que un punto tiende a mantener a otros puntos lejos de sí. El primer caso, de independencia, suele ocurrir cuando los puntos están distribuidos aleatoriamente (figura \@ref(fig:Segreg-agreg)).
 
 ```{r Cuenta-vecinos, echo = F, fig.align='center', fig.cap="Número de vecinos como función de la distancia en un proceso de puntos."}
-knitr::include_graphics("Unidad-II/Cuenta-vecinos.png")
+knitr::include_graphics("Unidad-III/Cuenta-vecinos.png")
 ```
 
 
 ```{r Segreg-agreg, echo = F, fig.align='center', fig.cap="Ejemplo de procesos de puntos de izquierda a derecha: segregado, aleatorio y agregado (reproducido de Baddeley y Rubak 2016)"}
-knitr::include_graphics("Unidad-II/Ejemplo-procesos.png")
+knitr::include_graphics("Unidad-III/Ejemplo-procesos.png")
 ```
 
 Existe una serie de pruebas gráficas y estadísticas para medir autocorrelación. Aquí nos enfocaremos en el uso de la prueba de envolturas *K* de Ripley. La implementación de esta prueba en `spatstat` genera unos intervalos de confianza alrededor de la expectativa del número de vecinos por medio de simulación. La figura \@ref(fig:K-env) muestra los tres escenarios de segregación, aleatorio y agrecación.
 
 ```{r K-env, echo = F, fig.align='center', fig.cap="Gráfica de la prueba *K* de Ripley implementada en `spatstat`. De izquierda a derecha: funciones de Ripley para puntos segregados, aleatorios y agregados."}
-knitr::include_graphics("Unidad-II/K-Ripley.png")
+knitr::include_graphics("Unidad-III/K-Ripley.png")
 ```
 
 #### Análisis de autocorrelación en **R** con `spatstat`
@@ -127,7 +127,7 @@ plotQuantIntens(imList = s.im,
                 name = "Responses-centroid")
 ```
 
-El [archivo de gráficas](Unidad-II/Responses-centroid.pdf) que produce `plotQuantIntens` muestra en cada panel:
+El [archivo de gráficas](Unidad-III/Responses-centroid.pdf) que produce `plotQuantIntens` muestra en cada panel:
 
 1. La variable analizada con el número de puntos en cada región de valores especificada por el argumento `noCuts` o número de cortes
 

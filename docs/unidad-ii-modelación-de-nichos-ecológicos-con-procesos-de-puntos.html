@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 4 Unidad II: Modelación de nichos ecológicos con procesos de puntos | Modelación de nichos ecológicos y aŕeas de distribución con MPPs</title>
+  <meta name="description" content="Sitio del curso de Modelado de nichos ecológicos | Posgrado de Ciencias Biológicas" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 4 Unidad II: Modelación de nichos ecológicos con procesos de puntos | Modelación de nichos ecológicos y aŕeas de distribución con MPPs" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Sitio del curso de Modelado de nichos ecológicos | Posgrado de Ciencias Biológicas" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 4 Unidad II: Modelación de nichos ecológicos con procesos de puntos | Modelación de nichos ecológicos y aŕeas de distribución con MPPs" />
+  
+  <meta name="twitter:description" content="Sitio del curso de Modelado de nichos ecológicos | Posgrado de Ciencias Biológicas" />
+  
+
+<meta name="author" content="Gerardo Martín" />
+
+
+<meta name="date" content="2022-08-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html"/>
+<link rel="next" href="unidad-ii---utilizando-spatstat.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Modelación de nichos ecológicos y distribuciones con MPPs I</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preámbulo</a></li>
+<li class="chapter" data-level="2" data-path="encuadre-de-la-materia.html"><a href="encuadre-de-la-materia.html"><i class="fa fa-check"></i><b>2</b> Encuadre de la materia</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="encuadre-de-la-materia.html"><a href="encuadre-de-la-materia.html#criterios-de-evaluación"><i class="fa fa-check"></i><b>2.1</b> Criterios de evaluación</a></li>
+<li class="chapter" data-level="2.2" data-path="encuadre-de-la-materia.html"><a href="encuadre-de-la-materia.html#cómo-se-darán-las-clases"><i class="fa fa-check"></i><b>2.2</b> ¿Cómo se darán las clases?</a></li>
+<li class="chapter" data-level="2.3" data-path="encuadre-de-la-materia.html"><a href="encuadre-de-la-materia.html#contacto"><i class="fa fa-check"></i><b>2.3</b> Contacto</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html"><i class="fa fa-check"></i><b>3</b> Unidad I: Introducción al modelado de nichos ecológicos</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#introducción-al-modelado-de-nichos-ecológicos"><i class="fa fa-check"></i><b>3.1</b> Introducción al modelado de nichos ecológicos</a></li>
+<li class="chapter" data-level="3.2" data-path="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#insumos-para-el-modelado-correlativo-de-nichos-ecológicos"><i class="fa fa-check"></i><b>3.2</b> Insumos para el modelado correlativo de nichos ecológicos</a></li>
+<li class="chapter" data-level="3.3" data-path="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#el-proceso-de-calibración"><i class="fa fa-check"></i><b>3.3</b> El proceso de calibración</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html"><i class="fa fa-check"></i><b>4</b> Unidad II: Modelación de nichos ecológicos con procesos de puntos</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#introducción"><i class="fa fa-check"></i><b>4.1</b> Introducción</a></li>
+<li class="chapter" data-level="4.2" data-path="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#formateo-de-datos"><i class="fa fa-check"></i><b>4.2</b> Formateo de datos</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#formateo-de-datos-raster"><i class="fa fa-check"></i><b>4.2.1</b> Formateo de datos raster</a></li>
+<li class="chapter" data-level="4.2.2" data-path="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#obteniendo-la-ventana-de-trabajo"><i class="fa fa-check"></i><b>4.2.2</b> Obteniendo la ventana de trabajo</a></li>
+<li class="chapter" data-level="4.2.3" data-path="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#formateando-los-registros-de-ocurrencia"><i class="fa fa-check"></i><b>4.2.3</b> Formateando los registros de ocurrencia</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="unidad-ii---utilizando-spatstat.html"><a href="unidad-ii---utilizando-spatstat.html"><i class="fa fa-check"></i><b>5</b> Unidad II - Utilizando <code>spatstat</code></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="unidad-ii---utilizando-spatstat.html"><a href="unidad-ii---utilizando-spatstat.html#análisis-exploratorio"><i class="fa fa-check"></i><b>5.1</b> Análisis exploratorio</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="unidad-ii---utilizando-spatstat.html"><a href="unidad-ii---utilizando-spatstat.html#independencia-y-autocorrelación"><i class="fa fa-check"></i><b>5.1.1</b> Independencia y autocorrelación</a></li>
+<li class="chapter" data-level="5.1.2" data-path="unidad-ii---utilizando-spatstat.html"><a href="unidad-ii---utilizando-spatstat.html#análisis-gráfico-de-las-respuestas-al-medio-ambiente."><i class="fa fa-check"></i><b>5.1.2</b> Análisis gráfico de las respuestas al medio ambiente.</a></li>
+<li class="chapter" data-level="5.1.3" data-path="unidad-ii---utilizando-spatstat.html"><a href="unidad-ii---utilizando-spatstat.html#midiendo-la-correlación-entre-variables-independientes"><i class="fa fa-check"></i><b>5.1.3</b> Midiendo la correlación entre variables independientes</a></li>
+<li class="chapter" data-level="5.1.4" data-path="unidad-ii---utilizando-spatstat.html"><a href="unidad-ii---utilizando-spatstat.html#propuesta-de-modelos-alternativos"><i class="fa fa-check"></i><b>5.1.4</b> Propuesta de modelos alternativos</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="unidad-ii---utilizando-spatstat.html"><a href="unidad-ii---utilizando-spatstat.html#ajustando-un-proceso-de-puntos"><i class="fa fa-check"></i><b>5.2</b> Ajustando un proceso de puntos</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="unidad-ii---utilizando-spatstat.html"><a href="unidad-ii---utilizando-spatstat.html#selección-del-modelo"><i class="fa fa-check"></i><b>5.2.1</b> Selección del modelo</a></li>
+<li class="chapter" data-level="5.2.2" data-path="unidad-ii---utilizando-spatstat.html"><a href="unidad-ii---utilizando-spatstat.html#verificación-de-supuestos-de-independencia"><i class="fa fa-check"></i><b>5.2.2</b> Verificación de supuestos de independencia</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://gerardommc.github.io" target="blank">Regresar al labo</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelación de nichos ecológicos y aŕeas de distribución con MPPs</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number"> 4</span> Unidad II: Modelación de nichos ecológicos con procesos de puntos<a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introducción" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Introducción<a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#introducción" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Cuando analizamos datos con alguna metodología de regresión siempre tenemos claro cuál es la variable de respuesta. Por ejemplo, en un análisis de temperaturas como función de la elevación sobre el nivel del mar y la latitud, el modelo ajustado arrojará valores en las unidades <span class="math inline">\(°\mathrm{C}\)</span>, o las que hayamos utilizado. Aunque la modelación correlativa de nichos esté en gran medida basada en la modelación estadística, ha prevalecido una desconexión sustancial entre lo que se modela y lo que los modelos estadísticos arrojan. La herramienta estadística de regresión que resuelve en buena medida esta desconexión son los Modelos de Procesos de Puntos (MPPs). En MPPs, la variable analizada es la intensidad de puntos, por lo que un MPP predice <em>intensidad</em>.</p>
+<p>Los datos de sólo presencia de especies pueden ser concebidos de manera más general como un proceso de puntos (la colección de coordenadas a modelar) sobre una rejilla de unidades espaciales de tamaño fijo. Con esto en mente, la intesidad se define como el número promedio de puntos por unidad espacial. Existe una variedad de MPPs, pero el que estudiaremos aquí son los MPPs Poisson. En estos, la variable intensidad es modelada como una función log-lineal de la distribución Poisson (para conteos), de un conjunto de covariables ambientales. Por lo tanto, los MPPs Poisson son muy similares a los modelos lineales generalizados.</p>
+<p>Estos métodos tienen ya una larga trayectoria en estadística espacial y geoestadística, para el análisis de variables aleatorias definidas en el espacio. Muchos de estos métodos existen incluso antes que algunos métodos utilizados rutinariamente para la generación de modelos de nicho ecológico o áreas de distribución. De hecho, un análisis matemático de 2013, encontró que Maxent es en esencia un MPP Poisson.</p>
+<p>Para aprender a analizar conjuntos de puntos de ocurrencia utilizaremos el programa <strong>R</strong> y el paquete <code>spatstat</code>, principalmente. En esta unidad introductoria, aprenderemos a formatear los datos de ocurrencia y las variables ambientales para que puedan ser utilizadas por <code>spatstat</code>. Posteriormente veremos cómo se hace un análisis exploratorio para identificar las variables que potencialmente explican los patrones de intensidad de puntos de nuestra base de datos. Finalmente, veremos cómo se ajusta, selecciona y diagnostica estadísticamente un MPP Poisson.</p>
+<p>Cabe mencionar que aquí nos enfocaremos en el aspecto técnico-metodológico, aunque los conceptos como área de accesibilidad, modelo de nicho vs. modelo de distribución siguen aplicandose como en cualquier otra herramienta para el análisis de nichos ecológicos y distribuciones geográficas.</p>
+</div>
+<div id="formateo-de-datos" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Formateo de datos<a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#formateo-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Los formatos básicos en que podemos tener almacenados los datos son los tradicionales <code>.csv</code>, para las ocurrencias, y <code>.tif</code> para los raster. La razón principal por la que se necesita un formato especial para los datos es que <code>spatstat</code> utiliza objetos de clase <code>im</code> o imágenes en lugar de raster, un patrón plano de puntos, objetos de clase <code>ppp</code> para los datos de ocurrencia, que normalmente se manejan como un <code>data.frame</code>, y una ventana de trabajo que es obtiene a partir de los raster.</p>
+<p>Hacer la transformación entre formatos es esencial pues <code>spatstat</code> cuenta con muchas funciones para hacer del análisis de datos en estos formatos bastante sencillo.</p>
+<div id="formateo-de-datos-raster" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Formateo de datos raster<a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#formateo-de-datos-raster" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>He escrito una función de <strong>R</strong> para transformar de <code>raster</code> a <code>im</code>. La transformación de un <code>data.frame</code> a <code>ppp</code> es bastante sencilla y no requiere de una función especial. Entonces, para comenzar necesitamos tener instalados los paquetes <code>raster</code>, <code>rgdal</code>, <code>spatstat</code> y <code>foreach</code>, lo cual se consigue corriendo el siguiente código en la consola de <strong>R</strong>:</p>
+<p><code>install.packages(c("raster", "rgdal", "spatstat", "foreach"))</code></p>
+<p>Después de la instalación, podemos usarlos para cargar una sola capas raster al espacio de trabajo con la función <code>raster</code>, contenida en el paquete del mismo nombre:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster); <span class="fu">library</span>(spatstat)</span>
+<span id="cb1-2"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb1-3" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">raster</span>(<span class="st">&quot;../Datos-ejemplos/Var-1.tif&quot;</span>)</span></code></pre></div>
+<p>El único argumento que se pasa a la función <code>raster</code> es la ruta y nombre del archivo. En este caso el archivo está en la carpeta <code>"Datos-ejemplos"</code>, y el archivo se llama <code>Var-1.tif</code>. Es importante <strong>siempre</strong> incluir la extensión del archivo (las 2-4 letras después del punto).</p>
+<p>En caso de necesitar cargar más de un archivo al mismo tiempo, podemos utilizar la función <code>stack</code>. Aquí es importante señalar que para que esta función pueda cargar los archivos, estos tienen que estar perfectamente alineados y tener exactamente la misma extensión espacial. El argumento que tenemos que pasar a la función <code>stack</code> es la lista de archivos a leer. Esta podemos generarla automáticamente con la función <code>list.files</code>, cuyos argumentos son la carpeta de búsqueda, extensión de los archivos a listar, y si necesitamos la ruta completa junto con los nombres de los archivos:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb2-1" aria-hidden="true" tabindex="-1"></a>arch <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&quot;../Datos-ejemplos/&quot;</span>, <span class="st">&quot;.tif&quot;</span>, <span class="at">full.names =</span> T)</span>
+<span id="cb2-2"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb2-2" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">stack</span>(arch)</span></code></pre></div>
+<p>Una vez cargados las capas, podemos graficarlas para verificar que sean las que necesitamos o tenemos en mente:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-12"></span>
+<img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-12-1.png" alt="Gráfica de las capas que usaremos para los ejemplos." width="768" />
+<p class="caption">
+Figura 4.1: Gráfica de las capas que usaremos para los ejemplos.
+</p>
+</div>
+<p>La transformación a <code>im</code> la haremos solo con el stack, pues es el escenario más probable al que se encontrarán (trabajo con varias capas). Comenzaremos cargando la función para hacer la transformación, que se llama <code>imFromStack</code>. Para hacerlo utilizaremos la función <code>source</code>, y el argumento que necesita es la ruta y nombre del archivo de texto que contiene la función:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;../Funciones-spatstat/imFromStack.R&quot;</span>)</span></code></pre></div>
+<p>Una vez cargada, podemos utilizarla, pasando como únigo argumento el nombre del objeto en el espacio de trabajo de <strong>R</strong> que contiene las capas:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb5-1" aria-hidden="true" tabindex="-1"></a>s.im <span class="ot">&lt;-</span> <span class="fu">imFromStack</span>(s)</span></code></pre></div>
+<p>Para verificar el tipo de objeto que resulta, podemos correr la función:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(s.im)</span></code></pre></div>
+<pre><code>## [1] &quot;list&quot;</code></pre>
+<p>Como podemos ver es una lista, y cada uno de sus elementos es una imagen tipo <code>im</code>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(s.im[[<span class="dv">1</span>]])</span></code></pre></div>
+<pre><code>## [1] &quot;im&quot;</code></pre>
+<p>Podemos hacer la gráfica, aunque ahora tenemos que hacerlo una por una:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb10-2"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.im[[<span class="dv">1</span>]])</span>
+<span id="cb10-3"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.im[[<span class="dv">2</span>]])</span>
+<span id="cb10-4"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.im[[<span class="dv">3</span>]])</span></code></pre></div>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-17-1.png" width="768" />
+Puedes descargar la función <code>imFromStack</code> en <a href="Funciones-spatstat/imFromStack.R">esta liga</a>.</p>
+</div>
+<div id="obteniendo-la-ventana-de-trabajo" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Obteniendo la ventana de trabajo<a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#obteniendo-la-ventana-de-trabajo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Antes de continuar, considero importante establecer que el método de obtención de la ventana de trabajo que he implementado asume que el área de accesibilidad de la especie de análisis es toda la extensión del raster que se utilice para obtener la ventana del área de trabajo. La función para obtener la ventana de trabajo a partir de un raster es <code>winFromRaster</code> (<a href="Funciones-spatstat/winFromRaster.R">disponible aquí</a>), y la importamos del mismo modo que <code>imFromStack</code>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;../Funciones-spatstat/winFromRaster.R&quot;</span>)</span>
+<span id="cb11-2"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb11-2" aria-hidden="true" tabindex="-1"></a>win <span class="ot">&lt;-</span> <span class="fu">winFromRaster</span>(s)</span>
+<span id="cb11-3"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(win)</span></code></pre></div>
+<pre><code>## [1] &quot;owin&quot;</code></pre>
+</div>
+<div id="formateando-los-registros-de-ocurrencia" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Formateando los registros de ocurrencia<a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#formateando-los-registros-de-ocurrencia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Primero, necesitamos contar con una base de datos de ocurrencia, en esta ocasión por tratarse de una un ejemplo de formateo, simularé una con la función <code>randomPoints</code> del paquete <code>dismo</code>, y solo para hacerla un poco más interesante le voy a añadir ruido con una distribución normal a las coordenadas <span class="math inline">\(x, y\)</span>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb13-1" aria-hidden="true" tabindex="-1"></a>puntos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(dismo<span class="sc">::</span><span class="fu">randomPoints</span>(s, <span class="dv">200</span>))</span>
+<span id="cb13-2"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb13-2" aria-hidden="true" tabindex="-1"></a>puntos<span class="sc">$</span>x <span class="ot">&lt;-</span> puntos<span class="sc">$</span>x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">200</span>, <span class="dv">0</span>, <span class="fl">0.05</span>)</span>
+<span id="cb13-3"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb13-3" aria-hidden="true" tabindex="-1"></a>puntos<span class="sc">$</span>y <span class="ot">&lt;-</span> puntos<span class="sc">$</span>y <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">200</span>, <span class="dv">0</span>, <span class="fl">0.05</span>)</span></code></pre></div>
+<p>Ahora bien, para transformar el objeto <code>puntos</code> de un <code>data.frame</code> a <code>ppp</code> utilizaremos pa función del mismo nombre, y la ventana de trabajo que creamos arriba:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb14-1" aria-hidden="true" tabindex="-1"></a>puntos.ppp <span class="ot">&lt;-</span> <span class="fu">ppp</span>(<span class="at">x =</span> puntos<span class="sc">$</span>x,</span>
+<span id="cb14-2"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb14-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> puntos<span class="sc">$</span>y,</span>
+<span id="cb14-3"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb14-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">window =</span> win,</span>
+<span id="cb14-4"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb14-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">check =</span> F)</span>
+<span id="cb14-5"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(puntos.ppp)</span></code></pre></div>
+<pre><code>## [1] &quot;ppp&quot;</code></pre>
+<p>En el primer argumento <code>x</code> se especifican las coordenadas <span class="math inline">\(x\)</span> o longitud, en <code>y</code> las coordenadas <span class="math inline">\(y\)</span> o latitud, en <code>window</code> la ventana de trabajo, y <code>check</code> especifica si se verificará que todos los puntos están dentro de la ventana de trabajo. Normalmente se deja en <code>check = T</code>.</p>
+<p>Con todos los datos formateados, entonces ahora graficamos la ventana de trabajo y el proceso de puntos:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(win); <span class="fu">points</span>(puntos.ppp, <span class="at">col =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-21-1.png" width="384" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="unidad-ii---utilizando-spatstat.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Mod-nich-distr-MPPs.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+Se llama *calibración* al proceso de análisis y desarrollo del modelo. Como se mencionó en la introducción a modelación de nichos, estos son mayoritariamente, modelos estadísticos. Por lo tanto en el contexto de modelación estadística, haremos un breve repaso de cómo se ajusta un modelo a los datos. Para comprender este proceso vamos a revisar el concepto matemático de función y dos tipos de estas, la línea recta y la parábola.
+
+#### La función
+
+En ciencias frecuentemente se estudia cómo un fenómeno afecta a otro. Por ejemplo, cómo la disponibilidad de recurso afecta el crecimiento poblacional. En modelación de nichos ecológicos vamos a ver cómo las características ambientales afectan la presencia de una especie (en términos muy laxos). Estas relaciones pueden ser representadas matemáticamente utilizando el concepto de función. Una función es una regla de correspondencia entre dos conjuntos $x$ y $y$, de modo que para cada elemento del conjunto $x$ existe un solo elemento del conjunto $y$. Los elementos de $y$ son llamados la imagen de $x$ bajo la regla de correspondencia $f$, que se denota como $f(x)$. La función $f(x)$ se lee $f$ de $x$, y el conjunto $x$ es el *dominio* y $y$ es el *codominio* de $f$.
+
+Debido a que todos los valores de $y$ son producidos por la función $f$, a $x$ también se le conoce como variable independiente y a $y$ como dependiente (puesto que depende de $x$). En términos prácticos $f(x) = y(x)$. La manera en que los valores de $y$ corresponden a ciertos valores de $x$ está determinado por unas reglas concretas, generalmente en forma de una operación ó serie de operaciones matemáticas. Las siguientes son ejemplos de funciones
+
+1. $y(x) = a + bx$
+2. $y(x) = x^2$
+3. $f(x) = \sin(x - c)$
+4. $f(x) = e^{rx}$
+5. $f(x) = a \exp(b - cx)$
+
+En todas estas funciones la variable independiente es $x$ y la variable cuyos valores dependen de $x$ son $y(x)$ ó $f(x)$. A continuación veremos dos tipos de funciones que utilizaremos ampliamente durante este curso para modelar la relación entre la presencia de las especies y las características ambientales.
+
+#### La línea recta
+
+La recta es un tipo de función que cuando la graficamos en el plano cartesiano describe una línea recta. Matemáticamente la recta se representa de la siguiente manera:
+
+$$ y(x) = a + bx$$
+Para que se cumpla que $y(x)$ sea geométricamente una línea recta, la variable $x$ sólo puede ser multiplicada por una constante, que llamaremos $b$ de manera general, y sumada otra constante que llamaremos $a$. Estas dos constantes afectan la apariencia de la recta, cambiando el valor de $y$ cuando $x = 0$, y su inclinación.
+
+```{r rectas, echo = F, fig.align='center', fig.cap="Ejemplos de funciones lineales con las ecuaciones que las generan."}
+knitr::include_graphics("Unidad-I/Rectas.png")
+```
+
+#### La Parábola
+
+La parábola es una función que contiene un término cuadrático en $x$. La forma más simple de una parábola es:
+
+$$ y(x) = x^2 $$
+Esta función, al igual que la recta, se puede modifcar anadiendo más términos de $x$, sí y solo sí los exponentes sean $< 2$, y tambiénse pueden añadir constantes. De tal modo que la forma mś general de una parábola es:
+
+$$ y(x) = a + bx +cx^2 $$
+Las constantes $a$, $b$ y $c$ pueden tomar cualquier valor $\in \mathbb{R}$ que se encuentre en el conjunto de los números reales. Al igual que ocurre con la recta, las constantes $a$, $b$ y $c$ modifican la apariencia de la parábola. Como resulta evidente, cuando $c = 0$, la ecuación de la parábola dibuja en una línea recta. A continuación se muestran gráficas de parábolas con diferent valore de $a$, $b$ y $c$.

@@ -1,0 +1,14 @@
+# Unidad II - Utilizando `spatstat`
+
+## Análisis exploratorio
+
+```{r echo = F, child = "Unidad-III/Exploratorio.Rmd"}
+
+```
+
+## Ajustando un proceso de puntos
+
+```{r echo = F, child = "Unidad-III/Ajuste.Rmd"}
+
+```
+

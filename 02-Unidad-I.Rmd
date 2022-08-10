@@ -1,4 +1,4 @@
-# Unidad I: Introducción al modelado de nichos con procesos de puntos
+# Unidad I: Introducción al modelado de nichos ecológicos
 
 ## Introducción al modelado de nichos ecológicos
 
@@ -6,14 +6,15 @@
 
 ```
 
-## Introducción
+## Insumos para el modelado correlativo de nichos ecológicos
 
-```{r echo = F, child="Unidad-I/Introduccion-MPPs.Rmd"}
+```{r echo = F, child = "Unidad-I/Insumos.Rmd"}
+
+```
+
+## El proceso de calibración
+
+```{r echo = F, child = "Unidad-I/Calibracion.Rmd"}
 
 ```
 
-## Formateo de datos
-
-```{r echo = F, child = "Unidad-I/Formateo.Rmd"}
-
-```
