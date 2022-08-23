@@ -59,14 +59,14 @@ En los análisis estadísticos se emplean las bases de datos en forma de `data.f
 
 Para acceder a los valores almacenados en los objetos `data.frame` utilizamos el operador `$` de la siquiente manera:
 
-```{r}
+```{r echo = T}
 tabla <- data.frame(x = c(1, 2, 3, 4), y = c(4, 3, 2, 1), nombre = c("a", "b", "c", "d"))
 tabla
 ```
 
 y para acceder a los valores en la columna con nombre `x`.
 
-```{r}
+```{r echo = T}
 tabla$x
 ```
 
@@ -103,7 +103,7 @@ Función nativa de **R** para hacer regresión lineal es `lm` (linear model). Y 
 
 La sintaxis para especificar el modelo es:
 
-```{r eval = F}
+```{r echo = T,eval = F}
 y~x
 ```
 
@@ -111,13 +111,13 @@ que es equivalente a
 
 $$ y = a + bx $$ De modo que **R** estimará ambos coeficientes. Si fuer necesario indicarle a **R** que el intercepto $a$ no debe ser estimado se hace de la siguiente manera:
 
-```{r eval = F}
+```{r echo = T,eval = F}
 y~ -1 + x
 ```
 
 Para los casos en que existe más de una variable independiente éstas sólo tienen que ser añadidas con `+`:
 
-```{r eval = F}
+```{r echo = T,eval = F}
 y ~ x1 + x2 + x3 + x4 ...
 ```
 
@@ -125,7 +125,7 @@ y ~ x1 + x2 + x3 + x4 ...
 
 Cualquier llamado a la función `lm` debe hacerse con objetos existentes en el espacio de trabajo de **R**, y los nombres que se incluyan en la fórmula deben coincidir. Estos objetos pueden estar contenidos en las columnas de un `data.frame`. Para entender esto veamos el llamado:
 
-```{r eval = F}
+```{r echo = T,eval = F}
 lm(y ~ x, data = tabla)
 ```
 
@@ -137,19 +137,19 @@ Para importar una base de datos al espacio de trabajo de **R** necesitamos conta
 
 La función que nos permite conocer la carpeta donde **R** buscará los archivos es:
 
-```{r}
+```{r echo = T}
 getwd()
 ```
 
 y produce una cadena de texto que es la dirección dentro del disco duro. Para modificarla, podemos usar la función `setwd()` donde debemos indicar con una cadena de texto la ruta a seguir a partir de la ubicación actual:
 
-```{r eval = F}
+```{r echo = T, eval = F}
 setwd("~/Documentos/SubCarpeta")
 ```
 
 Una vez que se ha especificado la ruta donde los archivos a importar están ubicados, podemos tratar de leerlos con la función `read.csv()`, si es que los datos a importar están en ese formato. El argumento para `read.csv` es el nombre del archivo que se busca rodeado por comillas:
 
-```{r warning = F, message=F}
+```{r echo = T, warning = F, message=F}
 setwd("~/Documentos/SubCarpeta")
 tabla <- read.csv("tabla.csv")
 ```
@@ -162,20 +162,20 @@ Una vez importada la base de datos al espacio de trabajo de **R**, podemos conti
 
 Comenzaremos por leer la base de datos con `read.csv` y asignarla a un objeto llamado `datos`
 
-```{r}
+```{r echo = T}
 datos <- read.csv("Base-ejemplo-reg.csv")
 head(datos)
 ```
 
 La función `head` imprime las primeras seis filas de la tabla que se ponga como argumento. Podemos ver entonces que la base consta de dos filas llamadas `x` y `y`. Como no tenemos más detalles experimentales que los nombres de las variables asumimos que `y` es producida por `x`y será por lo tanto la variable de respuesta. Entonces para ajustar el modelo lineal utilizamos `lm` y el resultado lo almacenamos en el objeto `modelo1`:
 
-```{r}
+```{r echo = T}
 modelo1 <- lm(y ~ x, data = datos)
 ```
 
 Para revisar los coeficientes estimados, podemos utilizar la función `summary`:
 
-```{r}
+```{r echo = T}
 summary(modelo1)
 ```
 
@@ -185,7 +185,7 @@ Un parámetro estimado en regresión lineal simple es $R^2$, que indica qué tan
 
 Para ver los datos y la línea de regresión podemos representarlos en el plano cartesiano con la función `plot`:
 
-```{r fig.height=4, fig.width=4}
+```{r echo = T, fig.height=4, fig.width=4}
 plot(datos$x, datos$y, xlab = "x", ylab = "y")
 x.modelo <- c(min(datos$x), max(datos$x))
 y.modelo <- predict(modelo1, newdata = data.frame(x = x.modelo))
@@ -193,11 +193,5 @@ y.modelo <- predict(modelo1, newdata = data.frame(x = x.modelo))
 lines(x.modelo, y.modelo, col = "red")
 ```
 
-Si llegaramos a contar con más variables `x` simplemente tendríamos que añadirlas a la fórmula del modelo cuando hacemos el llamado a `lm`. Un problema un poco más difícil que resolver es la decisión de qué modelo vamos a seleccionar cuando tenemos muchas variables, pues hay variables independientes que no son compatibles, como aquellas que están correlacionadas. Existen metodologías o mediciones de la bondad de ajuste del modelo a los datos como el criterio de información de Akaike que penaliza los modelos complejos en relación a aquellos más sencillos. Estas metodologías de selección de modelo las revisaremos más adelante.
-
-#### Calibración de modelos en ecología de nichos
-
-La vasta mayoría de los análisis de ecología de nichos utilizan métodos de aprendizaje de máquinas. En mi humilde opinión, esto ha hecho que la ecología de nichos y áres de distribución se convierta en una carrera en búsqueda de algoritmos, dejando de lado la reflexión sobre la naturaleza del proceso biológico y los datos analizados. Resulta sin embargo, necesario echar un vistazo a algunos de los muchos métodos que se han utilizado hasta la fecha. Aquí haré una distinción un tando burda, aquellos similares a un modelo de regresión como lo acabamos de hacer en la sección anterior y los basados en estadística multivariada.
-
-##### Regresión univariada
+Si llegaramos a contar con más variables `x` simplemente tendríamos que añadirlas a la fórmula del modelo cuando hacemos el llamado a `lm`. Un problema un poco más difícil que resolver es la decisión de qué modelo vamos a seleccionar cuando tenemos muchas variables, pues hay variables independientes que no son compatibles, como aquellas que están correlacionadas. Existen metodologías o mediciones de la bondad de ajuste del modelo a los datos como el criterio de información de Akaike (AIC) que penaliza los modelos complejos en relación a aquellos más sencillos. Estas metodologías de selección de modelo las revisaremos más adelante.
 
