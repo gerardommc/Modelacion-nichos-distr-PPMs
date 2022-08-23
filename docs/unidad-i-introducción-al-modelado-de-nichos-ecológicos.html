@@ -23,7 +23,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-08-10" />
+<meta name="date" content="2022-08-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -169,7 +169,10 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="3.1" data-path="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#introducción-al-modelado-de-nichos-ecológicos"><i class="fa fa-check"></i><b>3.1</b> Introducción al modelado de nichos ecológicos</a></li>
 <li class="chapter" data-level="3.2" data-path="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#insumos-para-el-modelado-correlativo-de-nichos-ecológicos"><i class="fa fa-check"></i><b>3.2</b> Insumos para el modelado correlativo de nichos ecológicos</a></li>
-<li class="chapter" data-level="3.3" data-path="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#el-proceso-de-calibración"><i class="fa fa-check"></i><b>3.3</b> El proceso de calibración</a></li>
+<li class="chapter" data-level="3.3" data-path="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#el-proceso-de-calibración"><i class="fa fa-check"></i><b>3.3</b> El proceso de calibración</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#tutorial-de-r"><i class="fa fa-check"></i><b>3.3.1</b> Tutorial de <strong>R</strong></a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html"><i class="fa fa-check"></i><b>4</b> Unidad II: Modelación de nichos ecológicos con procesos de puntos</a>
 <ul>
@@ -324,7 +327,119 @@ Figura 3.4: Ejemplos de funciones lineales con las ecuaciones que las generan.
 Esta función, al igual que la recta, se puede modifcar anadiendo más términos de <span class="math inline">\(x\)</span>, sí y solo sí los exponentes sean <span class="math inline">\(&lt; 2\)</span>, y tambiénse pueden añadir constantes. De tal modo que la forma mś general de una parábola es:</p>
 <p><span class="math display">\[ y(x) = a + bx +cx^2 \]</span>
 Las constantes <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span> y <span class="math inline">\(c\)</span> pueden tomar cualquier valor <span class="math inline">\(\in \mathbb{R}\)</span> que se encuentre en el conjunto de los números reales. Al igual que ocurre con la recta, las constantes <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span> y <span class="math inline">\(c\)</span> modifican la apariencia de la parábola. Como resulta evidente, cuando <span class="math inline">\(c = 0\)</span>, la ecuación de la parábola dibuja en una línea recta. A continuación se muestran gráficas de parábolas con diferent valore de <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span> y <span class="math inline">\(c\)</span>.</p>
+</div>
+<div id="tutorial-de-r" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Tutorial de <strong>R</strong><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#tutorial-de-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>R</strong> Es el lenguaje de programación estadística más popular, incluso como paquetería supera con mucho a aplicaciones comerciales como SPSS o SAS. Como lenguaje de programación tiene sus peculiaridades sintácticas. En <strong>R</strong> básico hay muchas funciones nativas que pueden hacer procesos complejos o manejar diferentes tipos de objetos. Algunos de los tipos de objetos más comunes y las funciones que los crean son:</p>
+<ul>
+<li><p><code>c()</code> Concatena los valores numéricos o caracteres que se pongan al interior de los paréntesis separados por comas: <code>c(1, 2, 3, 4)</code></p></li>
+<li><p><code>data.frame()</code> Se utiliza para crear tablas cuyas columnas son diferentes variables que describen los objetos representados en filas. Los argumentos que contiene son los nombres de las columnas y sus contenidos: <code>data.frame(x = c(1, 2, 3, 4), y = c(4, 3, 2, 1), nombre = c("a", "b", "c", "d"))</code></p></li>
+</ul>
+<p>Los objetos creados con estas funciones tienen que ser almacenados en la memoria de la sesión de <strong>R</strong> que se está ejecutando para poder hacer operaciones. La asignación a un objeto se puede hacer con:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span></code></pre></div>
+<p>Una vez creado el objeto <code>x</code> podemos verificar sus contenidos escribiendo <code>x</code> en la consola de <strong>R</strong>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb2-1" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>## [1] 1 2 3 4</code></pre>
+<p>En los análisis estadísticos se emplean las bases de datos en forma de <code>data.frame</code>. Estos no tienen que construirse a mano en <strong>R</strong>, de hecho se pueden generar en una aplicación externa como Excel e importarlos al espacio de trabajo de <strong>R</strong> con la función <code>read.csv()</code>. Los argumentos que se ponen dentro de <code>()</code> son la ruta y nombre del archivo que queremos leer, por ejemplo <code>"Documentos/Tarea-R/Tabla.csv"</code>, le indica a <strong>R</strong> dirigirse a la carpeta <code>"Documentos"</code> subcarpeta <code>"Tarea-R"</code>, archivo <code>"Tabla.csv"</code>. Para evitar complicaciones casi todas las tablas o bases de datos que leeremos en <strong>R</strong> serán de tipo <code>.csv</code>.</p>
+<p>Para acceder a los valores almacenados en los objetos <code>data.frame</code> utilizamos el operador <code>$</code> de la siquiente manera:</p>
+<pre><code>##   x y nombre
+## 1 1 4      a
+## 2 2 3      b
+## 3 3 2      c
+## 4 4 1      d</code></pre>
+<p>y para acceder a los valores en la columna con nombre <code>x</code>.</p>
+<pre><code>## [1] 1 2 3 4</code></pre>
+<div id="procedimientos-estadísticos-básicos" class="section level4 hasAnchor" number="3.3.1.1">
+<h4><span class="header-section-number">3.3.1.1</span> Procedimientos estadísticos básicos<a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#procedimientos-estadísticos-básicos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Todas las medidas descriptivas de distribuciones estadísticas están implementadas en <strong>R</strong> baśico bajo las siguientes funciones:</p>
+<ul>
+<li><code>mean(x)</code> Media aritmética (promedio) del objeto numérico <code>x</code></li>
+<li><code>median(x)</code> Mediana del objeto numérico <code>x</code></li>
+<li><code>sd(x)</code> Desviación estándar del objeto numérico <code>x</code></li>
+<li><code>range(x)</code> Rango de <code>x</code> (diferencia entre valor máximo y mínimo)</li>
+<li><code>min(x)</code>, <code>max(x)</code> Valores mínimos y máximos de <code>x</code> respectivamente</li>
+<li><code>summary(x)</code> Resumen descriptivo de <code>x</code> (todas las anteriores en un solo comando)</li>
+</ul>
+<p>Todas estas funciones requieren que el objeto <code>x</code> contenga valores numéricos (que <code>x</code> sea contínua o discreta).</p>
+</div>
+<div id="análisis-de-regresión" class="section level4 hasAnchor" number="3.3.1.2">
+<h4><span class="header-section-number">3.3.1.2</span> Análisis de regresión<a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#análisis-de-regresión" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>En regresión lineal simple, utilizamos <strong>R</strong> para estimar los coeficientes <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span> de una ecuación lineal como</p>
+<p><span class="math display">\[ y = a + bx \]</span></p>
+<p>Cuando una variable independiente <span class="math inline">\(y\)</span> es afectada por más de una variable <span class="math inline">\(x\)</span>, la regresión lineal se utiliza para estimar todos los coeficientes <span class="math inline">\(a\)</span> (intercepto) y <span class="math inline">\(b_i\)</span>:</p>
+<p><span class="math display">\[ y=a + b_1 x_1 + b_2 x_2 + \dots + b_n x_n \]</span></p>
+<p>Función nativa de <strong>R</strong> para hacer regresión lineal es <code>lm</code> (linear model). Y los argumentos que se necesitan son:</p>
+<ol style="list-style-type: decimal">
+<li>La fórmula del modelo</li>
+<li>La base de datos que contiene la información de <span class="math inline">\(y\)</span> y <span class="math inline">\(x\)</span> (estas pueden tomar cualquier nombre)</li>
+</ol>
+<div id="la-fórmula-del-modelo" class="section level5 hasAnchor" number="3.3.1.2.1">
+<h5><span class="header-section-number">3.3.1.2.1</span> La fórmula del modelo<a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#la-fórmula-del-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>La sintaxis para especificar el modelo es:</p>
+<p>que es equivalente a</p>
+<p><span class="math display">\[ y = a + bx \]</span> De modo que <strong>R</strong> estimará ambos coeficientes. Si fuer necesario indicarle a <strong>R</strong> que el intercepto <span class="math inline">\(a\)</span> no debe ser estimado se hace de la siguiente manera:</p>
+<p>Para los casos en que existe más de una variable independiente éstas sólo tienen que ser añadidas con <code>+</code>:</p>
+</div>
+<div id="especificación-de-la-base-de-datos" class="section level5 hasAnchor" number="3.3.1.2.2">
+<h5><span class="header-section-number">3.3.1.2.2</span> Especificación de la base de datos<a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#especificación-de-la-base-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Cualquier llamado a la función <code>lm</code> debe hacerse con objetos existentes en el espacio de trabajo de <strong>R</strong>, y los nombres que se incluyan en la fórmula deben coincidir. Estos objetos pueden estar contenidos en las columnas de un <code>data.frame</code>. Para entender esto veamos el llamado:</p>
+<p>Como es evidente <code>y ~ x</code> corresponde a la fórmula, mientras que el argumento <code>data = tabla</code> le indica a <strong>R</strong> que los objetos <code>x</code> y <code>y</code> están contenidos en sus columnas.</p>
+</div>
+</div>
+<div id="importación-de-datos-a-r" class="section level4 hasAnchor" number="3.3.1.3">
+<h4><span class="header-section-number">3.3.1.3</span> Importación de datos a <strong>R</strong><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#importación-de-datos-a-r" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Para importar una base de datos al espacio de trabajo de <strong>R</strong> necesitamos contar con el archivo y conocer su ubicación en el disco duro de la computadora. Por defecto, <strong>R</strong> buscará los archivos en la carpeta <em>home</em> del usuario. Es posible indicarle a <strong>R</strong> que en esa sesión utilice otra ubicación, de modo que la búsqueda e importación de datos sea más conveniente.</p>
+<p>La función que nos permite conocer la carpeta donde <strong>R</strong> buscará los archivos es:</p>
+<pre><code>## [1] &quot;/home/gerardo/Documentos/Cosas ENES/Materias/Posgrado/Modelacion-nichos-distr-PPMs/Unidad-I&quot;</code></pre>
+<p>y produce una cadena de texto que es la dirección dentro del disco duro. Para modificarla, podemos usar la función <code>setwd()</code> donde debemos indicar con una cadena de texto la ruta a seguir a partir de la ubicación actual:</p>
+<p>Una vez que se ha especificado la ruta donde los archivos a importar están ubicados, podemos tratar de leerlos con la función <code>read.csv()</code>, si es que los datos a importar están en ese formato. El argumento para <code>read.csv</code> es el nombre del archivo que se busca rodeado por comillas:</p>
+<p>En ocasiones es necesario especificar el caracter que separa las columnas del archivo <code>csv</code>. Por defecto <strong>R</strong> buscará comas (<code>,</code>), pero también son comunes los tabuladores (datos de GBIF), en cuyo caso se debe indicar con el argumento <code>sep = "\t"</code> (separation = tabulador). El nombre del caracter que separa es el valor del argumento <code>sep</code>.</p>
+</div>
+<div id="ajuste-de-un-modelo-de-regresión" class="section level4 hasAnchor" number="3.3.1.4">
+<h4><span class="header-section-number">3.3.1.4</span> Ajuste de un modelo de regresión<a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#ajuste-de-un-modelo-de-regresión" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Una vez importada la base de datos al espacio de trabajo de <strong>R</strong>, podemos continuar con el ajuste. El análisis que se muestra a continuación está basado en unos datos simulados. Los detalles de la simulación los puedes ver <a href="Sim-reg.R">aquí</a>.</p>
+<p>Comenzaremos por leer la base de datos con <code>read.csv</code> y asignarla a un objeto llamado <code>datos</code></p>
+<pre><code>##          x         y
+## 1 23.33946 1.8622077
+## 2 11.57775 1.3431069
+## 3 18.97340 2.4266392
+## 4 13.85936 0.5492634
+## 5 20.33512 2.3912786
+## 6 27.58100 2.7274168</code></pre>
+<p>La función <code>head</code> imprime las primeras seis filas de la tabla que se ponga como argumento. Podemos ver entonces que la base consta de dos filas llamadas <code>x</code> y <code>y</code>. Como no tenemos más detalles experimentales que los nombres de las variables asumimos que <code>y</code> es producida por <code>x</code>y será por lo tanto la variable de respuesta. Entonces para ajustar el modelo lineal utilizamos <code>lm</code> y el resultado lo almacenamos en el objeto <code>modelo1</code>:</p>
+<p>Para revisar los coeficientes estimados, podemos utilizar la función <code>summary</code>:</p>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x, data = datos)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.41492 -0.41252  0.06171  0.39278  1.32792 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -0.008346   0.203559  -0.041    0.967    
+## x            0.102373   0.009846  10.397   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.5499 on 98 degrees of freedom
+## Multiple R-squared:  0.5245, Adjusted R-squared:  0.5196 
+## F-statistic: 108.1 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>La información relevante al ajuste, la encontramos en la tabla <code>Coefficients</code>. La primera fila, con nombre <code>Intercept</code> contiene el valor promedio del intercepto (parámetro <span class="math inline">\(a\)</span> en <span class="math inline">\(y = a + bx\)</span>) en la columna <code>Estimate</code> y el error estándar en la columna <code>Std. Error</code>. La probabilidad de que el valor estimado sea cero se encuentra en la columna <code>Pr(&gt;|t|)</code>. Si un coeficiente estimado tiene una alta probabilidad de ser cero, se dice que es <em>no significativo</em>. En este caso, el intercepto es probablemente <span class="math inline">\(a \approx 0\)</span>. En relación al parámetro <span class="math inline">\(b\)</span> de la segunda fila, tiene una probabilidad muy baja de ser cero.</p>
+<p>Un parámetro estimado en regresión lineal simple es <span class="math inline">\(R^2\)</span>, que indica qué tan cerca están los datos de la línea de regresión. Para procedimientos como los que veremos en el resto del curso este parámetro no tiene mayor relevancia. En este caso <span class="math inline">\(R^2 = 0.51\)</span>, el cual es un valor intermedio (<span class="math inline">\(0\leq R^2\leq1\)</span>).</p>
+<p>Para ver los datos y la línea de regresión podemos representarlos en el plano cartesiano con la función <code>plot</code>:</p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-24-1.png" width="384" /></p>
+<p>Si llegaramos a contar con más variables <code>x</code> simplemente tendríamos que añadirlas a la fórmula del modelo cuando hacemos el llamado a <code>lm</code>. Un problema un poco más difícil que resolver es la decisión de qué modelo vamos a seleccionar cuando tenemos muchas variables, pues hay variables independientes que no son compatibles, como aquellas que están correlacionadas. Existen metodologías o mediciones de la bondad de ajuste del modelo a los datos como el criterio de información de Akaike que penaliza los modelos complejos en relación a aquellos más sencillos. Estas metodologías de selección de modelo las revisaremos más adelante.</p>
+</div>
+<div id="calibración-de-modelos-en-ecología-de-nichos" class="section level4 hasAnchor" number="3.3.1.5">
+<h4><span class="header-section-number">3.3.1.5</span> Calibración de modelos en ecología de nichos<a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#calibración-de-modelos-en-ecología-de-nichos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>La vasta mayoría de los análisis de ecología de nichos utilizan métodos de aprendizaje de máquinas. En mi humilde opinión, esto ha hecho que la ecología de nichos y áres de distribución se convierta en una carrera en búsqueda de algoritmos, dejando de lado la reflexión sobre la naturaleza del proceso biológico y los datos analizados. Resulta sin embargo, necesario echar un vistazo a algunos de los muchos métodos que se han utilizado hasta la fecha. Aquí haré una distinción un tando burda, aquellos similares a un modelo de regresión como lo acabamos de hacer en la sección anterior y los basados en estadística multivariada.</p>
+<div id="regresión-univariada" class="section level5 hasAnchor" number="3.3.1.5.1">
+<h5><span class="header-section-number">3.3.1.5.1</span> Regresión univariada<a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#regresión-univariada" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 
+</div>
+</div>
 </div>
 </div>
 </div>
