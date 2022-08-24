@@ -23,7 +23,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-08-23" />
+<meta name="date" content="2022-08-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -172,6 +172,7 @@ div.csl-indent {
 <li class="chapter" data-level="3.3" data-path="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#el-proceso-de-calibración"><i class="fa fa-check"></i><b>3.3</b> El proceso de calibración</a>
 <ul>
 <li class="chapter" data-level="3.3.1" data-path="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#tutorial-de-r"><i class="fa fa-check"></i><b>3.3.1</b> Tutorial de <strong>R</strong></a></li>
+<li class="chapter" data-level="3.3.2" data-path="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#calibración-de-modelos-de-nicho-ecológico"><i class="fa fa-check"></i><b>3.3.2</b> Calibración de modelos de nicho ecológico</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html"><i class="fa fa-check"></i><b>4</b> Unidad II: Modelación de nichos ecológicos con procesos de puntos</a>
@@ -408,7 +409,7 @@ Las constantes <span class="math inline">\(a\)</span>, <span class="math inline"
 </div>
 <div id="ajuste-de-un-modelo-de-regresión" class="section level4 hasAnchor" number="3.3.1.4">
 <h4><span class="header-section-number">3.3.1.4</span> Ajuste de un modelo de regresión<a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#ajuste-de-un-modelo-de-regresión" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Una vez importada la base de datos al espacio de trabajo de <strong>R</strong>, podemos continuar con el ajuste. El análisis que se muestra a continuación está basado en unos datos simulados. Los detalles de la simulación los puedes ver <a href="Sim-reg.R">aquí</a>.</p>
+<p>Una vez importada la base de datos al espacio de trabajo de <strong>R</strong>, podemos continuar con el ajuste. El análisis que se muestra a continuación está basado en unos datos simulados. Los detalles de la simulación los puedes ver <a href="Unidad-I/Sim-reg.R">aquí</a>.</p>
 <p>Comenzaremos por leer la base de datos con <code>read.csv</code> y asignarla a un objeto llamado <code>datos</code></p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb16-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Base-ejemplo-reg.csv&quot;</span>)</span>
 <span id="cb16-2"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code></pre></div>
@@ -451,8 +452,23 @@ Las constantes <span class="math inline">\(a\)</span>, <span class="math inline"
 <span id="cb21-5"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x.modelo, y.modelo, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-24-1.png" width="384" /></p>
 <p>Si llegaramos a contar con más variables <code>x</code> simplemente tendríamos que añadirlas a la fórmula del modelo cuando hacemos el llamado a <code>lm</code>. Un problema un poco más difícil que resolver es la decisión de qué modelo vamos a seleccionar cuando tenemos muchas variables, pues hay variables independientes que no son compatibles, como aquellas que están correlacionadas. Existen metodologías o mediciones de la bondad de ajuste del modelo a los datos como el criterio de información de Akaike (AIC) que penaliza los modelos complejos en relación a aquellos más sencillos. Estas metodologías de selección de modelo las revisaremos más adelante.</p>
-
 </div>
+</div>
+<div id="calibración-de-modelos-de-nicho-ecológico" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Calibración de modelos de nicho ecológico<a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#calibración-de-modelos-de-nicho-ecológico" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En modelación estadística, calibración es sinónimo de ajuste, por lo tanto el procedimiento de estimar los coeficientes <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span> para la relación entre <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span> es equivalente a la calibración. En un ejercicio más realista, sin embargo, nos veremos en la necesidad de ajustar varios modelos y después seleccionar el que <em>mejor</em> explica los datos observados. En regresión lineal simple se utiliza el parámetro <span class="math inline">\(R^2\)</span>. Este tienen muchos bemoles como el ignorar la complejidad del modelo. Con complejidad, nor referimos a la cantidad de co-variables <span class="math inline">\(x\)</span> y la cantidad de parámetros <span class="math inline">\(b\)</span>. Siempre es buena idea seleccionar modelos simples, para lo que se utiliza el Criterio de Información de Akaike. Este criterio es una medida de ajuste y complejidad de modelo, y sirve para comparar modelos diferentes para el mismo conjunto de datos. Cuando utilizamos el AIC se busca minimizarlo, es decir, que la varianza residual es pequeña y que el número de parámetros también es lo más pequeño posible.</p>
+<p>No obstante, el uso del AIC en modelación correlativa de nichos ecológicos es marginal. Generalmente se busca optimizar (maximizar) alguna medida de desempeño predictivo. En este curso, nos enfocaremos en seleccionar modelos utilizando el AIC y la verifiación de la estimación correcta de los efectos estadísticos, aunque no ignoraremos la importancia del análisis de la capacidad predictiva. Existen muchas medidas diferentes del desempeño predictivo, pero la más adecuada para los modelos que desarrollaremos es el análisis de curvas ROC parciales <span class="citation">(<a href="#ref-Peterson2008" role="doc-biblioref"><strong>Peterson2008?</strong></a>)</span>.</p>
+<p>De manera muy general, el proceso de calibración de modelos de nicho ecológico consiste de:</p>
+<ol style="list-style-type: decimal">
+<li>Selección de variables ambientales</li>
+<li>Propuesta de modelos alternativos</li>
+<li>Selección de método de análisis</li>
+<li>Formateo de datos</li>
+<li>Ajuste de modelos alternativos</li>
+<li>Selección de modelo</li>
+<li>Estimación de capacidad predictiva</li>
+</ol>
+
 </div>
 </div>
 </div>

@@ -158,7 +158,7 @@ En ocasiones es necesario especificar el caracter que separa las columnas del ar
 
 #### Ajuste de un modelo de regresión
 
-Una vez importada la base de datos al espacio de trabajo de **R**, podemos continuar con el ajuste. El análisis que se muestra a continuación está basado en unos datos simulados. Los detalles de la simulación los puedes ver [aquí](Sim-reg.R).
+Una vez importada la base de datos al espacio de trabajo de **R**, podemos continuar con el ajuste. El análisis que se muestra a continuación está basado en unos datos simulados. Los detalles de la simulación los puedes ver [aquí](Unidad-I/Sim-reg.R).
 
 Comenzaremos por leer la base de datos con `read.csv` y asignarla a un objeto llamado `datos`
 
@@ -194,4 +194,20 @@ lines(x.modelo, y.modelo, col = "red")
 ```
 
 Si llegaramos a contar con más variables `x` simplemente tendríamos que añadirlas a la fórmula del modelo cuando hacemos el llamado a `lm`. Un problema un poco más difícil que resolver es la decisión de qué modelo vamos a seleccionar cuando tenemos muchas variables, pues hay variables independientes que no son compatibles, como aquellas que están correlacionadas. Existen metodologías o mediciones de la bondad de ajuste del modelo a los datos como el criterio de información de Akaike (AIC) que penaliza los modelos complejos en relación a aquellos más sencillos. Estas metodologías de selección de modelo las revisaremos más adelante.
+
+### Calibración de modelos de nicho ecológico
+
+En modelación estadística, calibración es sinónimo de  ajuste, por lo tanto el procedimiento de estimar los coeficientes $a$ y $b$ para la relación entre $x$ y $y$ es equivalente a la calibración. En un ejercicio más realista, sin embargo, nos veremos en la necesidad de ajustar varios modelos y después seleccionar el que *mejor* explica los datos observados. En regresión lineal simple se utiliza el parámetro $R^2$. Este tienen muchos bemoles como el ignorar la complejidad del modelo. Con complejidad, nor referimos a la cantidad de co-variables $x$ y la cantidad de parámetros $b$. Siempre es buena idea seleccionar modelos simples, para lo que se utiliza el Criterio de Información de Akaike. Este criterio es una medida de ajuste y complejidad de modelo, y sirve para comparar modelos diferentes para el mismo conjunto de datos. Cuando utilizamos el AIC se busca minimizarlo, es decir, que la varianza residual es pequeña y que el número de parámetros también es lo más pequeño posible.
+
+No obstante, el uso del AIC en modelación correlativa de nichos ecológicos es marginal. Generalmente se busca optimizar (maximizar) alguna medida de desempeño predictivo. En este curso, nos enfocaremos en seleccionar modelos utilizando el AIC y la verifiación de la estimación correcta de los efectos estadísticos, aunque no ignoraremos la importancia del análisis de la capacidad predictiva. Existen muchas medidas diferentes del desempeño predictivo, pero la más adecuada para los modelos que desarrollaremos es el análisis de curvas ROC parciales [@Peterson2008].
+
+De manera muy general, el proceso de calibración de modelos de nicho ecológico consiste de:
+
+1. Selección de variables ambientales
+2. Propuesta de modelos alternativos
+3. Selección de método de análisis
+4. Formateo de datos
+5. Ajuste de modelos alternativos
+6. Selección de modelo
+7. Estimación de capacidad predictiva
 
