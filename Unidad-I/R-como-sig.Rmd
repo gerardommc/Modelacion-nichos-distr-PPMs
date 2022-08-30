@@ -1,0 +1,97 @@
+Para ajustar modelos espaciales es necesario hacer mucho manejo de datos geográficos. Afortunadamente **R** cuenta con suficientes paquetes para hacerlo. Para este propósito Aquí usaremos los paquetes `raster` y `rgdal` con algunos otros como auxiliares.
+
+### Lectura de capas raster
+
+Para crear objetos raster en el espacio de trabajo de **R** vamos a utilizar la función `raster`del paquete del mismo nombre. Para usarla, el único argumento que necesitamos es el nombre y ubicación del archivo, en este caso la ubicación es la carpeta "Datos-ejemplos" y el nombre del archivo es "Var-1.tif"
+
+```{r echo = T, warning =F, message = F}
+library(raster)
+r <- raster("../Datos-ejemplos/Var-1.tif")
+```
+
+Para visualizar la capa importada podemos usar la función `plot`:
+
+```{r echo = T, , fig.height=4.5, fig.width=4.5}
+plot(r)
+```
+
+En un análisis realista, uno utiliza múltiples capas, para lo cual existe la función `stack`, lo que permite crear un objeto con múltiples capas. Primero necesitamos conocer los nombres de los archivos a importar con la función `list.files`, y el objeto que contiene los nombres de los archivos lo utilizamos de argumento para `stack`
+
+```{r echo = T}
+archivos <- list.files("../Datos-ejemplos", "tif", full.names = T)
+archivos
+s <- stack(archivos)
+```
+
+Y podemos visualizar de nuevo con `plot`
+
+```{r echo=T, fig.height=4.5, fig.width=6}
+plot(s)
+```
+
+Para que la función `stack` funcione todas las capas tienen que coincidir plenamente píxel por píxel. Si tenemos capas que no coinciden será necesario remuestrearlas con la función `resample`. Esta función necesita además conocer el sistema de coordenadas en que se encuentra la capa. El sistema de coordenadas más común es WGS84, y su código EPSG:4326. Este código es un sistema internacional que permite conocer los dieferentes sistemas de coordenadas para las diferentes regiones del mundo. En **R** podemos verificar qué sistema de coordenadas tiene una capa con la función `proj4string`:
+
+
+```{r echo = T}
+proj4string(r)
+```
+
+Si la capa tiene declarado el sistema de coordenadas no es necesario indicarselo a **R** y las capas se pueden sincronizar:
+
+```{r echo = T}
+r1 <- raster("../Datos-ejemplos/Var-1.tif")
+r2 <- raster("../Datos-ejemplos/Var-2.tif")
+
+r1.1 <- resample(r1, r2)
+```
+
+Este proceso tiene que ser repetido para todas las capas que queremos incluir en un `stack`.
+
+Otra operación común es el recorte de capas para reducir el tamaño. Esto es necesario tanto por razones biológicas como computacionales. Biológicamente no tiene sentido tratar de modelar la favorabilidad de ambientes que una especie no ha experimentado. Computacionalmente puede ahorrarnos muchos recursos y tiempo si seleccionamos un área de estudio de un tamaño adecuado. Como regla de dedo debemos excluir todas las áreas que no son accesibles para una especie.
+
+La función que se utiliza para recortar una capa raster es `mask` del paquete `raster`. El primer argumento que necesitamos es la capa o capas raster a recortar y la capa vectorial que delimita las zonas de estudio. 
+
+```{r echo = F}
+df <- data.frame(dismo::randomPoints(r, n = 100, p = T))
+
+df$x <- df$x + rnorm(100, 0, 0.1)
+df$y <- df$y + rnorm(100, 0, 0.1)
+
+write.csv(df, "../Datos-ejemplos/Puntos-tutorial-2.csv", row.names = F)
+```
+
+Comenzaremos por importar los datos de presencia con la función `read.csv`
+
+```{r echo = T}
+puntos <- read.csv("../Datos-ejemplos/Puntos-tutorial-2.csv")
+```
+
+Veamos cómo están distribuidos sobre el área de estudio:
+
+```{r echo=T, fig.height=4.5, fig.width=4.5}
+plot(r)
+points(df)
+```
+
+Para delimitar el área de estudio, sueles utilizare buffers alrededor de los puntos de presencia, que pueden ser generados con la función `gBuffer` del paquete `rgeos`. Para generarlos tenemos que indicarle a **R** cuál columna corresponde a las coordenadas latitud y longitud:
+
+```{r echo= T, fig.height=4.5, fig.width=4.5}
+coordinates(df) <- ~ x+y
+buffers <- rgeos::gBuffer(df, width = 0.3)
+```
+
+Y para verificar los buffers generados:
+
+```{r echo = T, fig.height=4.5, fig.width=4.5}
+plot(r)
+points(df)
+plot(buffers, add = T)
+```
+
+Una vez obtenidos los buffers podemos usarlos para recortar las capas raster que funcionarán como covariables ambientales.
+
+```{r echo=T, fig.height=4.5, fig.width=4.5}
+s.rec <- mask(s, buffers)
+plot(s.rec)
+```
+

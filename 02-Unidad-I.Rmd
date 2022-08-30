@@ -18,3 +18,9 @@
 
 ```
 
+## Uso de R como Sistema de Información Geográfica
+
+```{r echo = F, child = "Unidad-I/R-como-sig.Rmd"}
+
+```
+

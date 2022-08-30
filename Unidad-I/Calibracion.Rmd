@@ -158,9 +158,9 @@ En ocasiones es necesario especificar el caracter que separa las columnas del ar
 
 #### Ajuste de un modelo de regresión
 
-Una vez importada la base de datos al espacio de trabajo de **R**, podemos continuar con el ajuste. El análisis que se muestra a continuación está basado en unos datos simulados. Los detalles de la simulación los puedes ver [aquí](Unidad-I/Sim-reg.R).
+Una vez importada la base de datos al espacio de trabajo de **R**, podemos continuar con el ajuste. El análisis que se muestra a continuación está basado en unos datos simulados. Los detalles de la simulación los puedes ver [aquí](Unidad-I/Sim-reg.R), y la base de datos simulada [aquí](Unidad-I/Base-ejemplo-reg.csv).
 
-Comenzaremos por leer la base de datos con `read.csv` y asignarla a un objeto llamado `datos`
+Comenzaremos por leer la base de datos con `read.csv` y asignarla a un objeto llamado `datos`:
 
 ```{r echo = T}
 datos <- read.csv("Base-ejemplo-reg.csv")

@@ -23,7 +23,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-08-24" />
+<meta name="date" content="2022-08-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -174,6 +174,10 @@ div.csl-indent {
 <li class="chapter" data-level="3.3.1" data-path="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#tutorial-de-r"><i class="fa fa-check"></i><b>3.3.1</b> Tutorial de <strong>R</strong></a></li>
 <li class="chapter" data-level="3.3.2" data-path="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#calibración-de-modelos-de-nicho-ecológico"><i class="fa fa-check"></i><b>3.3.2</b> Calibración de modelos de nicho ecológico</a></li>
 </ul></li>
+<li class="chapter" data-level="3.4" data-path="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#uso-de-r-como-sistema-de-información-geográfica"><i class="fa fa-check"></i><b>3.4</b> Uso de R como Sistema de Información Geográfica</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#lectura-de-capas-raster"><i class="fa fa-check"></i><b>3.4.1</b> Lectura de capas raster</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html"><i class="fa fa-check"></i><b>4</b> Unidad II: Modelación de nichos ecológicos con procesos de puntos</a>
 <ul>
@@ -254,7 +258,7 @@ Figura 3.2: Diagrama BAM clásico muestra cómo la geografía ocupada (la distri
 </ul>
 <p>Para la gran mayoría de las especies, los nichos ecológicos sólo pueden ser estimados con experimentos bien controlados, lo cual puede ser éticamente inaceptable y logísticamente imposible. La modelación correlativa de nichos, entonces, es una de las pocas alternativas con que se cuenta para estimar los efectos del clima sobre las especies. Naturalmente el resultado de todos estos análisis tienen diferentes significados, los cuales tienen que corresponder con el nombre que se les da. Los modelos de distribución son representaciones de la distribución realizada de una especie, mientras que la representación cartográfica de los modelos de nicho son de la distribución potencial.</p>
 <p>Debido a que es muy difícil estimar las interacciones bióticas con métodos correlativos, los modelos de distribución suelen estimar relaciones más complejas entre el medio ambiente y la presencia de las especies. Los modelos de nicho ecológico, estiman relaciones más simples y generalmente con respuestas suavizadas.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-9"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-10"></span>
 <img src="Unidad-I/SDM-ENM.png" alt="Ejemplo de diferencias en las respuestas de un organismo a la temperatura promedio en un modelo de distribución y un modelo de nicho ecológico." width="568" />
 <p class="caption">
 Figura 3.3: Ejemplo de diferencias en las respuestas de un organismo a la temperatura promedio en un modelo de distribución y un modelo de nicho ecológico.
@@ -409,8 +413,8 @@ Las constantes <span class="math inline">\(a\)</span>, <span class="math inline"
 </div>
 <div id="ajuste-de-un-modelo-de-regresión" class="section level4 hasAnchor" number="3.3.1.4">
 <h4><span class="header-section-number">3.3.1.4</span> Ajuste de un modelo de regresión<a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#ajuste-de-un-modelo-de-regresión" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Una vez importada la base de datos al espacio de trabajo de <strong>R</strong>, podemos continuar con el ajuste. El análisis que se muestra a continuación está basado en unos datos simulados. Los detalles de la simulación los puedes ver <a href="Unidad-I/Sim-reg.R">aquí</a>.</p>
-<p>Comenzaremos por leer la base de datos con <code>read.csv</code> y asignarla a un objeto llamado <code>datos</code></p>
+<p>Una vez importada la base de datos al espacio de trabajo de <strong>R</strong>, podemos continuar con el ajuste. El análisis que se muestra a continuación está basado en unos datos simulados. Los detalles de la simulación los puedes ver <a href="Unidad-I/Sim-reg.R">aquí</a>, y la base de datos simulada <a href="Unidad-I/Base-ejemplo-reg.csv">aquí</a>.</p>
+<p>Comenzaremos por leer la base de datos con <code>read.csv</code> y asignarla a un objeto llamado <code>datos</code>:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb16-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Base-ejemplo-reg.csv&quot;</span>)</span>
 <span id="cb16-2"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code></pre></div>
 <pre><code>##          x         y
@@ -450,7 +454,7 @@ Las constantes <span class="math inline">\(a\)</span>, <span class="math inline"
 <span id="cb21-3"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb21-3" aria-hidden="true" tabindex="-1"></a>y.modelo <span class="ot">&lt;-</span> <span class="fu">predict</span>(modelo1, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x.modelo))</span>
 <span id="cb21-4"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-5"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x.modelo, y.modelo, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-24-1.png" width="384" /></p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-25-1.png" width="384" /></p>
 <p>Si llegaramos a contar con más variables <code>x</code> simplemente tendríamos que añadirlas a la fórmula del modelo cuando hacemos el llamado a <code>lm</code>. Un problema un poco más difícil que resolver es la decisión de qué modelo vamos a seleccionar cuando tenemos muchas variables, pues hay variables independientes que no son compatibles, como aquellas que están correlacionadas. Existen metodologías o mediciones de la bondad de ajuste del modelo a los datos como el criterio de información de Akaike (AIC) que penaliza los modelos complejos en relación a aquellos más sencillos. Estas metodologías de selección de modelo las revisaremos más adelante.</p>
 </div>
 </div>
@@ -468,6 +472,57 @@ Las constantes <span class="math inline">\(a\)</span>, <span class="math inline"
 <li>Selección de modelo</li>
 <li>Estimación de capacidad predictiva</li>
 </ol>
+</div>
+</div>
+<div id="uso-de-r-como-sistema-de-información-geográfica" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Uso de R como Sistema de Información Geográfica<a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#uso-de-r-como-sistema-de-información-geográfica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para ajustar modelos espaciales es necesario hacer mucho manejo de datos geográficos. Afortunadamente <strong>R</strong> cuenta con suficientes paquetes para hacerlo. Para este propósito Aquí usaremos los paquetes <code>raster</code> y <code>rgdal</code> con algunos otros como auxiliares.</p>
+<div id="lectura-de-capas-raster" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Lectura de capas raster<a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#lectura-de-capas-raster" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Para crear objetos raster en el espacio de trabajo de <strong>R</strong> vamos a utilizar la función <code>raster</code>del paquete del mismo nombre. Para usarla, el único argumento que necesitamos es el nombre y ubicación del archivo, en este caso la ubicación es la carpeta “Datos-ejemplos” y el nombre del archivo es “Var-1.tif”</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
+<span id="cb22-2"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb22-2" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">raster</span>(<span class="st">&quot;../Datos-ejemplos/Var-1.tif&quot;</span>)</span></code></pre></div>
+<p>Para visualizar la capa importada podemos usar la función <code>plot</code>:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r)</span></code></pre></div>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-27-1.png" width="432" /></p>
+<p>En un análisis realista, uno utiliza múltiples capas, para lo cual existe la función <code>stack</code>, lo que permite crear un objeto con múltiples capas. Primero necesitamos conocer los nombres de los archivos a importar con la función <code>list.files</code>, y el objeto que contiene los nombres de los archivos lo utilizamos de argumento para <code>stack</code></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb24-1" aria-hidden="true" tabindex="-1"></a>archivos <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&quot;../Datos-ejemplos&quot;</span>, <span class="st">&quot;tif&quot;</span>, <span class="at">full.names =</span> T)</span>
+<span id="cb24-2"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb24-2" aria-hidden="true" tabindex="-1"></a>archivos</span></code></pre></div>
+<pre><code>## [1] &quot;../Datos-ejemplos/Var-1.tif&quot; &quot;../Datos-ejemplos/Var-2.tif&quot;
+## [3] &quot;../Datos-ejemplos/Var-3.tif&quot;</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb26-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">stack</span>(archivos)</span></code></pre></div>
+<p>Y podemos visualizar de nuevo con <code>plot</code></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s)</span></code></pre></div>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-29-1.png" width="576" /></p>
+<p>Para que la función <code>stack</code> funcione todas las capas tienen que coincidir plenamente píxel por píxel. Si tenemos capas que no coinciden será necesario remuestrearlas con la función <code>resample</code>. Esta función necesita además conocer el sistema de coordenadas en que se encuentra la capa. El sistema de coordenadas más común es WGS84, y su código EPSG:4326. Este código es un sistema internacional que permite conocer los dieferentes sistemas de coordenadas para las diferentes regiones del mundo. En <strong>R</strong> podemos verificar qué sistema de coordenadas tiene una capa con la función <code>proj4string</code>:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">proj4string</span>(r)</span></code></pre></div>
+<pre><code>## [1] &quot;+proj=longlat +datum=WGS84 +no_defs&quot;</code></pre>
+<p>Si la capa tiene declarado el sistema de coordenadas no es necesario indicarselo a <strong>R</strong> y las capas se pueden sincronizar:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb30-1" aria-hidden="true" tabindex="-1"></a>r1 <span class="ot">&lt;-</span> <span class="fu">raster</span>(<span class="st">&quot;../Datos-ejemplos/Var-1.tif&quot;</span>)</span>
+<span id="cb30-2"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb30-2" aria-hidden="true" tabindex="-1"></a>r2 <span class="ot">&lt;-</span> <span class="fu">raster</span>(<span class="st">&quot;../Datos-ejemplos/Var-2.tif&quot;</span>)</span>
+<span id="cb30-3"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb30-4" aria-hidden="true" tabindex="-1"></a>r1<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">resample</span>(r1, r2)</span></code></pre></div>
+<p>Este proceso tiene que ser repetido para todas las capas que queremos incluir en un <code>stack</code>.</p>
+<p>Otra operación común es el recorte de capas para reducir el tamaño. Esto es necesario tanto por razones biológicas como computacionales. Biológicamente no tiene sentido tratar de modelar la favorabilidad de ambientes que una especie no ha experimentado. Computacionalmente puede ahorrarnos muchos recursos y tiempo si seleccionamos un área de estudio de un tamaño adecuado. Como regla de dedo debemos excluir todas las áreas que no son accesibles para una especie.</p>
+<p>La función que se utiliza para recortar una capa raster es <code>mask</code> del paquete <code>raster</code>. El primer argumento que necesitamos es la capa o capas raster a recortar y la capa vectorial que delimita las zonas de estudio.</p>
+<p>Comenzaremos por importar los datos de presencia con la función <code>read.csv</code></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb31-1" aria-hidden="true" tabindex="-1"></a>puntos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../Datos-ejemplos/Puntos-tutorial-2.csv&quot;</span>)</span></code></pre></div>
+<p>Veamos cómo están distribuidos sobre el área de estudio:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r)</span>
+<span id="cb32-2"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(df)</span></code></pre></div>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-34-1.png" width="432" /></p>
+<p>Para delimitar el área de estudio, sueles utilizare buffers alrededor de los puntos de presencia, que pueden ser generados con la función <code>gBuffer</code> del paquete <code>rgeos</code>. Para generarlos tenemos que indicarle a <strong>R</strong> cuál columna corresponde a las coordenadas latitud y longitud:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coordinates</span>(df) <span class="ot">&lt;-</span> <span class="er">~</span> x<span class="sc">+</span>y</span>
+<span id="cb33-2"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb33-2" aria-hidden="true" tabindex="-1"></a>buffers <span class="ot">&lt;-</span> rgeos<span class="sc">::</span><span class="fu">gBuffer</span>(df, <span class="at">width =</span> <span class="fl">0.3</span>)</span></code></pre></div>
+<p>Y para verificar los buffers generados:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r)</span>
+<span id="cb34-2"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(df)</span>
+<span id="cb34-3"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(buffers, <span class="at">add =</span> T)</span></code></pre></div>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-36-1.png" width="432" /></p>
+<p>Una vez obtenidos los buffers podemos usarlos para recortar las capas raster que funcionarán como covariables ambientales.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb35-1" aria-hidden="true" tabindex="-1"></a>s.rec <span class="ot">&lt;-</span> <span class="fu">mask</span>(s, buffers)</span>
+<span id="cb35-2"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.rec)</span></code></pre></div>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-37-1.png" width="432" /></p>
 
 </div>
 </div>
