@@ -1,0 +1,18 @@
+En la unidad anterior en el análisis de autocorrelación encontramos tres tipos de estructura espacial de los puntos:
+
+1. **Agregados**. Procesos donde los puntos se atraen y por lo tanto cada punto tiene en promedio más vecinos de lo que se espera al azar.
+
+2. **Aleatorios**. Procesos donde los puntos no se atraen ni se repelen, y por lo tanto el número promedio de vecinos de cada puntos es lo que se espera al azar.
+
+3. **Segregados**. Procesos donde los puntos se repelen, y por lo tanto el número promedio de vecinos de cada punto es menor a lo que se espera al azar.
+
+Estas definiciones son últiles para describir los fenómenos de atracción y segregación, pero en la práctica son poco útiles porque hay muchos grados diferentes de atracción o repulsión entre puntos, de modo que se requieren diferentes tipos de modelos para capturar los diferentes grados de atracción ó repulsión.
+
+Los nombres de las extensiones de los modelos de puntos que podemos usar para cada nivel de segregación son:
+
+1. **Altamente agregados**. Modelos de clúster ó con campos gaussianos.
+2. **Moderadamente agregados**. Modelos de interacción entre puntos (con radio de interacción variable ó fijo).
+3. **Sin agregamiento**. Modelos Poisson (ejemplos de unidad anterior).
+4. **Segregados** Modelos de interacción entre puntos.
+
+Técnicamente, los modelos de clúster y de interacción 

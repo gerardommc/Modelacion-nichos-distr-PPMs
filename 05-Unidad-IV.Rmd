@@ -1,0 +1,11 @@
+# Unidad IV: Modelos para procesos de puntos con estructura espacial
+
+## Tipos de estructura espacial
+
+```{r echo = F, child = "Unidad-IV/Tipos-estructura.Rmd"}
+
+```
+
+
+## Modelos para los diferentes tipos de estructura
+
