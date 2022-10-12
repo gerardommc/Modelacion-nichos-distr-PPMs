@@ -15,4 +15,4 @@ Los nombres de las extensiones de los modelos de puntos que podemos usar para ca
 3. **Sin agregamiento**. Modelos Poisson (ejemplos de unidad anterior).
 4. **Segregados** Modelos de interacción entre puntos.
 
-Técnicamente, los modelos de clúster y de interacción 
+Técnicamente, los modelos de clúster y de interacción son modelos generalizados de efectos mixtos. Los efectos fijos son todos aquellos que afectan el promedio, como las covariables ambientales. Los efectos aleatorios afectan la varianza.
