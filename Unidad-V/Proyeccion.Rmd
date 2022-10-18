@@ -1,0 +1,76 @@
+La tierra es un elipsoide, y uno de los retos geométricos más grandes es la representación de su superficie como un plano. Para entender la complejidad del problema, pensemos en la tierra como una pelota de playa que cortamos y tratamos de extender sobre una mesa. En este proceso nos damos cuenta de que obtenemos algunas porciones del material bien extendidas y otras con arrugas. Esto mismo sucede cuando intentamos representar la tierra como una superficie plana. Para solucionar este problema se han propuesto varias soluciones, proyectando la superficie terrestre en diferentes formas geométricas como:
+
+1. Plano tangente a algún punto específico
+2. Cono que toca la superficie terrestre en algún paralelo
+3. Cilindro que toca la superficie en el ecuador
+
+Todas estas metodologías resultan en distorsiones diferentes, como de áreas o ángulos. Es imposible representar correctamente todos estos aspectos, de modo que es importante seleccionar adecuadamente la proyección para hacer nuestros análisis. En el análisis de procesos de puntos el interés es la densidad por unidad de área, de modo que siempre tenemos que buscar una **proyección que conserve las áreas** a expensas de la representación adecuada de los ángulos.
+
+Las proyecciones que conservan las áreas llevan nombres como *Equal area*, y las hay desarrolladas para regiones específicas. Puedes visitar [esta página](https://pnavarrc.github.io/workshop-d3-maps/pages/geographic-projections/) para ver cómo las diferentes proyecciones afectan la representación de la superficie terrestre.
+
+Para ayudarnos a seleccionar el sistema de proyección adecuado para nuestros análisis, necesitamos identificar el nombre de la proyección que necesitamos. La gran mayoría de los datos geográficos disponibles están en proyección WGS84, que es una [proyección cilíndrica](https://pnavarrc.github.io/workshop-d3-maps/img/equirectangular.png). Existe una base de datos de proyecciones geográficas con códigos de identificación que se llaman *EPSG*. En esta biblioteca de proyecciones el código EPSG para la proyección WGS84 es EPSG 4326. Todas las proyecciones tienen un identificador EPSG, y están desarrolladas para representar lo mejor posible las áreas ó formas de regiones geográficas específicas. Para regiones cerca del ecuador, las proyecciones cilíndricas son las más adecuadas, a latitudes medias las cónicas y para los polos las proyecciones planares (tangentes a las superficie).
+
+Las proyecciones diseñadas para México están agrupadas con el nombre ITRF2008. Para buscar los identificadores EPSG puedes dirigirte a [https://epsg.io/](https://epsg.io/) y hacer la búsqueda específica para el país donde harás el análisis. Una vez obtenidos los resultados, las proyecciones geográficas con áreas iguales se pueden filtrar en el menú a mano derecha bajo la liga "projected".
+
+
+```{r proyeccion, echo = F, fig.align='center', fig.cap="Página de la biblioteca de EPSG, con la búsqueda para México."}
+knitr::include_graphics("proyeccion.png")
+```
+
+Una vez filtrada la búsqueda para sistemas de coordenadas proyectadas, podemos dar click en las ligas "Get position on a map" para identificar la región geográfica para la cual fue diseñado ese sistema. En el ejemplo seleccioné el último elemento de la lista, que optimiza la representación de la península de Yucatán.
+
+```{r yucatan, echo = F, fig.align='center', fig.cap="Liga para ver la región geográfica"}
+knitr::include_graphics("Yucatan.png")
+```
+
+```{r echo = F, fig.align='center', fig.cap="Región geográfica para la proyección ITRF2008 centrada en la península de Yucatán, con identificador EPSG número 6371."}
+knitr::include_graphics("epsg6371.png")
+```
+
+### Transformando los sistemas de coordenadas en R
+
+Para hacer transformaciones de coordenadas en R es necesario, primero que nada, indicarle a R cuál es el sistema de coordenadas de los datos a convertir. Este paso se hace al inicio del script donde comenzamos los análisis de modo que todos los pasos posteriores se hagan con los datos en la proyección correcta.
+
+Como ejemplo veamos la transformación de las capas raster que hemos estado utilizando en todos los ejemplos. Comenzaremos por preguntarle a R cuál es la proyección actual:
+
+```{r echo = F}
+arch <- list.files("../Datos-ejemplos/", "tif", full.names = T)
+s <- stack(arch)
+```
+
+```{r echo = T}
+proj4string(s)
+```
+
+En este caso, no tenemos que indicar la proyección, por lo que podemos hacer la transformación:
+
+```{r echo = T, fig.height=6, fig.width=6, fig.align='center', warning = F}
+s.it08 <- projectRaster(s, crs = CRS("+init=epsg:6371"))
+plot(s.it08)
+```
+
+Para transformar los puntos necesitamos una función distinta, y en este caso, sí declarar la proyección inicial de los puntos, después de transformarlos en un objeto espacial:
+
+```{r echo = T, warning = F}
+puntos <- read.csv("../Datos-ejemplos/Puntos-tutorial-2.csv")
+coordinates(puntos) <- ~x+y
+```
+
+Declaración de la proyección, la cual es WGS (EPSG4326):
+
+```{r echo = T}
+proj4string(puntos) <- CRS("+init=epsg:4326")
+```
+
+Transformación al nuevo sistema de coordenadas:
+
+```{r echo = T, warning=FALSE}
+puntos.it08 <- spTransform(puntos, CRSobj = CRS("+init=epsg:6371"))
+```
+
+Ahora comprobamos que los puntos estén dentro de la ventana de trabajo:
+
+```{r echo=T, fig.height=4.5, fig.width=4.5}
+plot(s.it08[[1]]); points(puntos.it08)
+```
+
