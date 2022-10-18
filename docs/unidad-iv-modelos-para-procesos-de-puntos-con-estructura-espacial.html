@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | Modelación de nichos ecológicos y aŕeas de distribución con MPPs</title>
+  <title> 6 Unidad IV: Modelos para procesos de puntos con estructura espacial | Modelación de nichos ecológicos y aŕeas de distribución con MPPs</title>
   <meta name="description" content="Sitio del curso de Modelado de nichos ecológicos | Posgrado de Ciencias Biológicas" />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | Modelación de nichos ecológicos y aŕeas de distribución con MPPs" />
+  <meta property="og:title" content=" 6 Unidad IV: Modelos para procesos de puntos con estructura espacial | Modelación de nichos ecológicos y aŕeas de distribución con MPPs" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Sitio del curso de Modelado de nichos ecológicos | Posgrado de Ciencias Biológicas" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | Modelación de nichos ecológicos y aŕeas de distribución con MPPs" />
+  <meta name="twitter:title" content=" 6 Unidad IV: Modelos para procesos de puntos con estructura espacial | Modelación de nichos ecológicos y aŕeas de distribución con MPPs" />
   
   <meta name="twitter:description" content="Sitio del curso de Modelado de nichos ecológicos | Posgrado de Ciencias Biológicas" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html"/>
-
+<link rel="prev" href="unidad-ii---utilizando-spatstat.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -230,16 +230,29 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered hasAnchor">
-<h1>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number"> 6</span> Unidad IV: Modelos para procesos de puntos con estructura espacial<a href="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html#unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="tipos-de-estructura-espacial" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Tipos de estructura espacial<a href="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html#tipos-de-estructura-espacial" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En la unidad anterior en el análisis de autocorrelación encontramos tres tipos de estructura espacial de los puntos:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Agregados</strong>. Procesos donde los puntos se atraen y por lo tanto cada punto tiene en promedio más vecinos de lo que se espera al azar.</p></li>
+<li><p><strong>Aleatorios</strong>. Procesos donde los puntos no se atraen ni se repelen, y por lo tanto el número promedio de vecinos de cada puntos es lo que se espera al azar.</p></li>
+<li><p><strong>Segregados</strong>. Procesos donde los puntos se repelen, y por lo tanto el número promedio de vecinos de cada punto es menor a lo que se espera al azar.</p></li>
+</ol>
+<p>Estas definiciones son últiles para describir los fenómenos de atracción y segregación, pero en la práctica son poco útiles porque hay muchos grados diferentes de atracción o repulsión entre puntos, de modo que se requieren diferentes tipos de modelos para capturar los diferentes grados de atracción ó repulsión.</p>
+<p>Los nombres de las extensiones de los modelos de puntos que podemos usar para cada nivel de segregación son:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Altamente agregados</strong>. Modelos de clúster ó con campos gaussianos.</li>
+<li><strong>Moderadamente agregados</strong>. Modelos de interacción entre puntos (con radio de interacción variable ó fijo).</li>
+<li><strong>Sin agregamiento</strong>. Modelos Poisson (ejemplos de unidad anterior).</li>
+<li><strong>Segregados</strong> Modelos de interacción entre puntos.</li>
+</ol>
+<p>Técnicamente, los modelos de clúster y de interacción son modelos generalizados de efectos mixtos. Los efectos fijos son todos aquellos que afectan el promedio, como las covariables ambientales. Los efectos aleatorios afectan la varianza.</p>
+</div>
+<div id="modelos-para-los-diferentes-tipos-de-estructura" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Modelos para los diferentes tipos de estructura<a href="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html#modelos-para-los-diferentes-tipos-de-estructura" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div class="csl-entry">
-Baddeley, Adrian J., and Rolf Turner. 2005. <span>“Spatstat: An <span>R</span> Package for Analyzing Spatial Point Patterns.”</span> <em>Journal of Statistical Software</em> 12 (6): 1–42.
-</div>
-<div class="csl-entry">
-Soberón, Jorge, and A Townsend Peterson. 2005. <span>“Interpretation of Models of Fundamental Ecological Niches and Species Distributional Areas.”</span> <em>Biodivesity Informatics</em> 2: 1–10. <a href="https://doi.org/10.1093/wber/lhm022">https://doi.org/10.1093/wber/lhm022</a>.
-</div>
 </div>
 </div>
             </section>
@@ -247,8 +260,8 @@ Soberón, Jorge, and A Townsend Peterson. 2005. <span>“Interpretation of Model
           </div>
         </div>
       </div>
-<a href="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="unidad-ii---utilizando-spatstat.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
