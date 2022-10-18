@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | Modelación de nichos ecológicos y aŕeas de distribución con MPPs</title>
+  <title> 7 Unidad V: El desarrollo de un modelo de nicho o de distribución | Modelación de nichos ecológicos y aŕeas de distribución con MPPs</title>
   <meta name="description" content="Sitio del curso de Modelado de nichos ecológicos | Posgrado de Ciencias Biológicas" />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | Modelación de nichos ecológicos y aŕeas de distribución con MPPs" />
+  <meta property="og:title" content=" 7 Unidad V: El desarrollo de un modelo de nicho o de distribución | Modelación de nichos ecológicos y aŕeas de distribución con MPPs" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Sitio del curso de Modelado de nichos ecológicos | Posgrado de Ciencias Biológicas" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | Modelación de nichos ecológicos y aŕeas de distribución con MPPs" />
+  <meta name="twitter:title" content=" 7 Unidad V: El desarrollo de un modelo de nicho o de distribución | Modelación de nichos ecológicos y aŕeas de distribución con MPPs" />
   
   <meta name="twitter:description" content="Sitio del curso de Modelado de nichos ecológicos | Posgrado de Ciencias Biológicas" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"/>
-
+<link rel="prev" href="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -237,15 +237,60 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered hasAnchor">
-<h1>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div class="csl-entry">
-Baddeley, Adrian J., and Rolf Turner. 2005. <span>“Spatstat: An <span>R</span> Package for Analyzing Spatial Point Patterns.”</span> <em>Journal of Statistical Software</em> 12 (6): 1–42.
+<div id="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number"> 7</span> Unidad V: El desarrollo de un modelo de nicho o de distribución<a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="selección-de-proyección-geográfica" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Selección de proyección geográfica<a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#selección-de-proyección-geográfica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La tierra es un elipsoide, y uno de los retos geométricos más grandes es la representación de su superficie como un plano. Para entender la complejidad del problema, pensemos en la tierra como una pelota de playa que cortamos y tratamos de extender sobre una mesa. En este proceso nos damos cuenta de que obtenemos algunas porciones del material bien extendidas y otras con arrugas. Esto mismo sucede cuando intentamos representar la tierra como una superficie plana. Para solucionar este problema se han propuesto varias soluciones, proyectando la superficie terrestre en diferentes formas geométricas como:</p>
+<ol style="list-style-type: decimal">
+<li>Plano tangente a algún punto específico</li>
+<li>Cono que toca la superficie terrestre en algún paralelo</li>
+<li>Cilindro que toca la superficie en el ecuador</li>
+</ol>
+<p>Todas estas metodologías resultan en distorsiones diferentes, como de áreas o ángulos. Es imposible representar correctamente todos estos aspectos, de modo que es importante seleccionar adecuadamente la proyección para hacer nuestros análisis. En el análisis de procesos de puntos el interés es la densidad por unidad de área, de modo que siempre tenemos que buscar una <strong>proyección que conserve las áreas</strong> a expensas de la representación adecuada de los ángulos.</p>
+<p>Las proyecciones que conservan las áreas llevan nombres como <em>Equal area</em>, y las hay desarrolladas para regiones específicas. Puedes visitar <a href="https://pnavarrc.github.io/workshop-d3-maps/pages/geographic-projections/">esta página</a> para ver cómo las diferentes proyecciones afectan la representación de la superficie terrestre.</p>
+<p>Para ayudarnos a seleccionar el sistema de proyección adecuado para nuestros análisis, necesitamos identificar el nombre de la proyección que necesitamos. La gran mayoría de los datos geográficos disponibles están en proyección WGS84, que es una <a href="https://pnavarrc.github.io/workshop-d3-maps/img/equirectangular.png">proyección cilíndrica</a>. Existe una base de datos de proyecciones geográficas con códigos de identificación que se llaman <em>EPSG</em>. En esta biblioteca de proyecciones el código EPSG para la proyección WGS84 es EPSG 4326. Todas las proyecciones tienen un identificador EPSG, y están desarrolladas para representar lo mejor posible las áreas ó formas de regiones geográficas específicas. Para regiones cerca del ecuador, las proyecciones cilíndricas son las más adecuadas, a latitudes medias las cónicas y para los polos las proyecciones planares (tangentes a las superficie).</p>
+<p>Las proyecciones diseñadas para México están agrupadas con el nombre ITRF2008. Para buscar los identificadores EPSG puedes dirigirte a <a href="https://epsg.io/">https://epsg.io/</a> y hacer la búsqueda específica para el país donde harás el análisis. Una vez obtenidos los resultados, las proyecciones geográficas con áreas iguales se pueden filtrar en el menú a mano derecha bajo la liga “projected”.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:proyeccion"></span>
+<img src="proyeccion.png" alt="Página de la biblioteca de EPSG, con la búsqueda para México."  />
+<p class="caption">
+Figura 7.1: Página de la biblioteca de EPSG, con la búsqueda para México.
+</p>
 </div>
-<div class="csl-entry">
-Soberón, Jorge, and A Townsend Peterson. 2005. <span>“Interpretation of Models of Fundamental Ecological Niches and Species Distributional Areas.”</span> <em>Biodivesity Informatics</em> 2: 1–10. <a href="https://doi.org/10.1093/wber/lhm022">https://doi.org/10.1093/wber/lhm022</a>.
+<p>Una vez filtrada la búsqueda para sistemas de coordenadas proyectadas, podemos dar click en las ligas “Get position on a map” para identificar la región geográfica para la cual fue diseñado ese sistema. En el ejemplo seleccioné el último elemento de la lista, que optimiza la representación de la península de Yucatán.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:yucatan"></span>
+<img src="Yucatan.png" alt="Liga para ver la región geográfica"  />
+<p class="caption">
+Figura 7.2: Liga para ver la región geográfica
+</p>
+</div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-76"></span>
+<img src="epsg6371.png" alt="Región geográfica para la proyección ITRF2008 centrada en la península de Yucatán, con identificador EPSG número 6371."  />
+<p class="caption">
+Figura 7.3: Región geográfica para la proyección ITRF2008 centrada en la península de Yucatán, con identificador EPSG número 6371.
+</p>
+</div>
+<div id="transformando-los-sistemas-de-coordenadas-en-r" class="section level3 hasAnchor" number="7.1.1">
+<h3><span class="header-section-number">7.1.1</span> Transformando los sistemas de coordenadas en R<a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#transformando-los-sistemas-de-coordenadas-en-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Para hacer transformaciones de coordenadas en R es necesario, primero que nada, indicarle a R cuál es el sistema de coordenadas de los datos a convertir. Este paso se hace al inicio del script donde comenzamos los análisis de modo que todos los pasos posteriores se hagan con los datos en la proyección correcta.</p>
+<p>Como ejemplo veamos la transformación de las capas raster que hemos estado utilizando en todos los ejemplos. Comenzaremos por preguntarle a R cuál es la proyección actual:</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">proj4string</span>(s)</span></code></pre></div>
+<pre><code>## [1] &quot;+proj=longlat +datum=WGS84 +no_defs&quot;</code></pre>
+<p>En este caso, no tenemos que indicar la proyección, por lo que podemos hacer la transformación:</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb111-1" aria-hidden="true" tabindex="-1"></a>s.it08 <span class="ot">&lt;-</span> <span class="fu">projectRaster</span>(s, <span class="at">crs =</span> <span class="fu">CRS</span>(<span class="st">&quot;+init=epsg:6371&quot;</span>))</span>
+<span id="cb111-2"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.it08)</span></code></pre></div>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-79-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Para transformar los puntos necesitamos una función distinta, y en este caso, sí declarar la proyección inicial de los puntos, después de transformarlos en un objeto espacial:</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb112-1" aria-hidden="true" tabindex="-1"></a>puntos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../Datos-ejemplos/Puntos-tutorial-2.csv&quot;</span>)</span>
+<span id="cb112-2"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coordinates</span>(puntos) <span class="ot">&lt;-</span> <span class="er">~</span>x<span class="sc">+</span>y</span></code></pre></div>
+<p>Declaración de la proyección, la cual es WGS (EPSG4326):</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">proj4string</span>(puntos) <span class="ot">&lt;-</span> <span class="fu">CRS</span>(<span class="st">&quot;+init=epsg:4326&quot;</span>)</span></code></pre></div>
+<p>Transformación al nuevo sistema de coordenadas:</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb114-1" aria-hidden="true" tabindex="-1"></a>puntos.it08 <span class="ot">&lt;-</span> <span class="fu">spTransform</span>(puntos, <span class="at">CRSobj =</span> <span class="fu">CRS</span>(<span class="st">&quot;+init=epsg:6371&quot;</span>))</span></code></pre></div>
+<p>Ahora comprobamos que los puntos estén dentro de la ventana de trabajo:</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.it08[[<span class="dv">1</span>]]); <span class="fu">points</span>(puntos.it08)</span></code></pre></div>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-83-1.png" width="432" /></p>
+
 </div>
 </div>
 </div>
@@ -254,8 +299,8 @@ Soberón, Jorge, and A Townsend Peterson. 2005. <span>“Interpretation of Model
           </div>
         </div>
       </div>
-<a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

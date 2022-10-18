@@ -209,6 +209,13 @@ div.csl-indent {
 <li class="chapter" data-level="6.1" data-path="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html"><a href="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html#tipos-de-estructura-espacial"><i class="fa fa-check"></i><b>6.1</b> Tipos de estructura espacial</a></li>
 <li class="chapter" data-level="6.2" data-path="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html"><a href="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html#modelos-para-los-diferentes-tipos-de-estructura"><i class="fa fa-check"></i><b>6.2</b> Modelos para los diferentes tipos de estructura</a></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><i class="fa fa-check"></i><b>7</b> Unidad V: El desarrollo de un modelo de nicho o de distribución</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#selección-de-proyección-geográfica"><i class="fa fa-check"></i><b>7.1</b> Selección de proyección geográfica</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#transformando-los-sistemas-de-coordenadas-en-r"><i class="fa fa-check"></i><b>7.1.1</b> Transformando los sistemas de coordenadas en R</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://gerardommc.github.io" target="blank">Regresar al labo</a></li>
@@ -273,8 +280,8 @@ Figura 5.3: Gráfica de la prueba <em>K</em> de Ripley implementada en <code>spa
 ## Done.</code></pre>
 <p>Mientras la función corre, <strong>R</strong> imprime la última simulación completada, y el objeto que se obtiene puede graficarse con el método por defecto <code>plot</code>:</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="unidad-ii---utilizando-spatstat.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(K)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-52"></span>
-<img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-52-1.png" alt="Gráfica de la función *K* de Ripley para el proceso de puntos analizado. Las sombras en gris muestran los intervalos de confianza al 95%. La línea roja a guiones representa la expectativa teórica (*K* teórica) en caso de que el proceso de puntos sea aleatorio, y la línea negra sólida es la función de Ripley para el proceso de puntos (la *K* observada). El eje de las *x* representa distancia (en grados) y las *y* el número promedio de vecinos de cada punto." width="576" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-53"></span>
+<img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-53-1.png" alt="Gráfica de la función *K* de Ripley para el proceso de puntos analizado. Las sombras en gris muestran los intervalos de confianza al 95%. La línea roja a guiones representa la expectativa teórica (*K* teórica) en caso de que el proceso de puntos sea aleatorio, y la línea negra sólida es la función de Ripley para el proceso de puntos (la *K* observada). El eje de las *x* representa distancia (en grados) y las *y* el número promedio de vecinos de cada punto." width="576" />
 <p class="caption">
 Figura 5.4: Gráfica de la función <em>K</em> de Ripley para el proceso de puntos analizado. Las sombras en gris muestran los intervalos de confianza al 95%. La línea roja a guiones representa la expectativa teórica (<em>K</em> teórica) en caso de que el proceso de puntos sea aleatorio, y la línea negra sólida es la función de Ripley para el proceso de puntos (la <em>K</em> observada). El eje de las <em>x</em> representa distancia (en grados) y las <em>y</em> el número promedio de vecinos de cada punto.
 </p>
@@ -514,8 +521,8 @@ Figura 5.9: Prueba de correlación para todos los pares de variables.
 <p>Las predicciones del modelo podemos verlas con la función <code>plot</code>:</p>
 <div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="unidad-ii---utilizando-spatstat.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
 <span id="cb73-2"><a href="unidad-ii---utilizando-spatstat.html#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(m1)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-61"></span>
-<img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-61-1.png" alt="Mapa de las predicciones del modelo. El panel izquierdo muestra la tendencia espacial y el derecho el error estándar de la tendencia estimada." width="768" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-62"></span>
+<img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-62-1.png" alt="Mapa de las predicciones del modelo. El panel izquierdo muestra la tendencia espacial y el derecho el error estándar de la tendencia estimada." width="768" />
 <p class="caption">
 Figura 5.10: Mapa de las predicciones del modelo. El panel izquierdo muestra la tendencia espacial y el derecho el error estándar de la tendencia estimada.
 </p>
@@ -750,7 +757,7 @@ Figura 5.10: Mapa de las predicciones del modelo. El panel izquierdo muestra la 
 <p>verificamos la media:</p>
 <pre><code>## [1] 5.277992</code></pre>
 <p>Para mostrar la distribucion de la variable tambien la podemos graficar e indicar donde queda la media estimada:</p>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-68-1.png" width="384" /></p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-69-1.png" width="384" /></p>
 <p>El efecto de restar la media a todos los valores de <span class="math inline">\(x\)</span> se muestra a continuacion</p>
 <div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="unidad-ii---utilizando-spatstat.html#cb92-1" aria-hidden="true" tabindex="-1"></a>x<span class="fl">.0</span> <span class="ot">&lt;-</span> x <span class="sc">-</span> <span class="fu">mean</span>(x)</span>
 <span id="cb92-2"><a href="unidad-ii---utilizando-spatstat.html#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(x<span class="fl">.0</span>), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Densidad de x.0&quot;</span>)</span>
@@ -775,7 +782,7 @@ Figura 5.10: Mapa de las predicciones del modelo. El panel izquierdo muestra la 
 <div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="unidad-ii---utilizando-spatstat.html#cb97-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
 <span id="cb97-2"><a href="unidad-ii---utilizando-spatstat.html#cb97-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">10</span>, <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="sc">*</span> x</span>
 <span id="cb97-3"><a href="unidad-ii---utilizando-spatstat.html#cb97-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">main =</span> <span class="st">&quot;&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-70-1.png" width="384" /></p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-71-1.png" width="384" /></p>
 <p>Ajustaremos el modelo lineal para estimar a <span class="math inline">\(\alpha\)</span> y <span class="math inline">\(\beta\)</span>, y extraer los residuales:</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="unidad-ii---utilizando-spatstat.html#cb98-1" aria-hidden="true" tabindex="-1"></a>mod.lin <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x)</span>
 <span id="cb98-2"><a href="unidad-ii---utilizando-spatstat.html#cb98-2" aria-hidden="true" tabindex="-1"></a>resids <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod.lin)</span>
@@ -825,7 +832,7 @@ Figura 5.10: Mapa de las predicciones del modelo. El panel izquierdo muestra la 
 </tbody>
 </table>
 <p>puesto que <span class="math inline">\(y(x_i)\)</span> es la media de <span class="math inline">\(y_i\)</span> para <span class="math inline">\(x_i\)</span>. De modo que del mismo modo que con la figura <a href="#fig:normal-cent"><strong>??</strong></a>, los residuales <span class="math inline">\(\varepsilon\)</span> tienen una distribucion normal con media de cero (0):</p>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-73-1.png" width="384" /></p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-74-1.png" width="384" /></p>
 <p>En el caso de los procesos de puntos los residuales tambien deben tener una media de cero, y ser aproximadamente normales (con varianza homogenea).</p>
 <p>A diferencia de los procedimientos de regresión lineal, los procesos de puntos no se limitan al análisis de las coordenadas del fenómeno que estamos estudiando, si no a todas las unidades espaciales donde podría estar definido el proceso de puntos. Esto implica que tenemos que evaluar los residuales en el espacio. aquí surge una pregunta muy natural, ¿cómo se evalúan los residuales de una serie de puntos discretos en una rejilla de unidades espaciales? El paquete <code>spatstat</code> emplea un método muy ingenioso que consiste en:</p>
 <ol style="list-style-type: decimal">
