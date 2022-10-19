@@ -6,3 +6,9 @@
 
 ```
 
+## Selección de variables ambientales
+
+```{r echo = F, child = "Unidad-V/Variables.Rmd"}
+
+```
+

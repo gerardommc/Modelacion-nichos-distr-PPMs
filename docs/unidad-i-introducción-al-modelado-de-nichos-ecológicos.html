@@ -23,7 +23,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-10-18" />
+<meta name="date" content="2022-10-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -206,7 +206,10 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="6" data-path="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html"><a href="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html"><i class="fa fa-check"></i><b>6</b> Unidad IV: Modelos para procesos de puntos con estructura espacial</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html"><a href="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html#tipos-de-estructura-espacial"><i class="fa fa-check"></i><b>6.1</b> Tipos de estructura espacial</a></li>
+<li class="chapter" data-level="6.1" data-path="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html"><a href="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html#tipos-de-estructura-espacial"><i class="fa fa-check"></i><b>6.1</b> Tipos de estructura espacial</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html"><a href="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html#modelos-de-interacción-de-puntos"><i class="fa fa-check"></i><b>6.1.1</b> Modelos de interacción de puntos</a></li>
+</ul></li>
 <li class="chapter" data-level="6.2" data-path="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html"><a href="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html#modelos-para-los-diferentes-tipos-de-estructura"><i class="fa fa-check"></i><b>6.2</b> Modelos para los diferentes tipos de estructura</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><i class="fa fa-check"></i><b>7</b> Unidad V: El desarrollo de un modelo de nicho o de distribución</a>
@@ -215,6 +218,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.1.1" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#transformando-los-sistemas-de-coordenadas-en-r"><i class="fa fa-check"></i><b>7.1.1</b> Transformando los sistemas de coordenadas en R</a></li>
 </ul></li>
+<li class="chapter" data-level="7.2" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#selección-de-variables-ambientales"><i class="fa fa-check"></i><b>7.2</b> Selección de variables ambientales</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -270,7 +274,7 @@ Figura 3.2: Diagrama BAM clásico muestra cómo la geografía ocupada (la distri
 </ul>
 <p>Para la gran mayoría de las especies, los nichos ecológicos sólo pueden ser estimados con experimentos bien controlados, lo cual puede ser éticamente inaceptable y logísticamente imposible. La modelación correlativa de nichos, entonces, es una de las pocas alternativas con que se cuenta para estimar los efectos del clima sobre las especies. Naturalmente el resultado de todos estos análisis tienen diferentes significados, los cuales tienen que corresponder con el nombre que se les da. Los modelos de distribución son representaciones de la distribución realizada de una especie, mientras que la representación cartográfica de los modelos de nicho son de la distribución potencial.</p>
 <p>Debido a que es muy difícil estimar las interacciones bióticas con métodos correlativos, los modelos de distribución suelen estimar relaciones más complejas entre el medio ambiente y la presencia de las especies. Los modelos de nicho ecológico, estiman relaciones más simples y generalmente con respuestas suavizadas.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-12"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-13"></span>
 <img src="Unidad-I/SDM-ENM.png" alt="Ejemplo de diferencias en las respuestas de un organismo a la temperatura promedio en un modelo de distribución y un modelo de nicho ecológico." width="568" />
 <p class="caption">
 Figura 3.3: Ejemplo de diferencias en las respuestas de un organismo a la temperatura promedio en un modelo de distribución y un modelo de nicho ecológico.
@@ -466,7 +470,7 @@ Las constantes <span class="math inline">\(a\)</span>, <span class="math inline"
 <span id="cb21-3"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb21-3" aria-hidden="true" tabindex="-1"></a>y.modelo <span class="ot">&lt;-</span> <span class="fu">predict</span>(modelo1, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x.modelo))</span>
 <span id="cb21-4"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-5"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x.modelo, y.modelo, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-27-1.png" width="384" /></p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-28-1.png" width="384" /></p>
 <p>Si llegaramos a contar con más variables <code>x</code> simplemente tendríamos que añadirlas a la fórmula del modelo cuando hacemos el llamado a <code>lm</code>. Un problema un poco más difícil que resolver es la decisión de qué modelo vamos a seleccionar cuando tenemos muchas variables, pues hay variables independientes que no son compatibles, como aquellas que están correlacionadas. Existen metodologías o mediciones de la bondad de ajuste del modelo a los datos como el criterio de información de Akaike (AIC) que penaliza los modelos complejos en relación a aquellos más sencillos. Estas metodologías de selección de modelo las revisaremos más adelante.</p>
 </div>
 </div>
@@ -496,7 +500,7 @@ Las constantes <span class="math inline">\(a\)</span>, <span class="math inline"
 <span id="cb22-2"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb22-2" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">raster</span>(<span class="st">&quot;../Datos-ejemplos/Var-1.tif&quot;</span>)</span></code></pre></div>
 <p>Para visualizar la capa importada podemos usar la función <code>plot</code>:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r)</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-29-1.png" width="432" /></p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-30-1.png" width="432" /></p>
 <p>En un análisis realista, uno utiliza múltiples capas, para lo cual existe la función <code>stack</code>, lo que permite crear un objeto con múltiples capas. Primero necesitamos conocer los nombres de los archivos a importar con la función <code>list.files</code>, y el objeto que contiene los nombres de los archivos lo utilizamos de argumento para <code>stack</code></p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb24-1" aria-hidden="true" tabindex="-1"></a>archivos <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&quot;../Datos-ejemplos&quot;</span>, <span class="st">&quot;tif&quot;</span>, <span class="at">full.names =</span> T)</span>
 <span id="cb24-2"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb24-2" aria-hidden="true" tabindex="-1"></a>archivos</span></code></pre></div>
@@ -505,7 +509,7 @@ Las constantes <span class="math inline">\(a\)</span>, <span class="math inline"
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb26-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">stack</span>(archivos)</span></code></pre></div>
 <p>Y podemos visualizar de nuevo con <code>plot</code></p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s)</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-31-1.png" width="576" /></p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-32-1.png" width="576" /></p>
 <p>Para que la función <code>stack</code> funcione todas las capas tienen que coincidir plenamente píxel por píxel. Si tenemos capas que no coinciden será necesario remuestrearlas con la función <code>resample</code>. Esta función necesita además conocer el sistema de coordenadas en que se encuentra la capa. El sistema de coordenadas más común es WGS84, y su código EPSG:4326. Este código es un sistema internacional que permite conocer los dieferentes sistemas de coordenadas para las diferentes regiones del mundo. En <strong>R</strong> podemos verificar qué sistema de coordenadas tiene una capa con la función <code>proj4string</code>:</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">proj4string</span>(r)</span></code></pre></div>
 <pre><code>## [1] &quot;+proj=longlat +datum=WGS84 +no_defs&quot;</code></pre>
@@ -522,7 +526,7 @@ Las constantes <span class="math inline">\(a\)</span>, <span class="math inline"
 <p>Veamos cómo están distribuidos sobre el área de estudio:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r)</span>
 <span id="cb32-2"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(df)</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-36-1.png" width="432" /></p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-37-1.png" width="432" /></p>
 <p>Para delimitar el área de estudio, sueles utilizare buffers alrededor de los puntos de presencia, que pueden ser generados con la función <code>gBuffer</code> del paquete <code>rgeos</code>. Para generarlos tenemos que indicarle a <strong>R</strong> cuál columna corresponde a las coordenadas latitud y longitud:</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coordinates</span>(df) <span class="ot">&lt;-</span> <span class="er">~</span> x<span class="sc">+</span>y</span>
 <span id="cb33-2"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb33-2" aria-hidden="true" tabindex="-1"></a>buffers <span class="ot">&lt;-</span> rgeos<span class="sc">::</span><span class="fu">gBuffer</span>(df, <span class="at">width =</span> <span class="fl">0.3</span>)</span></code></pre></div>
@@ -530,11 +534,11 @@ Las constantes <span class="math inline">\(a\)</span>, <span class="math inline"
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r)</span>
 <span id="cb34-2"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(df)</span>
 <span id="cb34-3"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(buffers, <span class="at">add =</span> T)</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-38-1.png" width="432" /></p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-39-1.png" width="432" /></p>
 <p>Una vez obtenidos los buffers podemos usarlos para recortar las capas raster que funcionarán como covariables ambientales.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb35-1" aria-hidden="true" tabindex="-1"></a>s.rec <span class="ot">&lt;-</span> <span class="fu">mask</span>(s, buffers)</span>
 <span id="cb35-2"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.rec)</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-39-1.png" width="432" /></p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-40-1.png" width="432" /></p>
 
 </div>
 </div>

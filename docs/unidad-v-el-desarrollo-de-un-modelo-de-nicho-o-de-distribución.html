@@ -23,7 +23,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-10-18" />
+<meta name="date" content="2022-10-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -206,7 +206,10 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="6" data-path="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html"><a href="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html"><i class="fa fa-check"></i><b>6</b> Unidad IV: Modelos para procesos de puntos con estructura espacial</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html"><a href="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html#tipos-de-estructura-espacial"><i class="fa fa-check"></i><b>6.1</b> Tipos de estructura espacial</a></li>
+<li class="chapter" data-level="6.1" data-path="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html"><a href="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html#tipos-de-estructura-espacial"><i class="fa fa-check"></i><b>6.1</b> Tipos de estructura espacial</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html"><a href="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html#modelos-de-interacción-de-puntos"><i class="fa fa-check"></i><b>6.1.1</b> Modelos de interacción de puntos</a></li>
+</ul></li>
 <li class="chapter" data-level="6.2" data-path="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html"><a href="unidad-iv-modelos-para-procesos-de-puntos-con-estructura-espacial.html#modelos-para-los-diferentes-tipos-de-estructura"><i class="fa fa-check"></i><b>6.2</b> Modelos para los diferentes tipos de estructura</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><i class="fa fa-check"></i><b>7</b> Unidad V: El desarrollo de un modelo de nicho o de distribución</a>
@@ -215,6 +218,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.1.1" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#transformando-los-sistemas-de-coordenadas-en-r"><i class="fa fa-check"></i><b>7.1.1</b> Transformando los sistemas de coordenadas en R</a></li>
 </ul></li>
+<li class="chapter" data-level="7.2" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#selección-de-variables-ambientales"><i class="fa fa-check"></i><b>7.2</b> Selección de variables ambientales</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -264,7 +268,7 @@ Figura 7.1: Página de la biblioteca de EPSG, con la búsqueda para México.
 Figura 7.2: Liga para ver la región geográfica
 </p>
 </div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-76"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-77"></span>
 <img src="epsg6371.png" alt="Región geográfica para la proyección ITRF2008 centrada en la península de Yucatán, con identificador EPSG número 6371."  />
 <p class="caption">
 Figura 7.3: Región geográfica para la proyección ITRF2008 centrada en la península de Yucatán, con identificador EPSG número 6371.
@@ -279,7 +283,7 @@ Figura 7.3: Región geográfica para la proyección ITRF2008 centrada en la pen�
 <p>En este caso, no tenemos que indicar la proyección, por lo que podemos hacer la transformación:</p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb111-1" aria-hidden="true" tabindex="-1"></a>s.it08 <span class="ot">&lt;-</span> <span class="fu">projectRaster</span>(s, <span class="at">crs =</span> <span class="fu">CRS</span>(<span class="st">&quot;+init=epsg:6371&quot;</span>))</span>
 <span id="cb111-2"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.it08)</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-79-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-80-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Para transformar los puntos necesitamos una función distinta, y en este caso, sí declarar la proyección inicial de los puntos, después de transformarlos en un objeto espacial:</p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb112-1" aria-hidden="true" tabindex="-1"></a>puntos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../Datos-ejemplos/Puntos-tutorial-2.csv&quot;</span>)</span>
 <span id="cb112-2"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coordinates</span>(puntos) <span class="ot">&lt;-</span> <span class="er">~</span>x<span class="sc">+</span>y</span></code></pre></div>
@@ -289,9 +293,52 @@ Figura 7.3: Región geográfica para la proyección ITRF2008 centrada en la pen�
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb114-1" aria-hidden="true" tabindex="-1"></a>puntos.it08 <span class="ot">&lt;-</span> <span class="fu">spTransform</span>(puntos, <span class="at">CRSobj =</span> <span class="fu">CRS</span>(<span class="st">&quot;+init=epsg:6371&quot;</span>))</span></code></pre></div>
 <p>Ahora comprobamos que los puntos estén dentro de la ventana de trabajo:</p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.it08[[<span class="dv">1</span>]]); <span class="fu">points</span>(puntos.it08)</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-83-1.png" width="432" /></p>
-
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-84-1.png" width="432" /></p>
 </div>
+</div>
+<div id="selección-de-variables-ambientales" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Selección de variables ambientales<a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#selección-de-variables-ambientales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para ajustar un modelo de puntos necesitamos identificar las variables ambientales que incluiremos con sus fórmulas respectivas. Hasta este momento nos hemos enfocado en ajustar modelos muy sencillos con pocas variables, por lo que aún nos queda por identificar una serie de variables adicionales que podrían explicar la correlación espacial de nuestros datos. El procedimiento para identificar más variables ambientales es el mismo que anteriormente, pero necesitamos comenzar con un objeto del tipo <code>stack</code> que contenga más variables.</p>
+<p>En 2005 Robert Hijmans publicó la famosa base de datos <a href="https://worldclim.org">WorldClim</a>, donde desarrolló un conjunto de 19 variables compuestas que denominó variables bioclimáticas, que representar diferentes combinaciones de temperatura y precipitación, una en relación a la otra. La lista completa de variables bioclimáticas es:</p>
+<ol style="list-style-type: decimal">
+<li><strong>bio1</strong> = Temperatura anual promedio</li>
+<li><strong>bio2</strong> = Rango diurno de temperatura (promedio de temperatura máxima - mínima)</li>
+<li><strong>bio3</strong> = Isotermalidad (bio2/bio7) (* 100)</li>
+<li><strong>bio4</strong> = Estacionalidad de la temperatura (Desviación estándad <span class="math inline">\(\times 100\)</span>)</li>
+<li><strong>bio5</strong> = Temperatura máxima del mes más cálido</li>
+<li><strong>bio6</strong> = Temperatura mínuma del mes más frío</li>
+<li><strong>bio7</strong> = Rango anual de temperatura (bio5-bio6)</li>
+<li><strong>bio8</strong> = Temperatura promedio del cuarto más húmedo</li>
+<li><strong>bio9</strong> = Temperatura promedio del cuarto más seco
+10 <strong>bio10</strong> = Temperatura promedio de cuarto más húmedo</li>
+<li><strong>bio11</strong> = Temperatura promedio del cuarto más frío</li>
+<li><strong>bio12</strong> = Precipitación anual total</li>
+<li><strong>bio13</strong> = Precipitación del mes más húmedo
+14 <strong>bio14</strong> = Precipitación dle mes más seco</li>
+<li><strong>bio15</strong> = Estacionalidad de la precipitación (coeficiente de variación)</li>
+<li><strong>bio16</strong> = Precipitación del cuarto más húmedo</li>
+<li><strong>bio17</strong> = Precipitación del cuarto más seco
+18 <strong>bio18</strong> = Precipitación del cuarto más cálido</li>
+</ol>
+<p>Como resulta evidente agunas de estas variables bioclimáticas son construidas con base en otras variables bioclimáticas (bio3 y bio7, p. ej.). Por ello, algunas de estas están correlacionadas y no deben ser incluidas en el mismo modelo:</p>
+<ul>
+<li>bio3 es incompatible con bio2 y bio7 simultáneamente</li>
+<li>bio7 es incompatible con bio 5 y bio6 simultáneamente</li>
+</ul>
+<p>Entonces el proceso de identificación de variables tiene que tomar en cuenta esta colinealidad de facto y toda aquella que pueda ser identificada estadísticamente.</p>
+<p>Además de estos estas cualidades de las que debemos estar conscientes, también es necesario tomar en cuenta que algunas de las variables bioclimáticas suelen tener artefactos espaciales, es decir características geográficas que no representan atributos reales de la variación espacial del clima. Estos artefactos se presentan más comunmente en las variables <strong>bio8</strong>, <strong>bio9</strong> y <strong>bio14</strong>. Entonces, antes de comenzar con la selección de variables bioclimáticas, es buena práctica revisar si estas variables presentan los artefactos mencionados para el área de estudio (<a href="https://besjournals.onlinelibrary.wiley.com/cms/asset/7f44bc08-b557-43cb-b798-56117c3abe79/mee313488-fig-0002-m.jpg">ejemplo</a>).</p>
+<p>Para hacer la lista de variables compatibles, podemos utilizar las gráficas de correlación por pares, como se ha mostrado anteriormente. A partir de estas gráficas comenzamos a hacer la lista de variables compatibles entre sí con base en un coeficiente de correlación tolerado. Como regla de dedo utilizamos el valor <span class="math inline">\(-0.7 \geq r \leq 0.7\)</span>.</p>
+<p>Las listas de covariables compatibles pueden ser formuladas con el reemplazo de variables no compatibles entre sí. Por ejemplo, si bio1 y bio5 están correlacionadas entre sí, pero ninguna de las dos está correlacionada con bio2, y bio3, las listas de variables compatibles sería:</p>
+<ol style="list-style-type: decimal">
+<li>bio1, bio2 y bio3</li>
+<li>bio2, bio3 y bio5</li>
+<li>bio1, bio2</li>
+<li>bio1, bio3</li>
+<li>bio2 y bio3</li>
+<li>Todas las combinaciones que surjan</li>
+</ol>
+<p>Con base en estas listas y las gráficas de intensidad de puntos en relación a las diferentes variables podemos proponer las fórmulas para los modelos basadas en los tipos de respuestas que identifiquemos.</p>
+
 </div>
 </div>
             </section>

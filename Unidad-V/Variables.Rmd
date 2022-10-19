@@ -1,0 +1,46 @@
+Para ajustar un modelo de puntos necesitamos identificar las variables ambientales que incluiremos con sus fórmulas respectivas. Hasta este momento nos hemos enfocado en ajustar modelos muy sencillos con pocas variables, por lo que aún nos queda por identificar una serie de variables adicionales que podrían explicar la correlación espacial de nuestros datos. El procedimiento para identificar más variables ambientales es el mismo que anteriormente, pero necesitamos comenzar con un objeto del tipo `stack` que contenga más variables. 
+
+En 2005 Robert Hijmans publicó la famosa base de datos [WorldClim](https://worldclim.org), donde desarrolló un conjunto de 19 variables compuestas que denominó variables bioclimáticas, que representar diferentes combinaciones de temperatura y precipitación, una en relación a la otra. La lista completa de variables bioclimáticas es:
+
+1. **bio1** = Temperatura anual promedio
+2. **bio2** = Rango diurno de temperatura (promedio de temperatura máxima - mínima)
+3. **bio3** = Isotermalidad (bio2/bio7) (* 100)
+4. **bio4** = Estacionalidad de la temperatura  (Desviación estándad $\times 100$)
+5. **bio5** = Temperatura máxima del mes más cálido
+6. **bio6** = Temperatura mínuma del mes más frío
+7. **bio7** = Rango anual de temperatura (bio5-bio6)
+8. **bio8** = Temperatura promedio del cuarto más húmedo
+9. **bio9** = Temperatura promedio del cuarto más seco
+10 **bio10** = Temperatura promedio de cuarto más húmedo
+11. **bio11** = Temperatura promedio del cuarto más frío
+12. **bio12** = Precipitación anual total
+13. **bio13** = Precipitación del mes más húmedo
+14 **bio14** = Precipitación dle mes más seco
+15. **bio15** = Estacionalidad de la precipitación (coeficiente de variación)
+16. **bio16** = Precipitación del cuarto más húmedo
+17. **bio17** = Precipitación del cuarto más seco
+18 **bio18** = Precipitación del cuarto más cálido
+
+Como resulta evidente agunas de estas variables bioclimáticas son construidas con base en otras variables bioclimáticas (bio3 y bio7, p. ej.). Por ello, algunas de estas están correlacionadas y no deben ser incluidas en el mismo modelo:
+
+- bio3 es incompatible con bio2 y bio7 simultáneamente
+- bio7 es incompatible con bio 5 y bio6 simultáneamente
+
+Entonces el proceso de identificación de variables tiene que tomar en cuenta esta colinealidad de facto y toda aquella que pueda ser identificada estadísticamente. 
+
+Además de estos estas cualidades de las que debemos estar conscientes, también es necesario tomar en cuenta que algunas de las variables bioclimáticas suelen tener artefactos espaciales, es decir características geográficas que no representan atributos reales de la variación espacial del clima. Estos artefactos se presentan más comunmente en las variables **bio8**, **bio9** y **bio14**. Entonces, antes de comenzar con la selección de variables bioclimáticas, es buena práctica revisar si estas variables presentan los artefactos mencionados para el área de estudio ([ejemplo](https://besjournals.onlinelibrary.wiley.com/cms/asset/7f44bc08-b557-43cb-b798-56117c3abe79/mee313488-fig-0002-m.jpg)).
+
+Para hacer la lista de variables compatibles, podemos utilizar las gráficas de correlación por pares, como se ha mostrado anteriormente. A partir de estas gráficas comenzamos a hacer la lista de variables compatibles entre sí con base en un coeficiente de correlación tolerado. Como regla de dedo utilizamos el valor $-0.7 \geq r \leq 0.7$. 
+
+Las listas de covariables compatibles pueden ser formuladas con el reemplazo de variables no compatibles entre sí. Por ejemplo, si bio1 y bio5 están correlacionadas entre sí, pero ninguna de las dos está correlacionada con bio2, y bio3, las listas de variables compatibles sería:
+
+1. bio1, bio2 y bio3
+2. bio2, bio3 y bio5
+3. bio1, bio2
+4. bio1, bio3
+5. bio2 y bio3
+6. Todas las combinaciones que surjan
+
+
+
+Con base en estas listas y las gráficas de intensidad de puntos en relación a las diferentes variables podemos proponer las fórmulas para los modelos basadas en los tipos de respuestas que identifiquemos.
