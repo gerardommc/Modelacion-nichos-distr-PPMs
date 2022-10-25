@@ -14,17 +14,17 @@ Las proyecciones diseñadas para México están agrupadas con el nombre ITRF2008
 
 
 ```{r proyeccion, echo = F, fig.align='center', fig.cap="Página de la biblioteca de EPSG, con la búsqueda para México."}
-knitr::include_graphics("proyeccion.png")
+knitr::include_graphics("Unidad-V/proyeccion.png")
 ```
 
 Una vez filtrada la búsqueda para sistemas de coordenadas proyectadas, podemos dar click en las ligas "Get position on a map" para identificar la región geográfica para la cual fue diseñado ese sistema. En el ejemplo seleccioné el último elemento de la lista, que optimiza la representación de la península de Yucatán.
 
 ```{r yucatan, echo = F, fig.align='center', fig.cap="Liga para ver la región geográfica"}
-knitr::include_graphics("Yucatan.png")
+knitr::include_graphics("Unidad-V/Yucatan.png")
 ```
 
 ```{r echo = F, fig.align='center', fig.cap="Región geográfica para la proyección ITRF2008 centrada en la península de Yucatán, con identificador EPSG número 6371."}
-knitr::include_graphics("epsg6371.png")
+knitr::include_graphics("Unidad-V/epsg6371.png")
 ```
 
 ### Transformando los sistemas de coordenadas en R

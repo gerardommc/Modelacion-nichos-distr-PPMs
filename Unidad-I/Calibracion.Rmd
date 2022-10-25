@@ -149,7 +149,7 @@ setwd("~/Documentos/SubCarpeta")
 
 Una vez que se ha especificado la ruta donde los archivos a importar están ubicados, podemos tratar de leerlos con la función `read.csv()`, si es que los datos a importar están en ese formato. El argumento para `read.csv` es el nombre del archivo que se busca rodeado por comillas:
 
-```{r echo = T, warning = F, message=F}
+```{r echo = T, warning = F, message=F, eval=FALSE}
 setwd("~/Documentos/SubCarpeta")
 tabla <- read.csv("tabla.csv")
 ```

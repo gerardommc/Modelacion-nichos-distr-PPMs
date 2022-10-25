@@ -23,7 +23,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-10-19" />
+<meta name="date" content="2022-10-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -419,7 +419,7 @@ Las constantes <span class="math inline">\(a\)</span>, <span class="math inline"
 <p>Para importar una base de datos al espacio de trabajo de <strong>R</strong> necesitamos contar con el archivo y conocer su ubicación en el disco duro de la computadora. Por defecto, <strong>R</strong> buscará los archivos en la carpeta <em>home</em> del usuario. Es posible indicarle a <strong>R</strong> que en esa sesión utilice otra ubicación, de modo que la búsqueda e importación de datos sea más conveniente.</p>
 <p>La función que nos permite conocer la carpeta donde <strong>R</strong> buscará los archivos es:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;/home/gerardo/Documentos/Cosas ENES/Materias/Posgrado/Modelacion-nichos-distr-PPMs/Unidad-I&quot;</code></pre>
+<pre><code>## [1] &quot;/home/gerardommc/Documentos/Cosas ENES/Materias/Posgrado/Modelacion-nichos-distr-PPMs/Unidad-I&quot;</code></pre>
 <p>y produce una cadena de texto que es la dirección dentro del disco duro. Para modificarla, podemos usar la función <code>setwd()</code> donde debemos indicar con una cadena de texto la ruta a seguir a partir de la ubicación actual:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;~/Documentos/SubCarpeta&quot;</span>)</span></code></pre></div>
 <p>Una vez que se ha especificado la ruta donde los archivos a importar están ubicados, podemos tratar de leerlos con la función <code>read.csv()</code>, si es que los datos a importar están en ese formato. El argumento para <code>read.csv</code> es el nombre del archivo que se busca rodeado por comillas:</p>

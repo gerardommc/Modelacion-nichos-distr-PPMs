@@ -23,7 +23,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-10-19" />
+<meta name="date" content="2022-10-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -256,20 +256,20 @@ div.csl-indent {
 <p>Para ayudarnos a seleccionar el sistema de proyección adecuado para nuestros análisis, necesitamos identificar el nombre de la proyección que necesitamos. La gran mayoría de los datos geográficos disponibles están en proyección WGS84, que es una <a href="https://pnavarrc.github.io/workshop-d3-maps/img/equirectangular.png">proyección cilíndrica</a>. Existe una base de datos de proyecciones geográficas con códigos de identificación que se llaman <em>EPSG</em>. En esta biblioteca de proyecciones el código EPSG para la proyección WGS84 es EPSG 4326. Todas las proyecciones tienen un identificador EPSG, y están desarrolladas para representar lo mejor posible las áreas ó formas de regiones geográficas específicas. Para regiones cerca del ecuador, las proyecciones cilíndricas son las más adecuadas, a latitudes medias las cónicas y para los polos las proyecciones planares (tangentes a las superficie).</p>
 <p>Las proyecciones diseñadas para México están agrupadas con el nombre ITRF2008. Para buscar los identificadores EPSG puedes dirigirte a <a href="https://epsg.io/">https://epsg.io/</a> y hacer la búsqueda específica para el país donde harás el análisis. Una vez obtenidos los resultados, las proyecciones geográficas con áreas iguales se pueden filtrar en el menú a mano derecha bajo la liga “projected”.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:proyeccion"></span>
-<img src="proyeccion.png" alt="Página de la biblioteca de EPSG, con la búsqueda para México."  />
+<img src="Unidad-V/proyeccion.png" alt="Página de la biblioteca de EPSG, con la búsqueda para México." width="540" />
 <p class="caption">
 Figura 7.1: Página de la biblioteca de EPSG, con la búsqueda para México.
 </p>
 </div>
 <p>Una vez filtrada la búsqueda para sistemas de coordenadas proyectadas, podemos dar click en las ligas “Get position on a map” para identificar la región geográfica para la cual fue diseñado ese sistema. En el ejemplo seleccioné el último elemento de la lista, que optimiza la representación de la península de Yucatán.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:yucatan"></span>
-<img src="Yucatan.png" alt="Liga para ver la región geográfica"  />
+<img src="Unidad-V/Yucatan.png" alt="Liga para ver la región geográfica" width="318" />
 <p class="caption">
 Figura 7.2: Liga para ver la región geográfica
 </p>
 </div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-77"></span>
-<img src="epsg6371.png" alt="Región geográfica para la proyección ITRF2008 centrada en la península de Yucatán, con identificador EPSG número 6371."  />
+<img src="Unidad-V/epsg6371.png" alt="Región geográfica para la proyección ITRF2008 centrada en la península de Yucatán, con identificador EPSG número 6371." width="621" />
 <p class="caption">
 Figura 7.3: Región geográfica para la proyección ITRF2008 centrada en la península de Yucatán, con identificador EPSG número 6371.
 </p>
