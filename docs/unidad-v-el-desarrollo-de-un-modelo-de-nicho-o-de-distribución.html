@@ -219,6 +219,7 @@ div.csl-indent {
 <li class="chapter" data-level="7.1.1" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#transformando-los-sistemas-de-coordenadas-en-r"><i class="fa fa-check"></i><b>7.1.1</b> Transformando los sistemas de coordenadas en R</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#selección-de-variables-ambientales"><i class="fa fa-check"></i><b>7.2</b> Selección de variables ambientales</a></li>
+<li class="chapter" data-level="7.3" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#validación-del-modelo"><i class="fa fa-check"></i><b>7.3</b> Validación del modelo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -268,7 +269,7 @@ Figura 7.1: Página de la biblioteca de EPSG, con la búsqueda para México.
 Figura 7.2: Liga para ver la región geográfica
 </p>
 </div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-77"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-78"></span>
 <img src="Unidad-V/epsg6371.png" alt="Región geográfica para la proyección ITRF2008 centrada en la península de Yucatán, con identificador EPSG número 6371." width="621" />
 <p class="caption">
 Figura 7.3: Región geográfica para la proyección ITRF2008 centrada en la península de Yucatán, con identificador EPSG número 6371.
@@ -283,7 +284,7 @@ Figura 7.3: Región geográfica para la proyección ITRF2008 centrada en la pen�
 <p>En este caso, no tenemos que indicar la proyección, por lo que podemos hacer la transformación:</p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb111-1" aria-hidden="true" tabindex="-1"></a>s.it08 <span class="ot">&lt;-</span> <span class="fu">projectRaster</span>(s, <span class="at">crs =</span> <span class="fu">CRS</span>(<span class="st">&quot;+init=epsg:6371&quot;</span>))</span>
 <span id="cb111-2"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.it08)</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-80-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-81-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Para transformar los puntos necesitamos una función distinta, y en este caso, sí declarar la proyección inicial de los puntos, después de transformarlos en un objeto espacial:</p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb112-1" aria-hidden="true" tabindex="-1"></a>puntos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../Datos-ejemplos/Puntos-tutorial-2.csv&quot;</span>)</span>
 <span id="cb112-2"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coordinates</span>(puntos) <span class="ot">&lt;-</span> <span class="er">~</span>x<span class="sc">+</span>y</span></code></pre></div>
@@ -293,7 +294,7 @@ Figura 7.3: Región geográfica para la proyección ITRF2008 centrada en la pen�
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb114-1" aria-hidden="true" tabindex="-1"></a>puntos.it08 <span class="ot">&lt;-</span> <span class="fu">spTransform</span>(puntos, <span class="at">CRSobj =</span> <span class="fu">CRS</span>(<span class="st">&quot;+init=epsg:6371&quot;</span>))</span></code></pre></div>
 <p>Ahora comprobamos que los puntos estén dentro de la ventana de trabajo:</p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.it08[[<span class="dv">1</span>]]); <span class="fu">points</span>(puntos.it08)</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-84-1.png" width="432" /></p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-85-1.png" width="432" /></p>
 </div>
 </div>
 <div id="selección-de-variables-ambientales" class="section level2 hasAnchor" number="7.2">
@@ -338,7 +339,24 @@ Figura 7.3: Región geográfica para la proyección ITRF2008 centrada en la pen�
 <li>Todas las combinaciones que surjan</li>
 </ol>
 <p>Con base en estas listas y las gráficas de intensidad de puntos en relación a las diferentes variables podemos proponer las fórmulas para los modelos basadas en los tipos de respuestas que identifiquemos.</p>
+</div>
+<div id="validación-del-modelo" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Validación del modelo<a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#validación-del-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La validación de un modelo es un paso crítico en el proceso del desarrollo. En modelación correlativa de nichos ecológicos hay prácticas estándar que consisten de:</p>
+<ol style="list-style-type: decimal">
+<li>Proponer modelo</li>
+<li>Dividir presencias es datos de ajuste y de validación</li>
+<li>Medir capacidad predictiva de un modelo utilizando los datos de validación</li>
+<li>Seleccionar modelo que mejor prediga los datos de validación</li>
+</ol>
+<p>Estas metodologías han sido desarrolladas así porque herramientas herramientas espacialmente explícitas y estadísticamente robustas como los procesos de puntos no se habían adoptado en ecología hasta hace unos 10 años que se demostró que son equivalentes a metodologías de aprendizaje de máquinas desarrolladas específicamente para modelar distribuciones de organismos como MaxEnt <span class="citation">(<a href="#ref-Renner2013" role="doc-biblioref">Renner and Warton 2013</a>)</span></p>
 
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Renner2013" class="csl-entry">
+Renner, Ian W, and David I Warton. 2013. <span>“Equivalence of <span>MAXENT</span> and <span>Poisson</span> Point Process Models for Species Distribution Modeling in Ecology.”</span> <em>Biometrics</em> 69 (1): 274–81. <a href="https://doi.org/10.1111/j.1541-0420.2012.01824.x">https://doi.org/10.1111/j.1541-0420.2012.01824.x</a>.
 </div>
 </div>
             </section>

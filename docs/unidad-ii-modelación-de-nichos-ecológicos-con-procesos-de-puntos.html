@@ -219,6 +219,7 @@ div.csl-indent {
 <li class="chapter" data-level="7.1.1" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#transformando-los-sistemas-de-coordenadas-en-r"><i class="fa fa-check"></i><b>7.1.1</b> Transformando los sistemas de coordenadas en R</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#selección-de-variables-ambientales"><i class="fa fa-check"></i><b>7.2</b> Selección de variables ambientales</a></li>
+<li class="chapter" data-level="7.3" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#validación-del-modelo"><i class="fa fa-check"></i><b>7.3</b> Validación del modelo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -269,8 +270,8 @@ div.csl-indent {
 <span id="cb37-2"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb37-2" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">stack</span>(arch)</span></code></pre></div>
 <p>Una vez cargados las capas, podemos graficarlas para verificar que sean las que necesitamos o tenemos en mente:</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-43"></span>
-<img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-43-1.png" alt="Gráfica de las capas que usaremos para los ejemplos." width="768" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-44"></span>
+<img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-44-1.png" alt="Gráfica de las capas que usaremos para los ejemplos." width="768" />
 <p class="caption">
 Figura 4.1: Gráfica de las capas que usaremos para los ejemplos.
 </p>
@@ -290,7 +291,7 @@ Figura 4.1: Gráfica de las capas que usaremos para los ejemplos.
 <span id="cb45-2"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.im[[<span class="dv">1</span>]])</span>
 <span id="cb45-3"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.im[[<span class="dv">2</span>]])</span>
 <span id="cb45-4"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s.im[[<span class="dv">3</span>]])</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-48-1.png" width="768" />
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-49-1.png" width="768" />
 Puedes descargar la función <code>imFromStack</code> en <a href="Funciones-spatstat/imFromStack.R">esta liga</a>.</p>
 </div>
 <div id="obteniendo-la-ventana-de-trabajo" class="section level3 hasAnchor" number="4.2.2">
@@ -317,7 +318,7 @@ Puedes descargar la función <code>imFromStack</code> en <a href="Funciones-spat
 <p>En el primer argumento <code>x</code> se especifican las coordenadas <span class="math inline">\(x\)</span> o longitud, en <code>y</code> las coordenadas <span class="math inline">\(y\)</span> o latitud, en <code>window</code> la ventana de trabajo, y <code>check</code> especifica si se verificará que todos los puntos están dentro de la ventana de trabajo. Normalmente se deja en <code>check = T</code>.</p>
 <p>Con todos los datos formateados, entonces ahora graficamos la ventana de trabajo y el proceso de puntos:</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="unidad-ii-modelación-de-nichos-ecológicos-con-procesos-de-puntos.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(win); <span class="fu">points</span>(puntos.ppp, <span class="at">col =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
-<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-52-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p><img src="Mod-nich-distr-MPPs_files/figure-html/unnamed-chunk-53-1.png" width="384" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

@@ -1,0 +1,8 @@
+La validación de un modelo es un paso crítico en el proceso del desarrollo. En modelación correlativa de nichos ecológicos hay prácticas estándar que consisten de:
+
+1. Proponer modelo
+2. Dividir presencias es datos de ajuste y de validación
+3. Medir capacidad predictiva de un modelo utilizando los datos de validación
+4. Seleccionar modelo que mejor prediga los datos de validación
+
+Estas metodologías han sido desarrolladas así porque herramientas herramientas espacialmente explícitas y estadísticamente robustas como los procesos de puntos no se habían adoptado en ecología hasta hace unos 10 años que se demostró que son equivalentes a metodologías de aprendizaje de máquinas desarrolladas específicamente para modelar distribuciones de organismos como MaxEnt [@Renner2013]
