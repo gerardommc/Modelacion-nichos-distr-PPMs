@@ -23,7 +23,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-10-25" />
+<meta name="date" content="2022-11-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -219,7 +219,10 @@ div.csl-indent {
 <li class="chapter" data-level="7.1.1" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#transformando-los-sistemas-de-coordenadas-en-r"><i class="fa fa-check"></i><b>7.1.1</b> Transformando los sistemas de coordenadas en R</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#selección-de-variables-ambientales"><i class="fa fa-check"></i><b>7.2</b> Selección de variables ambientales</a></li>
-<li class="chapter" data-level="7.3" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#validación-del-modelo"><i class="fa fa-check"></i><b>7.3</b> Validación del modelo</a></li>
+<li class="chapter" data-level="7.3" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#validación-del-modelo"><i class="fa fa-check"></i><b>7.3</b> Validación del modelo</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#pruebas-de-validación-estadística"><i class="fa fa-check"></i><b>7.3.1</b> Pruebas de validación estadística</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -342,21 +345,59 @@ Figura 7.3: Región geográfica para la proyección ITRF2008 centrada en la pen�
 </div>
 <div id="validación-del-modelo" class="section level2 hasAnchor" number="7.3">
 <h2><span class="header-section-number">7.3</span> Validación del modelo<a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#validación-del-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>La validación de un modelo es un paso crítico en el proceso del desarrollo. En modelación correlativa de nichos ecológicos hay prácticas estándar que consisten de:</p>
+<p>La validación es un paso esencial en el proceso del desarrollo de un modelo, pues informa al usuario de la capacidad predictiva y la magnitud de los errores esperados. En modelación correlativa de nichos ecológicos hay prácticas estándar que consisten de:</p>
 <ol style="list-style-type: decimal">
 <li>Proponer modelo</li>
 <li>Dividir presencias es datos de ajuste y de validación</li>
 <li>Medir capacidad predictiva de un modelo utilizando los datos de validación</li>
 <li>Seleccionar modelo que mejor prediga los datos de validación</li>
 </ol>
-<p>Estas metodologías han sido desarrolladas así porque herramientas herramientas espacialmente explícitas y estadísticamente robustas como los procesos de puntos no se habían adoptado en ecología hasta hace unos 10 años que se demostró que son equivalentes a metodologías de aprendizaje de máquinas desarrolladas específicamente para modelar distribuciones de organismos como MaxEnt <span class="citation">(<a href="#ref-Renner2013" role="doc-biblioref">Renner and Warton 2013</a>)</span></p>
+<p>La metodología general de modelación de nichos fue desarrollada así porque las herramientas espacialmente explícitas y estadísticamente robustas como los procesos de puntos no se habían adoptado en ecología hasta hace unos 10 años que se demostró que son equivalentes a metodologías de aprendizaje de máquinas desarrolladas específicamente para modelar distribuciones de organismos como MaxEnt <span class="citation">(<a href="#ref-Renner2013" role="doc-biblioref">Renner and Warton 2013</a>)</span>. Con procesos de puntos, es posible proponer y seleccionar modelos con base en la larga tradición de modelación estadística frecuentista que ya es muy bien entendida y para la cual se han desarrollado criterios claros para medir qué tan bien un modelo representa los datos (como el de información de Akaike). Sin embargo, también se ha demostrado, que estos criterios pueden fallar cuando los datos analizados involucran correlación espacial <span class="citation">(<a href="#ref-Velasco2019akaike" role="doc-biblioref">Velasco and González-Salazar 2019</a>)</span>. Por lo tanto, es recomendable continuar aplicando algunos de los métodos de validación que se comenzaron a adaptar a la modelación de nichos ecológicos desde sus etapas tempranas.</p>
+<div id="pruebas-de-validación-estadística" class="section level3 hasAnchor" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Pruebas de validación estadística<a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#pruebas-de-validación-estadística" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="área-bajo-la-curva" class="section level4 hasAnchor" number="7.3.1.1">
+<h4><span class="header-section-number">7.3.1.1</span> Área bajo la curva<a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#área-bajo-la-curva" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Estas tienen como objetivo dotar al usuario de los modelos de la información necesaria para establecer un balance entre distintos errores de predicción. Hasta hace unos años, la métrica de elección era el área bajo la curva del operador característico (AUC-ROC por sus siglas en inglés). Este método pretende evaluar la capacidad de un modelo de distribución de distinguir entre presencias de ausencias. Un modelo perfecto es aquel que clasifica correctamente todas las presencias como presencias y las ausencias como ausencias, lo que resulta en un AUC = 1. Cuando el modelo no distingue presencias de ausencias mejor que un predictor aleatorio AUC = 0.5. En un escenario ideal, lo datos de presencia y ausencia que se utilizan para calcular el AUC son datos que no te utilizaron para ajustar el modelo, por lo que la partición de la base de datos es necesaria. Esta prueba de desempeño predictivo, naturalmente sólo es útil cuando se cuenta con datos de ausencia verdadera y el método de modelación es adecuado para ese tipo de datos, y por lo tanto no es adecuada para medis el desemeño de modelos bsados en procesos de puntos.</p>
+<p>Además de ser una prueba inadecuada para datos de sólo presencia, el AUC, tiene graves deficiencias para modelación de áreas de distribución. La mayor de ellas tiene que ver con el criterio espacial para asignar los puntos de ausencia, si éstos se encuentran en regiones muy lejanas a los puntos de presencia, el modelo podrá discriminarlas muy fácilmente, generando la falsa sensación de que es muy bueno para predecir <span class="citation">(<a href="#ref-Barve2011" role="doc-biblioref">Barve et al. 2011</a>)</span> (figura <a href="#Barve-area"><strong>??</strong></a>). En este respecto, se recomienda entonces que las ausencias utilizadas provengan de regiones que sean accesibles para la especie pero no esté presente por las condiciones ambientales que presenta. Además se han propuesto una serie de adecuaciones de simulación para estimar valores de significancia estadística <span class="citation">(<a href="#ref-Raes2007" role="doc-biblioref">Raes and Ter Steege 2007</a>)</span></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:Barve-area"></span>
+<img src="Unidad-V/Barve-area.png" alt="Efecto el área de calibración sobre el desempeño predictivo medido con el área bajo la curva." width="325" />
+<p class="caption">
+Figura 7.4: Efecto el área de calibración sobre el desempeño predictivo medido con el área bajo la curva.
+</p>
+</div>
+</div>
+<div id="cociente-de-áreas-parciales" class="section level4 hasAnchor" number="7.3.1.2">
+<h4><span class="header-section-number">7.3.1.2</span> Cociente de áreas parciales<a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#cociente-de-áreas-parciales" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Peterson <span class="citation">(<a href="#ref-Peterson2008" role="doc-biblioref">Peterson, Papes, and Soberon 2008</a>)</span> propuso una modificación a la AUC llamada ROC parcial, para evaluar predictores espaciales, que están basados en el porcentaje de predicción en relación al tamaño de las áreas predichas al aumentar los umbrales de binarización de un modelo. La diferencia principal entre el cociente de áreas parciales propuesto por Peterson et al. (2008), está en los ejes utilizados para estimarla. En las AUC tradicionales, se utiliza en el eje <span class="math inline">\(x\)</span> el porcentaje de presencias predichas y en el <span class="math inline">\(y\)</span> el pocentaje de ausencias clasificadas como presencias. En las ROC parciales, el eje <span class="math inline">\(x\)</span> es el porcentaje de área predicha y en el <span class="math inline">\(y\)</span> el porcentaje de presencias predichas (Figura <a href="#Peterson-parcial"><strong>??</strong></a>).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:Peterson-parcial"></span>
+<img src="Unidad-V/Peterson-parcial.png" alt="Los ejes que utilizados en la estimación de las ROC parciales." width="2067" />
+<p class="caption">
+Figura 7.5: Los ejes que utilizados en la estimación de las ROC parciales.
+</p>
+</div>
+<p>El nombre <em>ROC parcial</em> proviene del hecho de que el valor final obtenido es el cociente del área total bajo la curva entre el área que indica el ubral de predicción aleatoria, que es equivalente a la proporción de área predicha, eliminando posibles sesgos de estimación producto del posible valor que indica predicción aleatoria. Por ejemplo, si un modelo sólo predice 20% del área como favorable para la especie, y en dicha área sólo se encuentra el 20% de las presencias, 20%/20% = 1, lo que indica que el modelo es un predictor netamente aleatorio. Por el contrario, si con un 20% de área predicha, el modelo predice 40% de las presencias 40/20 = 2, indicando que el modelo es significativamente mejor que aleatorio.</p>
+<p>El resultado es una métrica de evaluación menos sensible al área de calibración que las AUC tradicionales y que es también más adecuada para evaluar la capacidad predictiva de modelos construidos sólo con datos de presencia <span class="citation">(<a href="#ref-Barve2011" role="doc-biblioref">Barve et al. 2011</a>)</span>.</p>
 
+</div>
+</div>
 </div>
 </div>
 <h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Barve2011" class="csl-entry">
+Barve, Narayani, Vijay Barve, Alberto Jiménez-Valverde, Andres Lira-Noriega, Sean P Maher, a. T Peterson, Jorge Soberón, and Fabricio Villalobos. 2011. <span>“The Crucial Role of the Accessible Area in Ecological Niche Modeling and Species Distribution Modeling.”</span> <em>Ecological Modelling</em> 222 (11): 1810–19. <a href="https://doi.org/10.1016/j.ecolmodel.2011.02.011">https://doi.org/10.1016/j.ecolmodel.2011.02.011</a>.
+</div>
+<div id="ref-Peterson2008" class="csl-entry">
+Peterson, A Townsend, Monica Papes, and Jorge Soberon. 2008. <span>“Rethinking Receiver Operating Characteristic Analysis Applications in Ecological Niche Modeling.”</span> <em>Ecological Modelling</em> 213 (1): 63–72. <a href="https://doi.org/10.1016/j.ecolmodel.2007.11.008">https://doi.org/10.1016/j.ecolmodel.2007.11.008</a>.
+</div>
+<div id="ref-Raes2007" class="csl-entry">
+Raes, Niels, and Hans Ter Steege. 2007. <span>“A Null-Model for Significance Testing of Presence-Only Species Distribution Models.”</span> <em>Ecography</em> 30 (5): 727–36. <a href="https://doi.org/10.1111/j.2007.0906-7590.05041.x">https://doi.org/10.1111/j.2007.0906-7590.05041.x</a>.
+</div>
 <div id="ref-Renner2013" class="csl-entry">
 Renner, Ian W, and David I Warton. 2013. <span>“Equivalence of <span>MAXENT</span> and <span>Poisson</span> Point Process Models for Species Distribution Modeling in Ecology.”</span> <em>Biometrics</em> 69 (1): 274–81. <a href="https://doi.org/10.1111/j.1541-0420.2012.01824.x">https://doi.org/10.1111/j.1541-0420.2012.01824.x</a>.
+</div>
+<div id="ref-Velasco2019akaike" class="csl-entry">
+Velasco, Julián A, and Constantino González-Salazar. 2019. <span>“Akaike Information Criterion Should Not Be a <span>‘Test’</span> of Geographical Prediction Accuracy in Ecological Niche Modelling.”</span> <em>Ecological Informatics</em> 51: 25–32.
 </div>
 </div>
             </section>

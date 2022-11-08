@@ -1,8 +1,32 @@
-La validación de un modelo es un paso crítico en el proceso del desarrollo. En modelación correlativa de nichos ecológicos hay prácticas estándar que consisten de:
+La validación es un paso esencial en el proceso del desarrollo de un modelo, pues informa al usuario de la capacidad predictiva y la magnitud de los errores esperados. En modelación correlativa de nichos ecológicos hay prácticas estándar que consisten de:
 
 1. Proponer modelo
 2. Dividir presencias es datos de ajuste y de validación
 3. Medir capacidad predictiva de un modelo utilizando los datos de validación
 4. Seleccionar modelo que mejor prediga los datos de validación
 
-Estas metodologías han sido desarrolladas así porque herramientas herramientas espacialmente explícitas y estadísticamente robustas como los procesos de puntos no se habían adoptado en ecología hasta hace unos 10 años que se demostró que son equivalentes a metodologías de aprendizaje de máquinas desarrolladas específicamente para modelar distribuciones de organismos como MaxEnt [@Renner2013]
+La metodología general de modelación de nichos fue desarrollada así porque las herramientas espacialmente explícitas y estadísticamente robustas como los procesos de puntos no se habían adoptado en ecología hasta hace unos 10 años que se demostró que son equivalentes a metodologías de aprendizaje de máquinas desarrolladas específicamente para modelar distribuciones de organismos como MaxEnt [@Renner2013]. Con procesos de puntos, es posible proponer y seleccionar modelos con base en la larga tradición de modelación estadística frecuentista que ya es muy bien entendida y para la cual se han desarrollado criterios claros para medir qué tan bien un modelo representa los datos (como el de información de Akaike). Sin embargo, también se ha demostrado, que estos criterios pueden fallar cuando los datos analizados involucran correlación espacial [@Velasco2019akaike]. Por lo tanto, es recomendable continuar aplicando algunos de los métodos de validación que se comenzaron a adaptar a la modelación de nichos ecológicos desde sus etapas tempranas.
+
+### Pruebas de validación estadística
+
+#### Área bajo la curva
+
+Estas tienen como objetivo dotar al usuario de los modelos de la información necesaria para establecer un balance entre distintos errores de predicción. Hasta hace unos años, la métrica de elección era el área bajo la curva del operador característico (AUC-ROC por sus siglas en inglés). Este método pretende evaluar la capacidad de un modelo de distribución de distinguir entre presencias de ausencias. Un modelo perfecto es aquel que clasifica correctamente todas las presencias como presencias y las ausencias como ausencias, lo que resulta en un AUC = 1. Cuando el modelo no distingue presencias de ausencias mejor que un predictor aleatorio AUC = 0.5. En un escenario ideal, lo datos de presencia y ausencia que se utilizan para calcular el AUC son datos que no te utilizaron para ajustar el modelo, por lo que la partición de la base de datos es necesaria. Esta prueba de desempeño predictivo, naturalmente sólo es útil cuando se cuenta con datos de ausencia verdadera y el método de modelación es adecuado para ese tipo de datos, y por lo tanto no es adecuada para medis el desemeño de modelos bsados en procesos de puntos.
+
+Además de ser una prueba inadecuada para datos de sólo presencia, el AUC, tiene graves deficiencias para modelación de áreas de distribución. La mayor de ellas tiene que ver con el criterio espacial para asignar los puntos de ausencia, si éstos se encuentran en regiones muy lejanas a los puntos de presencia, el modelo podrá discriminarlas muy fácilmente, generando la falsa sensación de que es muy bueno para predecir [@Barve2011] (figura \@ref(Barve-area)). En este respecto, se recomienda entonces que las ausencias utilizadas provengan de regiones que sean accesibles para la especie pero no esté presente por las condiciones ambientales que presenta. Además se han propuesto una serie de adecuaciones de simulación para estimar valores de significancia estadística [@Raes2007]
+
+```{r Barve-area, echo = F, fig.cap="Efecto el área de calibración sobre el desempeño predictivo medido con el área bajo la curva.", fig.align='center'}
+knitr::include_graphics("Unidad-V/Barve-area.png")
+```
+
+#### Cociente de áreas parciales
+
+Peterson [@Peterson2008] propuso una modificación a la AUC llamada ROC parcial, para evaluar predictores espaciales, que están basados en el porcentaje de predicción en relación al tamaño de las áreas predichas al aumentar los umbrales de binarización de un modelo. La diferencia principal entre el cociente de áreas parciales propuesto por Peterson et al. (2008), está en los ejes utilizados para estimarla. En las AUC tradicionales, se utiliza en el eje $x$ el porcentaje de presencias predichas y en el $y$ el pocentaje de ausencias clasificadas como presencias. En las ROC parciales, el eje $x$ es el porcentaje de área predicha y en el $y$ el porcentaje de presencias predichas (Figura \@ref(Peterson-parcial)).
+
+```{r Peterson-parcial, echo = F, fig.align='center', fig.cap="Los ejes que utilizados en la estimación de las ROC parciales."}
+knitr::include_graphics("Unidad-V/Peterson-parcial.png")
+```
+
+El nombre *ROC parcial* proviene del hecho de que el valor final obtenido es el cociente del área total bajo la curva entre el área que indica el ubral de predicción aleatoria, que es equivalente a la proporción de área predicha, eliminando posibles sesgos de estimación producto del posible valor que indica predicción aleatoria. Por ejemplo, si un modelo sólo predice 20% del área como favorable para la especie, y en dicha área sólo se encuentra el 20% de las presencias, 20%/20% = 1, lo que indica que el modelo es un predictor netamente aleatorio. Por el contrario, si con un 20% de área predicha, el modelo predice 40% de las presencias 40/20 = 2, indicando que el modelo es significativamente mejor que aleatorio. 
+
+El resultado es una métrica de evaluación menos sensible al área de calibración que las AUC tradicionales y que es también más adecuada para evaluar la capacidad predictiva de modelos construidos sólo con datos de presencia [@Barve2011].

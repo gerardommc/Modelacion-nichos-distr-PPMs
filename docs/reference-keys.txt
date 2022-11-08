@@ -18,6 +18,8 @@ fig:K-modelos
 fig:proyeccion
 fig:yucatan
 fig:unnamed-chunk-78
+fig:Barve-area
+fig:Peterson-parcial
 preámbulo
 encuadre-de-la-materia
 criterios-de-evaluación
@@ -74,3 +76,6 @@ selección-de-proyección-geográfica
 transformando-los-sistemas-de-coordenadas-en-r
 selección-de-variables-ambientales
 validación-del-modelo
+pruebas-de-validación-estadística
+área-bajo-la-curva
+cociente-de-áreas-parciales

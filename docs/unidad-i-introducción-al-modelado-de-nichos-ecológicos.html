@@ -23,7 +23,7 @@
 <meta name="author" content="Gerardo Martín" />
 
 
-<meta name="date" content="2022-10-25" />
+<meta name="date" content="2022-11-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -219,7 +219,10 @@ div.csl-indent {
 <li class="chapter" data-level="7.1.1" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#transformando-los-sistemas-de-coordenadas-en-r"><i class="fa fa-check"></i><b>7.1.1</b> Transformando los sistemas de coordenadas en R</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#selección-de-variables-ambientales"><i class="fa fa-check"></i><b>7.2</b> Selección de variables ambientales</a></li>
-<li class="chapter" data-level="7.3" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#validación-del-modelo"><i class="fa fa-check"></i><b>7.3</b> Validación del modelo</a></li>
+<li class="chapter" data-level="7.3" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#validación-del-modelo"><i class="fa fa-check"></i><b>7.3</b> Validación del modelo</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html"><a href="unidad-v-el-desarrollo-de-un-modelo-de-nicho-o-de-distribución.html#pruebas-de-validación-estadística"><i class="fa fa-check"></i><b>7.3.1</b> Pruebas de validación estadística</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -478,7 +481,7 @@ Las constantes <span class="math inline">\(a\)</span>, <span class="math inline"
 <div id="calibración-de-modelos-de-nicho-ecológico" class="section level3 hasAnchor" number="3.3.2">
 <h3><span class="header-section-number">3.3.2</span> Calibración de modelos de nicho ecológico<a href="unidad-i-introducción-al-modelado-de-nichos-ecológicos.html#calibración-de-modelos-de-nicho-ecológico" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>En modelación estadística, calibración es sinónimo de ajuste, por lo tanto el procedimiento de estimar los coeficientes <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span> para la relación entre <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span> es equivalente a la calibración. En un ejercicio más realista, sin embargo, nos veremos en la necesidad de ajustar varios modelos y después seleccionar el que <em>mejor</em> explica los datos observados. En regresión lineal simple se utiliza el parámetro <span class="math inline">\(R^2\)</span>. Este tienen muchos bemoles como el ignorar la complejidad del modelo. Con complejidad, nor referimos a la cantidad de co-variables <span class="math inline">\(x\)</span> y la cantidad de parámetros <span class="math inline">\(b\)</span>. Siempre es buena idea seleccionar modelos simples, para lo que se utiliza el Criterio de Información de Akaike. Este criterio es una medida de ajuste y complejidad de modelo, y sirve para comparar modelos diferentes para el mismo conjunto de datos. Cuando utilizamos el AIC se busca minimizarlo, es decir, que la varianza residual es pequeña y que el número de parámetros también es lo más pequeño posible.</p>
-<p>No obstante, el uso del AIC en modelación correlativa de nichos ecológicos es marginal. Generalmente se busca optimizar (maximizar) alguna medida de desempeño predictivo. En este curso, nos enfocaremos en seleccionar modelos utilizando el AIC y la verifiación de la estimación correcta de los efectos estadísticos, aunque no ignoraremos la importancia del análisis de la capacidad predictiva. Existen muchas medidas diferentes del desempeño predictivo, pero la más adecuada para los modelos que desarrollaremos es el análisis de curvas ROC parciales <span class="citation">(<a href="#ref-Peterson2008" role="doc-biblioref"><strong>Peterson2008?</strong></a>)</span>.</p>
+<p>No obstante, el uso del AIC en modelación correlativa de nichos ecológicos es marginal. Generalmente se busca optimizar (maximizar) alguna medida de desempeño predictivo. En este curso, nos enfocaremos en seleccionar modelos utilizando el AIC y la verifiación de la estimación correcta de los efectos estadísticos, aunque no ignoraremos la importancia del análisis de la capacidad predictiva. Existen muchas medidas diferentes del desempeño predictivo, pero la más adecuada para los modelos que desarrollaremos es el análisis de curvas ROC parciales <span class="citation">(<a href="#ref-Peterson2008" role="doc-biblioref">Peterson, Papes, and Soberon 2008</a>)</span>.</p>
 <p>De manera muy general, el proceso de calibración de modelos de nicho ecológico consiste de:</p>
 <ol style="list-style-type: decimal">
 <li>Selección de variables ambientales</li>
@@ -548,6 +551,9 @@ Las constantes <span class="math inline">\(a\)</span>, <span class="math inline"
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-Spatstat2005" class="csl-entry">
 Baddeley, Adrian J., and Rolf Turner. 2005. <span>“Spatstat: An <span>R</span> Package for Analyzing Spatial Point Patterns.”</span> <em>Journal of Statistical Software</em> 12 (6): 1–42.
+</div>
+<div id="ref-Peterson2008" class="csl-entry">
+Peterson, A Townsend, Monica Papes, and Jorge Soberon. 2008. <span>“Rethinking Receiver Operating Characteristic Analysis Applications in Ecological Niche Modeling.”</span> <em>Ecological Modelling</em> 213 (1): 63–72. <a href="https://doi.org/10.1016/j.ecolmodel.2007.11.008">https://doi.org/10.1016/j.ecolmodel.2007.11.008</a>.
 </div>
 <div id="ref-Soberon2005" class="csl-entry">
 Soberón, Jorge, and A Townsend Peterson. 2005. <span>“Interpretation of Models of Fundamental Ecological Niches and Species Distributional Areas.”</span> <em>Biodivesity Informatics</em> 2: 1–10. <a href="https://doi.org/10.1093/wber/lhm022">https://doi.org/10.1093/wber/lhm022</a>.
