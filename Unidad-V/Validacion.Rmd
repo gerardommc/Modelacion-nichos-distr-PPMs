@@ -30,3 +30,7 @@ knitr::include_graphics("Unidad-V/Peterson-parcial.png")
 El nombre *ROC parcial* proviene del hecho de que el valor final obtenido es el cociente del área total bajo la curva entre el área que indica el ubral de predicción aleatoria, que es equivalente a la proporción de área predicha, eliminando posibles sesgos de estimación producto del posible valor que indica predicción aleatoria. Por ejemplo, si un modelo sólo predice 20% del área como favorable para la especie, y en dicha área sólo se encuentra el 20% de las presencias, 20%/20% = 1, lo que indica que el modelo es un predictor netamente aleatorio. Por el contrario, si con un 20% de área predicha, el modelo predice 40% de las presencias 40/20 = 2, indicando que el modelo es significativamente mejor que aleatorio. 
 
 El resultado es una métrica de evaluación menos sensible al área de calibración que las AUC tradicionales y que es también más adecuada para evaluar la capacidad predictiva de modelos construidos sólo con datos de presencia [@Barve2011].
+
+#### Tutorial de validación
+
+Vamos a analizar primero dos estrategias de partición de datos, una aleatoria y otra espacialmente estructurada. En la partición aleatoria
