@@ -79,3 +79,6 @@ validación-del-modelo
 pruebas-de-validación-estadística
 área-bajo-la-curva
 cociente-de-áreas-parciales
+tutorial-de-validación
+partición-aleatoria
+datos-de-validación-estructurados-espacialmente

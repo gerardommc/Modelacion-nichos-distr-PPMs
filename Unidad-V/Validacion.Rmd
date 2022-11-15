@@ -33,4 +33,95 @@ El resultado es una métrica de evaluación menos sensible al área de calibraci
 
 #### Tutorial de validación
 
-Vamos a analizar primero dos estrategias de partición de datos, una aleatoria y otra espacialmente estructurada. En la partición aleatoria
+Vamos a analizar primero dos estrategias de partición de datos, una aleatoria y otra espacialmente estructurada. En la partición aleatoria, los puntos de ajuste y validación se seleccionan aleatoriamente, en la espacialmente estructurada se utilizan todos los puntos de una región para ajustar un modelo y los puntos de otras regiones para validarlo. 
+
+##### Partición aleatoria
+
+Comenzaremos seleccionanado aleatoriamente el 70% de los puntos para ajuste y 30% para validación, una vez que tengamos el objeto de puntos crudo, sin formatear para spatstat:
+
+```{r echo = F, message = F, warning = F}
+library(spatstat) # Spatial Statistics
+library(raster)
+
+arch <- list.files("../Datos-ejemplos", ".tif", full.names = T)
+s <- stack(arch)
+
+source("../Funciones-spatstat/imFromStack.R")
+
+s.im <- imFromStack(s)
+
+source("../Funciones-spatstat/winFromRaster.R")
+
+w <- winFromRaster(s)
+
+# Importar puntos
+
+puntos <- read.csv("../Datos-ejemplos/Puntos-tutorial-2.csv")
+```
+
+```{r echo = T}
+datos.aj <- sort(sample(1:nrow(puntos), 0.7 * nrow(puntos)))
+datos.val <- c(1:nrow(puntos))[ ! c(1:nrow(puntos))%in% datos.aj ]
+write.csv(puntos[datos.val, ], "../Datos-ejemplos/Puntos-validacion.csv", row.names = F)
+
+ppp.aj <- ppp(x = puntos$x[datos.aj], y = puntos$y[datos.aj],
+                  window = w)
+ppp.val <- ppp(x = puntos$x[datos.val], y = puntos$y[datos.val],
+                  window = w)
+```
+
+En `datos.aj` estamos seleccionando al azar las filas para ajustar el modelo, mientras que en `datos.val`, estamos extrayendo todas las filas que no se seleccionaron para ajustar. Una vez identificados los puntos que se utilizarán para ajustar y validar, se utilizan los índices para crear los dos objetos que se utilizarán para ajustar y validar respectivamente. El procedimiento para ajustar un modelo con la base de datos de ajuste es el mismo que anteriormente. Nos saltamos la parte del diagnóstico pues el interés ahora se centra en medir la capacidad predictiva. Una vez ajustado el modelo necesitamos guardar las predicciones en formato raster
+
+```{r echo = T, warning=FALSE}
+m.val <- ppm(Q = ppp.aj, # Proceso de puntos en formato ppp
+                  trend = ~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2), #  Formula del modelo seleccionado
+                  covariates = s.im)
+pred.val <- predict(m.val, dimyx = c(28, 30), type = "trend")
+pred.val.r <- raster(pred.val)
+writeRaster(pred.val.r, "../Datos-ejemplos/Res/Predicciones-validacion-aleat", "GTiff")
+```
+
+Una vez guardadas las predicciones del modelo, necesitamos instalar y cargar el paquete `kuenm` que contiene la función para calcular las ROC parciales. La instalación es un poco diferente pues requiere instalar el paquete `devtools` porque `kuenm` no está almacenado en los repositorios de **R**.
+
+```{r eval=F}
+devtools::install_github("marlonecobos/kuenm")
+```
+
+Una vez, instalado, continuamos evaluando el modelo con el cociente de áreas del ROC:
+
+```{r}
+puntos.val <- read.csv("../Datos-ejemplos/Puntos-validacion.csv")
+model <- raster("../Datos-ejemplos/Res/Predicciones-validacion.tif")
+proc <- kuenm::kuenm_proc(occ.test = puntos.val,
+                  model = model,
+                  threshold = 5,
+                  rand.percent = 50,
+                  iterations = 39, parallel = F)
+```
+
+para ver los resultados:
+
+```{r}
+proc$pROC_summary
+```
+
+#### Datos de validación estructurados espacialmente
+
+Para muestrear los puntos con una estructura espacial, necesitamos diseñar un criterio. Una de las alternativas más populares es la creación de una cuadrícula de ajedrez, y utilizar los puntos en cuadros blancos para ajustar y los puntos en cuadros negros para validar. La generación de los cuadros está implementada en el paquete `dismo`, en la función `gridSample`:
+
+```{r}
+p.bl <- dismo::gridSample(puntos, r = s[[1]], n = 50, chess = "white")
+p.ne <- dismo::gridSample(puntos, r = s[[1]], n = 50, chess = "black")
+```
+
+Como muestra del resultado:
+
+```{r fig.align='center', fig.height=4.5, fig.width=4.5}
+plot(s[[1]]); points(p.bl)
+plot(s[[2]]); points(p.ne)
+```
+
+A partir de este punto el proceso de validación es el mismo que con las muestras aleatorias, aunque es preferible seguir el siguiente proceso:
+
+1. Ajustar modelo con puntos en cuadrantes blancos y validar con puntos en cuadrantes negros
+2. Ajustar modelo con puntos en cuadrantes negros y validar con puntos en cuadrantes blancos
