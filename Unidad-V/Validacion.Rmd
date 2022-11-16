@@ -74,22 +74,22 @@ En `datos.aj` estamos seleccionando al azar las filas para ajustar el modelo, mi
 
 ```{r echo = T, warning=FALSE}
 m.val <- ppm(Q = ppp.aj, # Proceso de puntos en formato ppp
-                  trend = ~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2), #  Formula del modelo seleccionado
-                  covariates = s.im)
+             trend = ~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2), #  Formula del modelo seleccionado     
+             covariates = s.im)
 pred.val <- predict(m.val, dimyx = c(28, 30), type = "trend")
 pred.val.r <- raster(pred.val)
-writeRaster(pred.val.r, "../Datos-ejemplos/Res/Predicciones-validacion-aleat", "GTiff")
+writeRaster(pred.val.r, "../Datos-ejemplos/Res/Predicciones-validacion-aleat", "GTiff", overwrite = T)
 ```
 
 Una vez guardadas las predicciones del modelo, necesitamos instalar y cargar el paquete `kuenm` que contiene la función para calcular las ROC parciales. La instalación es un poco diferente pues requiere instalar el paquete `devtools` porque `kuenm` no está almacenado en los repositorios de **R**.
 
-```{r eval=F}
+```{r eval=F, echo=T}
 devtools::install_github("marlonecobos/kuenm")
 ```
 
 Una vez, instalado, continuamos evaluando el modelo con el cociente de áreas del ROC:
 
-```{r}
+```{r echo = T}
 puntos.val <- read.csv("../Datos-ejemplos/Puntos-validacion.csv")
 model <- raster("../Datos-ejemplos/Res/Predicciones-validacion.tif")
 proc <- kuenm::kuenm_proc(occ.test = puntos.val,
@@ -101,7 +101,7 @@ proc <- kuenm::kuenm_proc(occ.test = puntos.val,
 
 para ver los resultados:
 
-```{r}
+```{r echo = T}
 proc$pROC_summary
 ```
 
@@ -109,16 +109,16 @@ proc$pROC_summary
 
 Para muestrear los puntos con una estructura espacial, necesitamos diseñar un criterio. Una de las alternativas más populares es la creación de una cuadrícula de ajedrez, y utilizar los puntos en cuadros blancos para ajustar y los puntos en cuadros negros para validar. La generación de los cuadros está implementada en el paquete `dismo`, en la función `gridSample`:
 
-```{r}
+```{r echo=T}
 p.bl <- dismo::gridSample(puntos, r = s[[1]], n = 50, chess = "white")
 p.ne <- dismo::gridSample(puntos, r = s[[1]], n = 50, chess = "black")
 ```
 
 Como muestra del resultado:
 
-```{r fig.align='center', fig.height=4.5, fig.width=4.5}
+```{r echo = T, fig.align='center', fig.height=4.5, fig.width=4.5}
 plot(s[[1]]); points(p.bl)
-plot(s[[2]]); points(p.ne)
+plot(s[[1]]); points(p.ne)
 ```
 
 A partir de este punto el proceso de validación es el mismo que con las muestras aleatorias, aunque es preferible seguir el siguiente proceso:
